@@ -10,6 +10,7 @@ namespace WebApplication4.Models
         [Key]
         public string OrderId { get; set; }
 
+
         // Time the order was placed, required and defaulted to current time
         [Required]
         public DateTime OrderTime { get; set; } = DateTime.Now;
