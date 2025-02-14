@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication4.Models
 {
@@ -25,5 +26,15 @@ namespace WebApplication4.Models
 
         [MaxLength(100)]
         public string Description { get; set; }
+
+        [ForeignKey("Category"), Required]
+        public int CategoryId { get; set; }
+
+
+        public Category Categorys { get; set; }  
+
+
+
+
     }
 }
