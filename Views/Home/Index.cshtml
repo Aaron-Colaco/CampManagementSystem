@@ -2,7 +2,53 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="vid" style="margin:0%; padding: 0%;">
+    <div class="holder">
+        <video src="~/Images/LandingPageVideo.mp4" autoplay muted loop playsinline style="width: 120%; height: auto; object-fit: cover;"></video>
+    </div>
+
+    <div class="video-overlay">
+        <section id="hero" class="hero">
+            <h1 style="font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: bold; text-transform: uppercase; margin: 0;">Great Camp Adventures</h1>
+            <p style="font-size: 1.2rem; margin-top: 10px; letter-spacing: 1px;">Embrace the thrill of the outdoors, adventure, and lifelong memories at Taurewa Camp.</p>
+    </div>
+</section>
+
+<style>
+    body, .container, .pb-3, html {
+        margin: 0%;
+        padding: 0%;
+    }
+
+    .vid {
+        position: relative;
+        z-index: 900;
+        height: 1000px;
+    }
+
+        .vid video {
+            
+          
+            object-fit: cover;
+            margin-top:-1%;
+        }
+
+        .vid .holder {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+        }
+
+    .video-overlay {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 950;
+        color: #fff;
+        font-size: 3rem;
+        text-align: center;
+    }
+</style>
+
+    

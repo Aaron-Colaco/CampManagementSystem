@@ -15,7 +15,7 @@ namespace WebApplication4.Models
         [Required]
         public DateTime OrderTime { get; set; } = DateTime.Now;
 
-        public DateTime HireEndDate { get; set; }; 
+        public DateTime HireEndDate { get; set; }
 
         // Total price of the order, required to be between 1 and 1000, formatted as currency
         [DataType(DataType.Currency), Range(1, 1000)]
