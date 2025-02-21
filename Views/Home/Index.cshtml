@@ -51,4 +51,233 @@
     }
 </style>
 
-    
+
+
+<section id="boxs" style="padding-top: 10%;">
+
+    <section id="boxes">
+        <div class="card">
+            <img src="~/Images/Snow.jpg" alt="">
+            <h2 class="YearText">Year 10</h2>
+
+            <h3 style="font-size: 1rem;">
+                ☼ 5 days | From NZ $445
+            </h3>
+            <p class="BoxText">
+                In Year 10, you will go skiing (in season), tramp in National Park, explore caves, relax in the Tokaanu hot pools, tackle ropes courses, walk along streams, go white water rafting, and try indoor climbing.
+            </p>
+
+
+            <a href="#" class="link">Link 3</a>
+        </div>
+        <div class="card">
+            <img src="~/Images/water.jpg" alt="">
+
+            <h2 class="YearText">Year 12</h2>
+            <h3 style="font-size: 1rem;">
+                ☼ 5 days | From NZ $445
+            </h3>
+            <p class="BoxText">
+                In Year 12, you'll go mountain biking, rock climbing, tramping, caving. Stay in a DOC hut, take on ropes courses, tackle indoor climbing, and raftting in grade 2 waters. Also go go skiing (in season).
+            </p>
+
+
+            <a href="#" class="link">Link 3</a>
+        </div>
+        <div class="card">
+
+            <img src="~/Images/Boat.jpg">
+
+            <h2 class="YearText">Year 13</h2>
+            <h3 style="font-size: 1rem;">
+                ☼ 5 days | From NZ $445
+            </h3>
+            <p class="BoxText">
+                In Year 13, you'll go white water rafting, soak in Tokaanu hot pools, tramp in National Park, and camp overnight. Take on caving, traversing, climbing, and the high ropes course for an epic adventure.
+            </p>
+            <a href="#" class="link">Link 3</a>
+
+
+
+
+
+        </div>
+    </section>
+    <section style="margin-top:-5%; z-index:1000; height:120vh; width: 100%; background-color: #ffffff; position: relative;">
+        <section class="reviews-section">
+            <h2 class="YearText" style="margin:auto;">What Our Students Say</h2>
+            <p>Hear from students who have experienced the adventure of Taurewa.</p>
+            <div class="reviews-container">
+                <div class="review-card">
+                    <p>"Taurewa was the highlight of my year! I gained confidence, new friends, and unforgettable memories."</p>
+                    <div class="customer-name">— bob Year 10 Student</div>
+                </div>
+                <div class="review-card">
+                    <p>"An amazing experience that pushed me out of my comfort zone and helped me grow as a person."</p>
+                    <div class="customer-name">— bob, Year 12 Student</div>
+                </div>
+                <div class="review-card">
+                    <p>"I will never forget the fun times at Taurewa—skiing, rafting, and the night hikes were incredible!"</p>
+                    <div class="customer-name">— bob, Year 13 Student</div>
+                </div>
+            </div>
+        </section>
+        <div class="contact-container">
+            <h2 class="YearText" style="margin: auto;">Contact Us</h2>
+            <form>
+                <input name="subject" value="Taurewa Inquiry" type="hidden" />
+                <div style="margin-bottom: 20px;">
+                    <label for="email">Enter your email:</label>
+                    <input type="email" id="email" name="email" placeholder="example@domain.com">
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label for="question">Enter your question:</label>
+                    <textarea id="question" name="htmlForBody" rows="4" placeholder="Write your question here..."></textarea>
+                </div>
+                <div style="text-align: center;">
+                    <button type="submit">Send</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <style>
+        #boxs {
+            z-index: 1200;
+            background-color: #fff;
+            position: relative;
+            width: 100%;
+            height: 100vh;
+        }
+
+        #boxes {
+            padding-top: 20%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            padding: 0 20px;
+            height: 90vh;
+            margin: auto;
+        }
+
+        .BoxText {
+            color: grey;
+        }
+
+        .YearText {
+            font-size: 2rem;
+            color: #00796b;
+        }
+
+        
+
+
+        <style> 
+        .reviews-section {
+            text-align: center;
+            padding: 50px 20px;
+            background-color: #fff;
+        }
+
+        .reviews-section h2 {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .reviews-section p {
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+
+        .reviews-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .review-card {
+            background-color: #fff;
+            color: #000;
+            border: 1px solid #000;
+            border-radius: 10px;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+            .review-card p {
+                font-size: 16px;
+                line-height: 1.5;
+            }
+
+            .review-card .customer-name {
+                margin-top: 15px;
+                font-weight: bold;
+                color: #000;
+            }
+
+        /* ----------------- Contact Form ----------------- */
+        .contact-container {
+            display: grid;
+            background-color: #fffdfd;
+            width: 40%;
+            margin: 2% auto;
+            padding: 20px;
+            border-radius: 10px;
+            color: #fff;
+            border-color: #004d40;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding-right: 5%;
+            padding-left: 3%;
+        }
+
+            .contact-container h1 {
+                text-align: center;
+                font-family: Arial, sans-serif;
+                margin-bottom: 20px;
+            }
+
+            .contact-container label {
+                font-family: Arial, sans-serif;
+                font-size: 16px;
+                display: block;
+                margin-bottom: 8px;
+            }
+
+            .contact-container input,
+            .contact-container textarea {
+                width: 100%;
+                padding: 10px;
+                border-radius: 5px;
+                border: 1px solid #000;
+                font-size: 14px;
+                font-family: Arial, sans-serif;
+            }
+
+            .contact-container button {
+                background-color: #000;
+                color: #fff;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 20px;
+                font-family: Arial, sans-serif;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+
+                .contact-container button:hover {
+                    background-color: #333;
+                }
+
+        h1, h2 {
+            font-family: 'Playfair Display';
+        }
+
+        p {
+            font-family: Helvetica, sans-serif;
+        }
+        </style>
