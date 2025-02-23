@@ -2,15 +2,16 @@
     ViewData["Title"] = "Home Page";
 }
 
-<section class="vid" style="margin:0%; padding: 0%;">
+<section class="vid" style="margin:0%; padding: 0%; z-index: 100000">
     <div class="holder">
         <video src="~/Images/LandingPageVideo.mp4" autoplay muted loop playsinline style="width: 120%; height: auto; object-fit: cover;"></video>
     </div>
 
     <div class="video-overlay">
-        <section id="hero" class="hero">
+        <div>> id="hero" class="hero">
             <h1 style="font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: bold; text-transform: uppercase; margin: 0;">Great Camp Adventures</h1>
             <p style="font-size: 1.2rem; margin-top: 10px; letter-spacing: 1px;">Embrace the thrill of the outdoors, adventure, and lifelong memories at Taurewa Camp.</p>
+            </div
     </div>
 </section>
 
@@ -52,10 +53,11 @@
 </style>
 
 
+<section style="z-index:990; position: absolute; background-color:white; width:100%; height: 125%; padding-top:15%; padding-bottom:5%;" >
 
-<section id="boxs" style="padding-top: 10%;">
+<div id="boxes" style="" >
 
-    <section id="boxes">
+ 
         <div class="card">
             <img src="~/Images/Snow.jpg" alt="">
             <h2 class="YearText">Year 10</h2>
@@ -102,11 +104,15 @@
 
 
         </div>
-<section style="height: 210vh; overflow: hidden;">
+
+        </div>
+
+        </section>
+<section style="height: 400vh; overflow: hidden;">
       <section style="background-color: #fff; color: #000;">
         <div class="section">
           <div class="section-img">
-            <img object-fit: cover;  class="section-img-inner" src="~images/Gearout.png" alt="">
+            <img object-fit: cover;  class="section-img-inner" src="~/Images/Gearout.png" alt="">
 
           </div>
           <div class="section-body">
@@ -124,7 +130,7 @@
         </div>
         <div class="section">
           <div class="section-img">
-            <img  object-fit: cover;  class="~images/bag.png" alt="">
+            <img  object-fit: cover; src="~/Images/bag.png" class="section-img-inner" alt="">
 
           </div>
           <div class="section-body">
@@ -150,7 +156,7 @@
         </div>
 
       </section>
-    </section>
+    
     
     <style>
     .section {
@@ -250,7 +256,7 @@
     </section>
     <section style="margin-top:-5%; z-index:1000; height:120vh; width: 100%; background-color: #ffffff; position: relative;">
         <section class="reviews-section">
-            <h2 class="YearText" style="margin:auto;">What Our Students Say</h2>
+            <h2  class="YearText" style="margin:auto; margin-left:25%;">What Our Students Say</h2>
             <p>Hear from students who have experienced the adventure of Taurewa.</p>
             <div class="reviews-container">
                 <div class="review-card">
