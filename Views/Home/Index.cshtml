@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -28,10 +28,8 @@
     }
 
         .vid video {
-            
-          
             object-fit: cover;
-            margin-top:-1%;
+            margin-top: -1%;
         }
 
         .vid .holder {
@@ -50,6 +48,7 @@
         font-size: 3rem;
         text-align: center;
     }
+
 </style>
 
 
@@ -170,11 +169,107 @@
             font-size: 2rem;
             color: #00796b;
         }
+        .header {
+            padding: 60px 20px;
+            background-color: #fff;
+            text-align: center;
+        }
 
-        
+            .header h1 {
+                font-size: 2.5rem;
+                color: #000;
+            }
+
+            .header p {
+                font-size: 1.2rem;
+                color: #000;
+            }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #000;
+            color: #fff;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+            .cta-button:hover {
+                background-color: #000000;
+            }
+
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .card {
+            background-color: #fff;
+            border: 1px solid #ddd; 
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 320px;
+            text-align: left;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+            .card img {
+                max-width: 100%;
+                height: 50vh;
+                border-radius: 10px;
+                margin-bottom: 15px;
+                object-fit: cover;
+            }
+
+            .card h3 {
+                font-size: 1.4rem;
+                margin-bottom: 10px;
+                color: #004d40; 
+            }
+
+            .card p {
+                font-size: 1rem;
+                color: #333;
+                margin-bottom: 15px;
+            }
+
+            .card .features {
+                list-style: none;
+                padding: 0;
+                margin: 0 0 15px;
+            }
+
+                .card .features li {
+                    font-size: 1rem;
+                    color: #555;
+                    margin-bottom: 5px;
+                }
+
+            .card a {
+                display: inline-block;
+                text-decoration: none;
+                margin-top: 10px;
+                padding: 10px 20px;
+                background-color: #00796b; 
+                color: #fff;
+                border-radius: 5px;
+                font-size: 1rem;
+                transition: background-color 0.3s;
+            }
+
+                .card a:hover {
+                    background-color: #004d40; 
+                }
 
 
-        <style> 
+
+
+        <style>
         .reviews-section {
             text-align: center;
             padding: 50px 20px;
@@ -220,7 +315,7 @@
                 color: #000;
             }
 
-        /* ----------------- Contact Form ----------------- */
+    
         .contact-container {
             display: grid;
             background-color: #fffdfd;
@@ -281,4 +376,4 @@
         p {
             font-family: Helvetica, sans-serif;
         }
-        </style>
+    </style>
