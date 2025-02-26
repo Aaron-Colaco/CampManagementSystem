@@ -9,13 +9,43 @@
 <div class="row">
     <div class="col-md-4">
         <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h2>Create a new account.</h2>
+            <h2>Sign Up Online.</h2>
             <hr />
-            <div class="form-floating mb-3">
-                <input asp-for="Input." class="form-control" autocomplete="username" aria-required="true" placeholder="First Name" />
-                <label asp-for="Input.AdminFirstName">First Name</label>
-                <span asp-validation-for="Input.AdminFirstName" class="text-danger"></span>
+            <div class="mb-3">
+                <label for="inputFirstName" class="form-label">First Name</label>
+                <input asp-for="Input.FirstName" class="form-control" id="inputFirstName" placeholder="First Name" />
+                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
             </div>
+
+            <div class="mb-3">
+                <label for="inputLastName" class="form-label">Last Name</label>
+                <input asp-for="Input.LastName" class="form-control" id="inputLastName" placeholder="Last Name" />
+                <span asp-validation-for="Input.LastName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="inputDOB" class="form-label">Date of Birth (MM/DD/YYYY)</label>
+                <input asp-for="Input.DOB" class="form-control" id="inputDOB" placeholder="MM/DD/YYYY" />
+                <span asp-validation-for="Input.DOB" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="inputStudentNumber" class="form-label">Student Number</label>
+                <input asp-for="Input.StudentNumber" class="form-control" id="inputStudentNumber" placeholder="6-digit Number" />
+                <span asp-validation-for="Input.StudentNumber" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="inputYearLevel" class="form-label">Year Level</label>
+                <input asp-for="Input.YearLevel" class="form-control" id="inputYearLevel" placeholder="Year Level (0-9)" />
+                <span asp-validation-for="Input.YearLevel" class="text-danger"></span>
+            </div>
+
+
+           
+            
+
+
 
 
 
