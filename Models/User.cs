@@ -31,5 +31,9 @@ namespace WebApplication4.Models
         [Required]
         [Range(9, 13, ErrorMessage = "Year Level must be between 9 and 13.")]
         public int YearLevel { get; set; }
+
+
+
+        public ICollection<Order> Orders { get; set; }
     }
 }

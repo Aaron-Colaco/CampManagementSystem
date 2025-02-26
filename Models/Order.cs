@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.Identity.Client;
 
 namespace WebApplication4.Models
 {
@@ -21,7 +22,21 @@ namespace WebApplication4.Models
         [DataType(DataType.Currency), Range(1, 1000)]
         public decimal TotalPrice { get; set; }
 
-   
+         
+        public ICollection<OrderItem> OrderItems { get; set; }
+
+
+        [ForeignKey("User")]
+        public int UserId { get; set; }
+
+        public User user { get; set; }
+
+
+
+        [ForeignKey("Status")]
+        public int StatusId { get; set; }
+
+        public Status status{ get; set; }
 
 
 

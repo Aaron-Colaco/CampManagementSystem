@@ -25,7 +25,13 @@ namespace WebApplication4.Models
         public int ItemId { get; set; }
         public Item Items { get; set; }
 
-      
+
+        [ForeignKey("Camp")]
+        public int CampId { get; set; }
+
+        public Camp Camp { get; set; }
+
+
 
 
 
