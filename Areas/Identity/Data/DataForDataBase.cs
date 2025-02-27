@@ -8,8 +8,15 @@ namespace WebApplication4.Areas.Identity.Data
     public class DataForDataBase
     {
         // This method will add data to your database
-        public static void Initialize(WebApplication4Context context)
+        public static void AddData(IApplicationBuilder applicationBuilder)
         {
+            using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
+            {
+                var Context = serviceScope.ServiceProvider.GetService<WebApplication4Context>();
+
+                Context.Database.EnsureCreated();
+
+            
             // Add categories to the database
             if (!context.Category.Any())
             {
@@ -63,6 +70,7 @@ namespace WebApplication4.Areas.Identity.Data
                 context.Item.AddRange(ItemsData);
                 context.SaveChanges();
             }
+        }
         }
     }
 }
