@@ -15,7 +15,7 @@ namespace WebApplication4.Models
 
         //Sets the range to (1 to 500) and also sets the data type of the price feild to currency
         [Required, DataType(DataType.Currency), Range(1, 500)]
-        public decimal Price { get; set; }
+        public double Price { get; set; }
 
         //Sets the range to (1 to 500) and also sets the data type of the price feild to currency
         [Required, DataType(DataType.Currency), Range(1, 500)]
@@ -27,12 +27,12 @@ namespace WebApplication4.Models
         [MaxLength(100)]
         public string Description { get; set; }
 
+
         [ForeignKey("Category"), Required]
         public int CategoryId { get; set; }
 
 
-        public Category Categorys { get; set; }  
-
+        public Category Categorys { get; set; }
 
 
 

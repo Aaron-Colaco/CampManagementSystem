@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using WebApplication4.Areas.Identity.Data;
 using WebApplication4.Data;
 
 namespace WebApplication4
@@ -46,6 +47,7 @@ namespace WebApplication4
                 pattern: "{controller=Home}/{action=Index}/{id?}");
             app.MapRazorPages();
 
+            DataForDatabase.AddData(app);
             app.Run();
         }
     }

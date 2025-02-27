@@ -6,6 +6,9 @@ namespace WebApplication4.Models
     {
         [Required]
         [MaxLength(30)]
+        public int CategoryId { get; set; }
         public string Name { get; set; }
+
+        ICollection<Item> Items { get; set; }
     }
 }

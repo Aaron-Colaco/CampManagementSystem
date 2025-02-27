@@ -29,7 +29,6 @@ namespace WebApplication4.Models
         [ForeignKey("Camp")]
         public int CampId { get; set; }
 
-        public Camp Camp { get; set; }
 
 
 

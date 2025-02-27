@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using WebApplication4.Models;
 
 namespace WebApplication4.Data;
 
@@ -18,4 +19,8 @@ public class WebApplication4Context : IdentityDbContext<IdentityUser>
         // For example, you can rename the ASP.NET Identity table names and more.
         // Add your customizations after calling base.OnModelCreating(builder);
     }
+
+public DbSet<WebApplication4.Models.Item> Item { get; set; } = default!;
+
+    public DbSet<WebApplication4.Models.Category> Category { get; set; } = default;
 }
