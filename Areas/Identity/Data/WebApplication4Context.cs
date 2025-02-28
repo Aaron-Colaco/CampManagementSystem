@@ -22,5 +22,5 @@ public class WebApplication4Context : IdentityDbContext<IdentityUser>
 
 public DbSet<WebApplication4.Models.Item> Item { get; set; } = default!;
 
-    public DbSet<WebApplication4.Models.Category> Category { get; set; } = default;
+    public DbSet<WebApplication4.Models.Category> Category { get; set; } = default!;
 }

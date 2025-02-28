@@ -19,9 +19,52 @@ namespace WebApplication4.Controllers
             _context = context;
         }
 
+
+
+        public async Task<IActionResult> Search(string searchTerm)
+        {
+
+            //Finds all the products in the database whose name contains the search term which is passed into the search method storing it in a variable.
+            var Results = _context.Item.Where(i => i.Name.Contains(searchTerm)).Include(i => i.Categorys);
+            //Stores the categorys in the database in the viewbag.
+            ViewBag.Category = _context.Category;
+            //reutrn the Index view passing the reuslts.
+            return View("Index", await Results.ToListAsync());
+        }
+
+
+        public async Task<IActionResult> FilterByCategroy(string category)
+        {
+
+            //Finds all the products in the database whose category name matches the category passed into the method 
+            var Results = _context.Item.Where(i => i.Categorys.Name == category).Include(i => i.Categorys);
+            //Stores the categorys in the database in the viewbag.
+            ViewBag.Category = _context.Category;
+            //reutrn the Index view passing the reuslts.
+            return View("Index", await Results.ToListAsync());
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
         // GET: Items
         public async Task<IActionResult> Index()
+
         {
+            //Stores the categorys in the database in the viewbag.
+            ViewBag.Category = _context.Category;
+
             return View(await _context.Item.ToListAsync());
         }
 

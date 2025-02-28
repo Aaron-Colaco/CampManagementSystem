@@ -24,8 +24,7 @@ namespace WebApplication4.Models
         [MaxLength(1000)]
         public string ImageURL { get; set; }
 
-        [MaxLength(100)]
-        public string Description { get; set; }
+        
 
 
         [ForeignKey("Category"), Required]

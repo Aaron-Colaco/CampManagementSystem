@@ -4,11 +4,38 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Hire Gear</h1>
+
+
+  <form asp-action="Search" asp-controller="Items">
+
+            <input style="border-width: 2px; border-style:solid; height:4vh; border-radius:2px;" name="searchTerm" type="text" placeholder="Search Item" />
+            <input value="Search" style=" background-color: #245b73; color:white;" class="btn btn-outline-primary" maxlength="50" type="submit" />
+
+        </form>
+
+
+<form asp-action="FilterByCategroy">
+    @{
+        //For each Cateogry stored in the view bag display an input in the form with the value being the category name.
+        // When the user clicks a category the form will be sumbited to the Filter Action in the Items controller passing in the value into the method Cateogry parrameter.
+
+        foreach (var Category in ViewBag.Category)
+        {
+            <input type="submit" class="FilterButtons" name="Category" value="@Category.Name" />
+        }
+    }
+</form>
+
+
+
+
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+
 <table class="table">
     <thead>
         <tr>
@@ -24,9 +51,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.ImageURL)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
+          
             <th></th>
         </tr>
     </thead>
@@ -45,9 +70,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ImageURL)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
+            
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ItemId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.ItemId">Details</a> |

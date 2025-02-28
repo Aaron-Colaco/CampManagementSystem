@@ -2,16 +2,16 @@
     ViewData["Title"] = "Home Page";
 }
 
-<section class="vid" style="margin:0%; padding: 0%; z-index: 100000">
+<section class="vid" style="margin:0%; padding: 0%; z-index: 10000">
     <div class="holder">
         <video src="~/Images/LandingPageVideo.mp4" autoplay muted loop playsinline style="width: 120%; height: auto; object-fit: cover;"></video>
     </div>
 
     <div class="video-overlay">
-        <div>> id="hero" class="hero">
+        <div id="hero" class="hero">
             <h1 style="font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: bold; text-transform: uppercase; margin: 0;">Great Camp Adventures</h1>
             <p style="font-size: 1.2rem; margin-top: 10px; letter-spacing: 1px;">Embrace the thrill of the outdoors, adventure, and lifelong memories at Taurewa Camp.</p>
-            </div
+        </div>
     </div>
 </section>
 
@@ -109,7 +109,7 @@
 
         </section>
 <section style="height: 400vh; overflow: hidden;">
-      <section style="background-color: #fff; color: #000;">
+      <div style="background-color: #fff; color: #000;">
         <div class="section">
           <div class="section-img">
             <img object-fit: cover;  class="section-img-inner" src="~/Images/Gearout.png" alt="">
@@ -155,6 +155,8 @@
           </div>
         </div>
 
+      </div>
+
       </section>
     
     
@@ -198,6 +200,7 @@
       position: relative;
       z-index: 1;
       padding: 5vw;
+
     }
     .section.active .section-img-inner {
       opacity: 1;

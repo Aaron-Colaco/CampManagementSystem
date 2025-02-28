@@ -47,7 +47,7 @@ namespace WebApplication4
                 pattern: "{controller=Home}/{action=Index}/{id?}");
             app.MapRazorPages();
 
-            DataForDatabase.AddData(app);
+            DataForDataBase.AddData(app);
             app.Run();
         }
     }
