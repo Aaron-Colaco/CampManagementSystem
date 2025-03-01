@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -26,145 +28,141 @@ namespace WebApplication4.Controllers
             return View(await webApplication4Context.ToListAsync());
         }
 
-        // GET: OrderItems/Details/5
-        public async Task<IActionResult> Details(string id)
+
+
+
+        public async Task<IActionResult> OpenCart()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var orderItem = await _context.OrderItem
-                .Include(o => o.Items)
-                .Include(o => o.Orders)
-                .FirstOrDefaultAsync(m => m.OrderItemId == id);
-            if (orderItem == null)
-            {
-                return NotFound();
-            }
-
-            return View(orderItem);
+            //Calls the GetOrder Method and stores the return value in a Variable called order.
+            var Order = await GetOrder();
+            //returns the index view pasiing the Order Variable
+            return View("Index", Order);
         }
 
-        // GET: OrderItems/Create
-        public IActionResult Create()
-        {
-            ViewData["ItemId"] = new SelectList(_context.Item, "ItemId", "Name");
-            ViewData["OrderId"] = new SelectList(_context.Set<Order>(), "OrderId", "OrderId");
-            return View();
-        }
 
-        // POST: OrderItems/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrderItemId,Quantity,OrderId,ItemId,CampId")] OrderItem orderItem)
+
+
+        //This method returns a lsit of type orderItem
+        public async Task<List<OrderItem>> GetOrder()
         {
-            if (ModelState.IsValid)
+            //gets the order id from the return method CheckUserOrders.
+            string orderId = await CheckUserOrders();
+            // Find all ordered Items with that orderId, including their related items and orders.                 
+            var listOrderItems = await _context.OrderItem.Include(o => o.Items).Include(o => o.Orders).Where(a => a.OrderId == orderId).ToListAsync();
+
+            //return this list to the caller Method.
+            return listOrderItems;
+        }
+        public async Task<string> CheckUserOrders()
+        {
+            //Find the id of the Cusotomer that is logged in
+            var UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            // Find a order in the database where the cusotmer id of the order equals the id of the logged in user.
+            var UserOrder = _context.Order.Where(a => a.user.Id == UserId).FirstOrDefault();
+
+            //If user has no orders, or no order with the status of one
+            if (UserOrder == null)
             {
-                _context.Add(orderItem);
+                //Create new order
+                var NewOrder = new Models.Order
+                {
+                    //set the customer id to the id of the cureently logined in user.
+                    UserId = UserId,
+                    StatusId = 1,// set the status id to one.
+                    OrderTime = DateTime.Now // set the order time to the current time now
+                };
+                //Add the new order to the database and save changes.
+                _context.Order.Add(NewOrder);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                //return the string Order Id of the new order
+                return NewOrder.OrderId;
             }
-            ViewData["ItemId"] = new SelectList(_context.Item, "ItemId", "Name", orderItem.ItemId);
-            ViewData["OrderId"] = new SelectList(_context.Set<Order>(), "OrderId", "OrderId", orderItem.OrderId);
-            return View(orderItem);
+            else
+            // if the user already as a order where the statusid is one 
+            {
+                //return the stirng OrderId of the exisitng Order.
+                return (UserOrder.OrderId);
+            }
         }
 
-        // GET: OrderItems/Edit/5
-        public async Task<IActionResult> Edit(string id)
+
+
+
+
+
+
+        public async Task<IActionResult> AddToCart(int itemId)
         {
-            if (id == null)
+
+            //If user is not logined in redrict to to Register page
+            if (!User.Identity.IsAuthenticated)
             {
-                return NotFound();
+                return RedirectPermanent("/Identity/Account/Register");
             }
 
-            var orderItem = await _context.OrderItem.FindAsync(id);
-            if (orderItem == null)
-            {
-                return NotFound();
-            }
-            ViewData["ItemId"] = new SelectList(_context.Item, "ItemId", "Name", orderItem.ItemId);
-            ViewData["OrderId"] = new SelectList(_context.Set<Order>(), "OrderId", "OrderId", orderItem.OrderId);
-            return View(orderItem);
-        }
 
-        // POST: OrderItems/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("OrderItemId,Quantity,OrderId,ItemId,CampId")] OrderItem orderItem)
-        {
-            if (id != orderItem.OrderItemId)
+            //make sure user is logged in before accesing the method
+
+            //This method returns a string
+            // Call the CheckUserOrders method and store the return vlaue in a string called orderId
+            string orderId = await CheckUserOrders();
+
+            // Call the Items In order method and store the return values in a var.
+            var itemsInOrder = await GetOrder();
+
+            //If the sum of the items in a user order is >= 35
+            if (itemsInOrder.Sum(a => a.Quantity) >= 35)
             {
-                return NotFound();
+                ViewBag.CartFull = 1;
+                //return to Index method passing in the order id as well as true for the cartfull parameter
+                return RedirectToAction("Index", new { id = orderId, CartFull = true });
             }
 
-            if (ModelState.IsValid)
+            //Find if any items in the order where the itemId is the same as the itemid passed into the method
+            var ExistingItem = itemsInOrder.Where(a => a.ItemId == itemId).FirstOrDefault();
+
+
+
+            //If item Exist in order
+            if (ExistingItem != null)
             {
-                try
+                //increase the quantity by 1
+                ExistingItem.Quantity++;
+            }
+            else // If item is not in order add new item
+            {
+
+                var OrderItem = new OrderItem
                 {
-                    _context.Update(orderItem);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!OrderItemExists(orderItem.OrderItemId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                    //Set the OrderId to the orderId string, the ItemId to the itemId passed into the method and the quantity to one.
+                    OrderId = orderId,
+                    ItemId = itemId,
+                    Quantity = 1
+                };
+                // add the new Orderitem details to the database
+                _context.OrderItem.Add(OrderItem);
             }
-            ViewData["ItemId"] = new SelectList(_context.Item, "ItemId", "Name", orderItem.ItemId);
-            ViewData["OrderId"] = new SelectList(_context.Set<Order>(), "OrderId", "OrderId", orderItem.OrderId);
-            return View(orderItem);
-        }
-
-        // GET: OrderItems/Delete/5
-        public async Task<IActionResult> Delete(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var orderItem = await _context.OrderItem
-                .Include(o => o.Items)
-                .Include(o => o.Orders)
-                .FirstOrDefaultAsync(m => m.OrderItemId == id);
-            if (orderItem == null)
-            {
-                return NotFound();
-            }
-
-            return View(orderItem);
-        }
-
-        // POST: OrderItems/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
-        {
-            var orderItem = await _context.OrderItem.FindAsync(id);
-            if (orderItem != null)
-            {
-                _context.OrderItem.Remove(orderItem);
-            }
-
+            // Save changes
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            //Find the Order where the OrderId is equal to the orderId string.
+            var Order = _context.Order.Where(a => a.OrderId == orderId).First();
+
+            // Call the Items In order method again to update the var itemsInOrder
+            itemsInOrder = await GetOrder();
+
+            //Set the total Price of the order to the sum of the( items Price * Items Quantity) in the var itemsInOrder.
+            Order.TotalPrice = (decimal)itemsInOrder.Sum(a => a.Items.Price * a.Quantity);
+
+            //save changes
+            await _context.SaveChangesAsync();
+
+            //Redirect to the items index action passing true for the display pop up parameter and ItemId for the item parrameter.
+            return RedirectToAction("Index", "Items", new { displayPopUp = true, item = itemId });
         }
 
-        private bool OrderItemExists(string id)
-        {
-            return _context.OrderItem.Any(e => e.OrderItemId == id);
-        }
+
+
     }
-}
+    }

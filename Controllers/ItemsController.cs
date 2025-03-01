@@ -59,9 +59,12 @@ namespace WebApplication4.Controllers
 
 
         // GET: Items
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int itemId = 1, bool displayPopUp = false)
 
         {
+            ViewBag.Item = _context.Item.Where(a => a.ItemId == itemId ).FirstOrDefault();
+            //Stores the value of the display pop-up boolean in the view bag 
+            ViewBag.displayPopUp = displayPopUp;
             //Stores the categorys in the database in the viewbag.
             ViewBag.Category = _context.Category;
 
