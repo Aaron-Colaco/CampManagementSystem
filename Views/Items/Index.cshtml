@@ -6,9 +6,10 @@
 
 <h1>Hire Gear</h1>
 
-<div class="centeredPopUP">
+
     @if (ViewBag.displayPopUp == true)
     {
+    <div class="centeredPopUP">
         <h1>Your Item has been added to cart</h1>
         <p>@ViewBag.Item.Name</p> <!-- Display the Item Name from the ViewBag -->
         <p>${{ViewBag.Item.Price}}</p> <!-- Display the Item Price from the ViewBag -->
@@ -20,50 +21,54 @@
         <form asp-action="OpenCart" asp-controller="OrderItems">
             <input type="submit" value="Go to Cart" class="add-to-cart-btn" />
         </form>
+
+        <style>
+
+            .centeredPopUP {
+                z-index: 1000;
+                position: absolute;
+                top: 5%;
+                left: 20%;
+                right: 20%;
+                width: 60%;
+                margin: auto;
+                padding: 20px;
+                text-align: center;
+                background-color: #f0f0f0;
+                border: 2px solid #333;
+                border-radius: 10px;
+                font-size: 24px;
+                color: #333;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .ItemsPage {
+                opacity: 20%
+            }
+
+            .centeredPopUP input[type ="submit"] {
+                background-color: #333;
+                color: #fff;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                font-size: 18px;
+                margin-top: 20px;
+            }
+
+            .AddToCart, .FilterButtons {
+                display: none;
+            }
+
+        </style>
+
+
+    </div>
     }
-</div>
+
 
 
 <!--While pop up is displayed blur backgorund and hide add to cart buttons-->
-<style>
-
-    .centeredPopUP {
-        z-index: 1000;
-        position: absolute;
-        top: 5%;
-        left: 20%;
-        right: 20%;
-        width: 60%;
-        margin: auto;
-        padding: 20px;
-        text-align: center;
-        background-color: #f0f0f0;
-        border: 2px solid #333;
-        border-radius: 10px;
-        font-size: 24px;
-        color: #333;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .ItemsPage {
-        opacity: 20%
-    }
-
-    .centeredPopUP input[type ="submit"] {
-        background-color: #333;
-        color: #fff;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        font-size: 18px;
-        margin-top: 20px;
-    }
-
-    .AddToCart, .FilterButtons {
-        display: none;
-    }
-
-</style>
 
 
 
@@ -138,7 +143,7 @@
                         <input type="hidden" name="itemId" value="@item.ItemId" />
                         <input type="submit" value="Add To Cart" class="AddToCart" />
                     </form>
-                    }
+                    
             </td>
             
             <td>
