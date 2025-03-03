@@ -68,6 +68,18 @@ namespace WebApplication4.Areas.Identity.Data
                         new Item { Name = "Sleeping Bag (-3°C) and Liner (inc. cleaning)", CategoryId = 6, ImageURL = " ", Price = 22.00 }
                     };
 
+
+                    var StatusData = new Status[]
+                   {
+                    new Status{Name = "Pending", Id=1},
+                    new Status{Name = "Processing",Id = 2},
+                    new Status{Name ="returned",Id=3},
+                    new Status{Name ="unreturned",Id=4}
+
+                   };
+
+
+
                     context.Item.AddRange(ItemsData);
                     context.SaveChanges();
                 }

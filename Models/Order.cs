@@ -9,6 +9,7 @@ namespace WebApplication4.Models
 
 
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string OrderId { get; set; }
 
 

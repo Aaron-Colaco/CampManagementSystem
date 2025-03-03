@@ -96,10 +96,7 @@ namespace WebApplication4.Controllers
         {
 
             //If user is not logined in redrict to to Register page
-            if (!User.Identity.IsAuthenticated)
-            {
-                return RedirectPermanent("/Identity/Account/Register");
-            }
+ 
 
 
             //make sure user is logged in before accesing the method
