@@ -4,13 +4,7 @@ using WebApplication4.Areas.Identity.Data;
 using WebApplication4.Data;
 using WebApplication4.Models;
 
-using WebApplication4.Data;
-using WebApplication4.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using WebApplication4.Areas.Identity.Data;
-
-namespace WebApplication4.NETProject
+namespace WebApplication4
 {
     public class Program
     {
@@ -24,11 +18,11 @@ namespace WebApplication4.NETProject
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
-    .AddEntityFrameworkStores<WebApplication4Context>()
-    .AddDefaultTokenProviders();
+            builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
+                    .AddRoles<IdentityRole>()
 
 
+                .AddEntityFrameworkStores<WebApplication4Context>();
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
@@ -57,19 +51,10 @@ namespace WebApplication4.NETProject
                 pattern: "{controller=Home}/{action=Index}/{id?}");
             app.MapRazorPages();
 
+
+
             DataForDataBase.AddData(app);
 
-
-            using (var scope = app.Services.CreateScope())
-            {
-                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-
-
-
-                if (!await roleManager.RoleExistsAsync("Admin"))
-                    await roleManager.CreateAsync(new IdentityRole("Admin"));
-
-            }
 
             using (var scope = app.Services.CreateScope())
             {
@@ -97,14 +82,8 @@ namespace WebApplication4.NETProject
 
 
 
+                app.Run();
             }
-
-            app.Run();
-
-
-
-
-
         }
     }
 }
