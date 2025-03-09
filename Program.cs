@@ -2,12 +2,19 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebApplication4.Areas.Identity.Data;
 using WebApplication4.Data;
+using WebApplication4.Models;
 
-namespace WebApplication4
+using WebApplication4.Data;
+using WebApplication4.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using WebApplication4.Areas.Identity.Data;
+
+namespace WebApplication4.NETProject
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -17,8 +24,11 @@ namespace WebApplication4
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<WebApplication4Context>();
+            builder.Services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddEntityFrameworkStores<WebApplication4Context>()
+    .AddDefaultTokenProviders();
+
+
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
@@ -48,7 +58,53 @@ namespace WebApplication4
             app.MapRazorPages();
 
             DataForDataBase.AddData(app);
+
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+
+
+                if (!await roleManager.RoleExistsAsync("Admin"))
+                    await roleManager.CreateAsync(new IdentityRole("Admin"));
+
+            }
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+
+
+
+                string adminID = "00000000000";
+                string AdminPassword = "AdminPassword@2025";
+
+
+                if (await userManager.FindByEmailAsync("Admin@Camp.co.nz") == null)
+                {
+                    var user = new User();
+                    user.Id = adminID;
+                    user.UserName = "Admin@Camp.co.nz";
+                    user.Email = "Admin@Camp.co.nz";
+
+
+                    await userManager.CreateAsync(user, AdminPassword);
+                    await userManager.AddToRoleAsync(user, "Admin");
+
+                }
+
+
+
+
+            }
+
             app.Run();
+
+
+
+
+
         }
     }
 }
