@@ -71,12 +71,16 @@ namespace WebApplication4.Areas.Identity.Data
 
                     var StatusData = new Status[]
                    {
-                    new Status{Name = "Pending", Id=1},
-                    new Status{Name = "Processing",Id = 2},
-                    new Status{Name ="returned",Id=3},
-                    new Status{Name ="unreturned",Id=4}
+                    new Status{Name = "Pending"},
+                    new Status{Name = "Processing"},
+                    new Status{Name ="returned"},
+                    new Status{Name ="unreturned"}
 
                    };
+
+
+                    context.Status.AddRange(StatusData);
+                    context.SaveChanges();
 
 
 

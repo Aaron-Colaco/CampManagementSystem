@@ -27,4 +27,10 @@ public DbSet<WebApplication4.Models.Item> Item { get; set; } = default!;
 public DbSet<WebApplication4.Models.OrderItem> OrderItem { get; set; } = default!;
 
 public DbSet<WebApplication4.Models.Order> Order { get; set; } = default!;
+
+    public DbSet<WebApplication4.Models.Status> Status { get; set; } = default!;
+
+
+
+
 }

@@ -30,6 +30,20 @@ namespace WebApplication4.Controllers
 
 
 
+        public async Task<IActionResult> Delete(int itemId)
+        {
+            //Gets the orderItems of the users order from the return method
+            var OrderItems = await GetOrder();
+            //Finds the item to remove in the user order, bassed on the item passed into the method.
+            var OrderItemToRemove = OrderItems.Where(a => a.ItemId == itemId).FirstOrDefault();
+            //removes item from order and save changes to database,
+            _context.OrderItem.Remove(OrderItemToRemove);
+            _context.SaveChanges();
+
+            // Redirect action to Open Cart
+            return RedirectToAction("OpenCart");
+        }
+    }
 
         public async Task<IActionResult> OpenCart()
         {
@@ -133,6 +147,7 @@ namespace WebApplication4.Controllers
                 var OrderItem = new OrderItem
                 {
                     //Set the OrderId to the orderId string, the ItemId to the itemId passed into the method and the quantity to one.
+
                     OrderId = orderId,
                     ItemId = itemId,
                     Quantity = 1
