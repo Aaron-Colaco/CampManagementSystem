@@ -106,7 +106,7 @@ namespace WebApplication4.Controllers
             {
                 return RedirectPermanent("/Identity/Account/Register");
             }
-m
+
 
 
             //make sure user is logged in before accesing the method
