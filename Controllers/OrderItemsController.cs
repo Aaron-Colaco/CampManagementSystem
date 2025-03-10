@@ -33,6 +33,11 @@ namespace WebApplication4.Controllers
 
         public async Task<IActionResult> OpenCart()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectPermanent("/Identity/Account/Register");
+            }
+
             //Calls the GetOrder Method and stores the return value in a Variable called order.
             var Order = await GetOrder();
             //returns the index view pasiing the Order Variable
@@ -55,6 +60,7 @@ namespace WebApplication4.Controllers
         }
         public async Task<string> CheckUserOrders()
         {
+
             //Find the id of the Cusotomer that is logged in
             var UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             // Find a order in the database where the cusotmer id of the order equals the id of the logged in user.
@@ -96,7 +102,11 @@ namespace WebApplication4.Controllers
         {
 
             //If user is not logined in redrict to to Register page
-
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectPermanent("/Identity/Account/Register");
+            }
+m
 
 
             //make sure user is logged in before accesing the method
