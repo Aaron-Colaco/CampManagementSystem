@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -22,8 +23,17 @@ namespace WebApplication4.Controllers
         // GET: Orders
         public async Task<IActionResult> Index()
         {
-            var webApplication4Context = _context.Order.Include(o => o.status);
-            return View(await webApplication4Context.ToListAsync());
+            var OrderData = _context.Order.Include(o => o.status).Include(a => a.user).Where(a => a.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+        
+            //If user is a admin return all orders where th status id is not one and inlcude the related customers.
+            if (User.IsInRole("Admin"))
+            {
+                OrderData = OrderData.Where(a => a.StatusId != 1).Include(o => o.status).Include(a => a.user);
+
+            }
+          
+            return View(await OrderData.ToListAsync());
         }
 
         // GET: Orders/Details/5

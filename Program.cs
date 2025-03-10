@@ -10,6 +10,8 @@ namespace WebApplication4
     {
         public static async Task Main(string[] args)
         {
+
+        
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
@@ -54,6 +56,16 @@ namespace WebApplication4
 
 
             DataForDataBase.AddData(app);
+            using (var scope = app.Services.CreateScope())
+            {
+                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+
+
+                if (!await roleManager.RoleExistsAsync("Admin"))
+                    await roleManager.CreateAsync(new IdentityRole("Admin"));
+
+            }
 
 
             using (var scope = app.Services.CreateScope())
