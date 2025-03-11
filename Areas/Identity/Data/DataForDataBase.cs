@@ -77,11 +77,26 @@ namespace WebApplication4.Areas.Identity.Data
                     new Status{Name ="unreturned"}
 
                    };
-
-
                     context.Status.AddRange(StatusData);
                     context.SaveChanges();
 
+
+                    var CampData = new Camp[]
+                    {
+                            new Camp
+                            {
+                                Id=1,
+                                Enddate= DateTime.Now,
+                                Startdate = DateTime.Now,
+                                peoplelimt = 1,
+                                Year = 11
+                            }
+
+
+                    };
+
+
+                  
 
 
                     context.Item.AddRange(ItemsData);

@@ -66,6 +66,10 @@ namespace WebApplication4.Controllers
             // Find a order in the database where the cusotmer id of the order equals the id of the logged in user.
             var UserOrder = _context.Order.Where(a => a.user.Id == UserId).FirstOrDefault();
 
+            
+       
+            
+
             //If user has no orders, or no order with the status of one
             if (UserOrder == null)
             {
@@ -92,7 +96,7 @@ namespace WebApplication4.Controllers
             }
         }
 
-
+        
 
 
 

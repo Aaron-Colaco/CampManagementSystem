@@ -93,7 +93,7 @@ namespace WebApplication4.Areas.Identity.Pages.Account
 
             // Year Level must be between 0 and 9 (inclusive)
             [Required]
-            [Range(0, 9, ErrorMessage = "Year Level must be between 0 and 9.")]
+            [Range(9, 13,ErrorMessage = "Year Level must be between 0 and 9.")]
             public int YearLevel { get; set; }
 
             /// <summary>

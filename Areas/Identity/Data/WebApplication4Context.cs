@@ -30,6 +30,8 @@ public DbSet<WebApplication4.Models.Order> Order { get; set; } = default!;
 
     public DbSet<WebApplication4.Models.Status> Status { get; set; } = default!;
 
+public DbSet<WebApplication4.Models.Camp> Camp { get; set; } = default!;
+
 
 
 

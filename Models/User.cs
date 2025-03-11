@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.General;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication4.Models
 {
@@ -32,7 +33,10 @@ namespace WebApplication4.Models
         [Range(9, 13, ErrorMessage = "Year Level must be between 9 and 13.")]
         public int YearLevel { get; set; }
 
+        [ForeignKey("Camp")]
+        public int CampId { get; set; }
 
+        public Camp Camps { get; set; }
 
         public ICollection<Order> Orders { get; set; }
     }
