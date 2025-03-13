@@ -85,7 +85,7 @@ namespace WebApplication4.Areas.Identity.Data
                     {
                             new Camp
                             {
-                                Id=1,
+                                
                                 Enddate= DateTime.Now,
                                 Startdate = DateTime.Now,
                                 peoplelimt = 1,
@@ -96,7 +96,8 @@ namespace WebApplication4.Areas.Identity.Data
                     };
 
 
-                  
+                    context.Camp.AddRange(CampData);
+                    context.SaveChanges();
 
 
                     context.Item.AddRange(ItemsData);
