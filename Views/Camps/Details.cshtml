@@ -35,6 +35,17 @@
             @Html.DisplayFor(model => model.Year)
         </dd>
     </dl>
+
+    @{
+        foreach (var studentsOnCamp in ViewBag.studentsOnCamp)
+        {
+            @studentsOnCamp.Email 
+
+        }
+    }
+
+
+
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |

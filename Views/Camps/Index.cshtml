@@ -43,6 +43,17 @@
                 @Html.DisplayFor(modelItem => item.Year)
             </td>
             <td>
+
+                <form asp-action="book" asp-controller="Camp"> 
+
+                    <input type="hidden" name="Id" value="@item.Id" />
+
+                    <input type="submit" name="name"/>
+
+                </form>
+
+
+
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>

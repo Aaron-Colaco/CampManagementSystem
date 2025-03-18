@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -40,7 +41,32 @@ namespace WebApplication4.Controllers
                 return NotFound();
             }
 
+            ViewBag.studentsOnCamp = _context.Users.Where(a => a.CampId == id);
+
+           
+
+
+            
+
+          
+
             return View(camp);
+        }
+
+
+        public async Task<IActionResult> Book(int Id)
+        {
+            var user = _context.Users.Where(a => a.Id == User.FindFirstValue(ClaimTypes.NameIdentifier)).First();
+
+            user.CampId = Id;
+
+            return RedirectToAction("Index");
+
+        }
+
+        private async Task RedirectToAction(Func<Task<IActionResult>> index)
+        {
+            throw new NotImplementedException();
         }
 
         // GET: Camps/Create

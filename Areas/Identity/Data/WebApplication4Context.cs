@@ -32,6 +32,8 @@ public DbSet<WebApplication4.Models.Order> Order { get; set; } = default!;
 
 public DbSet<WebApplication4.Models.Camp> Camp { get; set; } = default!;
 
+    public DbSet<WebApplication4.Models.User> Users { get; set; } = default;
+
 
 
 
