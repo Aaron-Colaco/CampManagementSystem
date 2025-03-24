@@ -82,7 +82,7 @@ namespace WebApplication4.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Startdate,Enddate,peoplelimt,Year")] Camp camp)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 _context.Add(camp);
                 await _context.SaveChangesAsync();

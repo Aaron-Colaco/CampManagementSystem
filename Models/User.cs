@@ -34,7 +34,7 @@ namespace WebApplication4.Models
         public int YearLevel { get; set; }
 
         [ForeignKey("Camp")]
-        public int CampId { get; set; }
+        public int CampId { get; set; } = 1;
 
         public Camp Camps { get; set; }
 
