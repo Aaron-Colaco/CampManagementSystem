@@ -60,6 +60,8 @@ namespace WebApplication4.Controllers
 
             user.CampId = Id;
 
+            await _context.SaveChangesAsync();
+
             return RedirectToAction("Index");
 
         }

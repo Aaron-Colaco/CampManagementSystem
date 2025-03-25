@@ -37,9 +37,12 @@
     </dl>
 
     @{
+        <h3>Students In Camp</h3>
         foreach (var studentsOnCamp in ViewBag.studentsOnCamp)
         {
-            @studentsOnCamp.Email 
+            <h5> @studentsOnCamp.Email </h5>
+            <p> @studentsOnCamp.FirstName </p>
+            <br />
 
         }
     }
