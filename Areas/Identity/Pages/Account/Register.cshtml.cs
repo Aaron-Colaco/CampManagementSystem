@@ -91,9 +91,9 @@ namespace WebApplication4.Areas.Identity.Pages.Account
             [RegularExpression(@"^\d{6}$", ErrorMessage = "Student Number must be exactly 6 digits.")]
             public string StudentNumber { get; set; }
 
-            // Year Level must be between 0 and 9 (inclusive)
+            // Year Level must be between 0 and 13 (inclusive)
             [Required]
-            [Range(9, 13,ErrorMessage = "Year Level must be between 0 and 9.")]
+            [Range(9, 13,ErrorMessage = "Year Level must be between 9 and 13.")]
             public int YearLevel { get; set; }
 
             /// <summary>
@@ -140,8 +140,15 @@ namespace WebApplication4.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
+                
                 await _userStore.SetUserNameAsync((User)user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync((User)user, Input.Email, CancellationToken.None);
+
+                user.YearLevel = Input.YearLevel;
+                user.StudentNumber = Input.StudentNumber;
+
+
+
                 var result = await _userManager.CreateAsync((User)user, Input.Password);
 
                 if (result.Succeeded)
@@ -180,7 +187,7 @@ namespace WebApplication4.Areas.Identity.Pages.Account
             return Page();
         }
 
-        private IdentityUser CreateUser()
+        private User CreateUser()
         {
             try
             {

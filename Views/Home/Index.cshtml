@@ -73,7 +73,7 @@
                 @{
                     if (ViewBag.Year == 10)
                     {
-                        <form asp-action="Index" asp-controller="Camp">
+                        <form asp-action="Index" asp-controller="Camps">
                             <input name="Year" value="10" type="hidden" />
                             <input class="link" type="submit" value="Book" />
                         </form>
@@ -102,7 +102,7 @@
                 @{
                     if (ViewBag.Year == 12)
                     {
-                        <form asp-action="Index" asp-controller="Camp">
+                        <form asp-action="Index" asp-controller="Camps">
                             <input name="Year" value="12" type="hidden" />
                             <input class="link" type="submit" value="Book" />
                         </form>
@@ -131,7 +131,7 @@
                 @{
                     if (ViewBag.Year == 13)
                     {
-                        <form asp-action="Index" asp-controller="Camp">
+                        <form asp-action="Index" asp-controller="Camps">
                             <input name="Year" value="13" type="hidden" />
                             <input class="link" type="submit" value="Book" />
                         </form>
@@ -145,6 +145,8 @@
                 }
             </div>
         </div>
+
+        </section>
 
         <section style="height: 400vh; overflow: hidden;">
             <div style="background-color: #fff; color: #000;">
@@ -191,6 +193,32 @@
     
     
     <style>
+        .link {
+    display: inline-block;
+    background-color: #008080; 
+    color: white;
+    padding: 10px 20px;
+    border-radius: 12px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    width: 85%;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+.link:hover {
+    background-color: #006666; 
+}
+
+
+
+
+
+
+
+
+
     .section {
       display: flex;
       min-height: 100vh;
