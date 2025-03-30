@@ -57,105 +57,135 @@
 
 <div id="boxes" style="" >
 
- 
-        <div class="card">
-            <img src="~/Images/Snow.jpg" alt="">
-            <h2 class="YearText">Year 10</h2>
-
-            <h3 style="font-size: 1rem;">
-                ☼ 5 days | From NZ $445
-            </h3>
-            <p class="BoxText">
-                In Year 10, you will go skiing (in season), tramp in National Park, explore caves, relax in the Tokaanu hot pools, tackle ropes courses, walk along streams, go white water rafting, and try indoor climbing.
-            </p>
-
-
-            <a href="#" class="link">Link 3</a>
-        </div>
-        <div class="card">
-            <img src="~/Images/water.jpg" alt="">
-
-            <h2 class="YearText">Year 12</h2>
-            <h3 style="font-size: 1rem;">
-                ☼ 5 days | From NZ $445
-            </h3>
-            <p class="BoxText">
-                In Year 12, you'll go mountain biking, rock climbing, tramping, caving. Stay in a DOC hut, take on ropes courses, tackle indoor climbing, and raftting in grade 2 waters. Also go go skiing (in season).
-            </p>
-
-
-            <a href="#" class="link">Link 3</a>
-        </div>
-        <div class="card">
-
-            <img src="~/Images/Boat.jpg">
-
-            <h2 class="YearText">Year 13</h2>
-            <h3 style="font-size: 1rem;">
-                ☼ 5 days | From NZ $445
-            </h3>
-            <p class="BoxText">
-                In Year 13, you'll go white water rafting, soak in Tokaanu hot pools, tramp in National Park, and camp overnight. Take on caving, traversing, climbing, and the high ropes course for an epic adventure.
-            </p>
-            <a href="#" class="link">Link 3</a>
-
-
-
-
-
-        </div>
-
-        </div>
-
-        </section>
-<section style="height: 400vh; overflow: hidden;">
-      <div style="background-color: #fff; color: #000;">
-        <div class="section">
-          <div class="section-img">
-            <img object-fit: cover;  class="section-img-inner" src="~/Images/Gearout.png" alt="">
-
-          </div>
-          <div class="section-body">
-            <div class="section-text">
-              <h2 class="YearText">Need Gear for you Camp</h2>
-              <p>
-                Don't worry! You can get quality gear from us at an affordable price.
-                
-
-              </p>
-              <a href="#" style="display: inline-block; margin-top: 20px; padding: 10px 20px; font-size: 1rem; text-transform: uppercase; text-decoration: none; background: rgb(38, 129, 143); color: rgb(210, 200, 200); font-weight: bold; border-radius: 5px; transition: 0.3s;" >Hire Now</a>
-
-            </div>
-          </div>
-        </div>
-        <div class="section">
-          <div class="section-img">
-            <img  object-fit: cover; src="~/Images/bag.png" class="section-img-inner" alt="">
-
-          </div>
-          <div class="section-body">
-            <div class="section-text">
-              <h2 class="YearText">Ready to go</h2>
-              <p>
-                See you at Taurewa
+        <div id="boxes">
+            <!-- Year 10 Card -->
+            <div class="card">
+                <img src="~/Images/Snow.jpg" alt="">
+                <h2 class="YearText">Year 10</h2>
+                <h3 style="font-size: 1rem;">
+                    ☼ 5 days | From NZ $445
+                </h3>
+                <p class="BoxText">
+                    In Year 10, you will go skiing (in season), tramp in National Park, explore caves, relax in the Tokaanu hot pools, tackle ropes courses, walk along streams, go white water rafting, and try indoor climbing.
                 </p>
-                <P>For many students, going on camp is one of the highlights of their Avondale College experience! We are fortunate in being able to offer students the opportunity to attend Taurewa, our outdoor education camp situated on the edge of the World Heritage Site of the Tongariro National Park.
 
-                  ​
-                  
-                  At Taurewa, students are able to participate in a great variety of outdoor activities which, depending on the season, can include tramping, rafting on the Tongariro River, rock-climbing, kayaking, ropes course, skiing, mountain biking and more.
-                  
-                  ​
-                  
-                  All students in Year 10 attend with their home room class, and further camps are offered to students in Years 12 and 13. The groups are accompanied by teachers and parents, and activities are led by outdoor education specialists.
-                  
-                  ​</P>
-              </p>
+                <!-- Year 10 Booking Form -->
+                @{
+                    if (ViewBag.Year == 10)
+                    {
+                        <form asp-action="Index" asp-controller="Camp">
+                            <input name="Year" value="10" type="hidden" />
+                            <input class="link" type="submit" value="Book" />
+                        </form>
+                    }
+                    else
+                    {
+                        <form>
+                            <input class="link" style="background-color: lightgray" type="submit" value="Book" disabled />
+                        </form>
+                    }
+                }
             </div>
-          </div>
+
+            <!-- Year 12 Card -->
+            <div class="card">
+                <img src="~/Images/water.jpg" alt="">
+                <h2 class="YearText">Year 12</h2>
+                <h3 style="font-size: 1rem;">
+                    ☼ 5 days | From NZ $445
+                </h3>
+                <p class="BoxText">
+                    In Year 12, you'll go mountain biking, rock climbing, tramping, caving. Stay in a DOC hut, take on ropes courses, tackle indoor climbing, and rafting in grade 2 waters. Also go skiing (in season).
+                </p>
+
+                <!-- Year 12 Booking Form -->
+                @{
+                    if (ViewBag.Year == 12)
+                    {
+                        <form asp-action="Index" asp-controller="Camp">
+                            <input name="Year" value="12" type="hidden" />
+                            <input class="link" type="submit" value="Book" />
+                        </form>
+                    }
+                    else
+                    {
+                        <form>
+                            <input class="link" style="background-color: lightgray" type="submit" value="Book" disabled />
+                        </form>
+                    }
+                }
+            </div>
+
+            <!-- Year 13 Card -->
+            <div class="card">
+                <img src="~/Images/Boat.jpg" alt="">
+                <h2 class="YearText">Year 13</h2>
+                <h3 style="font-size: 1rem;">
+                    ☼ 5 days | From NZ $445
+                </h3>
+                <p class="BoxText">
+                    In Year 13, you'll go white water rafting, soak in Tokaanu hot pools, tramp in National Park, and camp overnight. Take on caving, traversing, climbing, and the high ropes course for an epic adventure.
+                </p>
+
+                <!-- Year 13 Booking Form -->
+                @{
+                    if (ViewBag.Year == 13)
+                    {
+                        <form asp-action="Index" asp-controller="Camp">
+                            <input name="Year" value="13" type="hidden" />
+                            <input class="link" type="submit" value="Book" />
+                        </form>
+                    }
+                    else
+                    {
+                        <form>
+                            <input class="link" style="background-color: lightgray" type="submit" value="Book" disabled />
+                        </form>
+                    }
+                }
+            </div>
         </div>
 
-      </div>
+        <section style="height: 400vh; overflow: hidden;">
+            <div style="background-color: #fff; color: #000;">
+                <div class="section">
+                    <div class="section-img">
+                        <img class="section-img-inner" src="~/Images/Gearout.png" alt="">
+                    </div>
+                    <div class="section-body">
+                        <div class="section-text">
+                            <h2 class="YearText">Need Gear for your Camp</h2>
+                            <p>
+                                Don't worry! You can get quality gear from us at an affordable price.
+                            </p>
+                            <a href="#" style="display: inline-block; margin-top: 20px; padding: 10px 20px; font-size: 1rem; text-transform: uppercase; text-decoration: none; background: rgb(38, 129, 143); color: rgb(210, 200, 200); font-weight: bold; border-radius: 5px; transition: 0.3s;">Hire Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="section">
+                    <div class="section-img">
+                        <img class="section-img-inner" src="~/Images/bag.png" alt="">
+                    </div>
+                    <div class="section-body">
+                        <div class="section-text">
+                            <h2 class="YearText">Ready to Go</h2>
+                            <p>
+                                See you at Taurewa! For many students, going on camp is one of the highlights of their Avondale College experience. We are fortunate in being able to offer students the opportunity to attend Taurewa, our outdoor education camp situated on the edge of the World Heritage Site of the Tongariro National Park.
+                            </p>
+                            <p>
+                                At Taurewa, students participate in a variety of outdoor activities which, depending on the season, can include tramping, rafting, rock-climbing, kayaking, ropes course, skiing, and mountain biking.
+                            </p>
+                            <p>
+                                All students in Year 10 attend with their home room class, and further camps are offered to students in Years 12 and 13. The groups are accompanied by teachers and parents, and activities are led by outdoor education specialists.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+ 
+      
 
       </section>
     

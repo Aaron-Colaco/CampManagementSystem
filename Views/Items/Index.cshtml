@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<WebApplication4.Models.Item>
 
-@{
+    @{
     ViewData["Title"] = "Index";
-}
+    }
 
-<h1>Hire Gear</h1>
+    <h1>Hire Gear</h1>
 
 
     @if (ViewBag.displayPopUp == true)
@@ -59,7 +59,6 @@
             .AddToCart, .FilterButtons {
                 display: none;
             }
-
         </style>
 
 
@@ -68,20 +67,20 @@
 
 
 
-<!--While pop up is displayed blur backgorund and hide add to cart buttons-->
+    <!--While pop up is displayed blur backgorund and hide add to cart buttons-->
 
 
 
-<form asp-action="Search" asp-controller="Items">
+    <form asp-action="Search" asp-controller="Items">
 
-            <input style="border-width: 2px; border-style:solid; height:4vh; border-radius:2px;" name="searchTerm" type="text" placeholder="Search Item" />
-            <input value="Search" style=" background-color: #245b73; color:white;" class="btn btn-outline-primary" maxlength="50" type="submit" />
+        <input style="border-width: 2px; border-style:solid; height:4vh; border-radius:2px;" name="searchTerm" type="text" placeholder="Search Item" />
+        <input value="Search" style=" background-color: #245b73; color:white;" class="btn btn-outline-primary" maxlength="50" type="submit" />
 
-        </form>
+    </form>
 
 
-<form asp-action="FilterByCategroy">
-    @{
+    <form asp-action="FilterByCategroy">
+        @{
         //For each Cateogry stored in the view bag display an input in the form with the value being the category name.
         // When the user clicks a category the form will be sumbited to the Filter Action in the Items controller passing in the value into the method Cateogry parrameter.
 
@@ -89,69 +88,95 @@
         {
             <input type="submit" class="FilterButtons" name="Category" value="@Category.Name" />
         }
-    }
-</form>
+        }
+    </form>
 
 
 
 
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
 
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CostToProduce)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageURL)
-            </th>
-          
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CostToProduce)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageURL)
-            </td>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CostToProduce)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageURL)
+                </th>
 
-            <td>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CostToProduce)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ImageURL)
+                </td>
+
+                <td>
                     <form asp-controller="OrderItems" asp-action="AddToCart">
 
 
                         <input type="hidden" name="itemId" value="@item.ItemId" />
                         <input type="submit" value="Add To Cart" class="AddToCart" />
                     </form>
-                    
-            </td>
-            
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ItemId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ItemId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ItemId">Delete</a>
-            </td>
-        </tr>
+
+                </td>
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ItemId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ItemId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ItemId">Delete</a>
+                </td>
+            </tr>
 }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+
+
+
+    <form asp-action="Index" style="margin-left:76%; margin-top:8%; display:flex">
+        @{
+            // Loop through the number of pages creating a sumbit button, starting from 1 up to the value of ViewBag.Pages
+            for (int i = 1; i < ViewBag.Pages; i++)
+            {
+                 //Check if the current page number(i) is equal to the active page ViewBag.PageNumber
+            if (i == ViewBag.PageNUmber)
+                {
+                    // render a input submit button for the current page with value of i.
+            <input class="pagebuttons" name="Page" value="@i" type="submit" style="background-color: black; color:white; text-align:center; padding: 5px 10px; border: none; border-radius: 3px; width:50%; margin:3%; text-align:center;" />
+
+
+                }
+                else
+                {
+                    // Render a submit button for the pthers page with a different styling form the active page with the value of i.
+            <input name="Page" class="pagebuttons" class="AddToCart" value="@i" type="submit" style="background-color: white; color: black; padding: 5px 10px; border: none; border-radius: 3px; width:35%; margin:3%; text-align:center;" />
+                }
+            }
+
+            //When the user clicks a submit button it will pass the vlaue(page number ) to the index method.
+        }
+    </form>

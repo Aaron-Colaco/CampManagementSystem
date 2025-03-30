@@ -19,6 +19,40 @@ namespace WebApplication4.Controllers
             _context = context;
         }
 
+        // Decalres the constant number of Items Per Page as 6
+        public const int ITEMSPERPAGE = 6;
+
+        public async Task<IActionResult> Index(int page = 1, int itemId = 1, bool displayPopUp = false, bool displaySizePicker = false)
+        {
+            ViewBag.displaySizePicker = displaySizePicker;
+
+
+
+
+
+
+            //Finds the item in the database where the item has an id that matches the ItemId passed into the method and stores it the he view bag
+            ViewBag.Item = _context.Item.Where(a => a.ItemId == itemId).FirstOrDefault();
+            //Stores the value of the display pop-up boolean in the view bag 
+            ViewBag.displayPopUp = displayPopUp;
+            //Find all the items in the database as well as their category stored in a variable called items
+            var Items = _context.Item.Include(i => i.Categorys);
+
+            //Calculates the number of pages needed based on the number of products in the database.
+            ViewBag.Pages = (int)Math.Ceiling((double)Items.Count() / ITEMSPERPAGE);
+
+            //Stores the number of pages needed in the view bag.
+            ViewBag.PageNUmber = page;
+
+            //Stores the categorys in the database in the viewbag.
+            ViewBag.Category = _context.Category;
+
+            //Return the index view, skip the (page number passed into the method) -1 * 6 amount of items. Then take 6 items to list on the items view/page.
+            return View(await Items.Skip((page - 1) * ITEMSPERPAGE).Take(ITEMSPERPAGE).ToListAsync());
+
+        }
+
+
 
 
         public async Task<IActionResult> Search(string searchTerm)
@@ -58,18 +92,7 @@ namespace WebApplication4.Controllers
 
 
 
-        // GET: Items
-        public async Task<IActionResult> Index(int itemId = 1, bool displayPopUp = false)
-
-        {
-            ViewBag.Item = _context.Item.Where(a => a.ItemId == itemId ).FirstOrDefault();
-            //Stores the value of the display pop-up boolean in the view bag 
-            ViewBag.displayPopUp = displayPopUp;
-            //Stores the categorys in the database in the viewbag.
-            ViewBag.Category = _context.Category;
-
-            return View(await _context.Item.ToListAsync());
-        }
+        
 
         // GET: Items/Details/5
         public async Task<IActionResult> Details(int? id)
