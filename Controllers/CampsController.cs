@@ -21,9 +21,10 @@ namespace WebApplication4.Controllers
         }
 
         // GET: Camps
-        public async Task<IActionResult> Index(int Year)
+        public async Task<IActionResult> Index()
         {
-            var Camp = _context.Camp.Where(a => a.Year == Year);
+            var user = _context.Users.Where(a => a.Id == User.FindFirstValue(ClaimTypes.NameIdentifier)).First();
+            var Camp = _context.Camp.Where(a => a.Year == user.YearLevel);
             return View(await Camp.ToListAsync());
         }
 
