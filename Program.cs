@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using WebApplication4.Areas.Identity.Data;
 using WebApplication4.Data;
 using WebApplication4.Models;
+using WebApplication4.Stripe_Payment_API;
 
 namespace WebApplication4
 {
@@ -21,11 +22,14 @@ namespace WebApplication4
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
-                    .AddRoles<IdentityRole>()
-
-
-                .AddEntityFrameworkStores<WebApplication4Context>();
+                    .AddRoles<IdentityRole>().AddEntityFrameworkStores<WebApplication4Context>();
             builder.Services.AddControllersWithViews();
+
+
+
+            builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("StripeSettings"));
+            var key = builder.Configuration.GetValue<string>("StripeSettings:SecretKey");
+
 
             var app = builder.Build();
 
