@@ -8,29 +8,41 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WebApplication4.styles.css" asp-append-version="true" />
     <style>
-        .navbar {
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            padding-top: 100px; /* Adjusted for fixed navbar */
+        }
+
+        /* Promo Bar */
+        .promo-bar {
             background-color: black;
-            z-index: 100000050;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+            padding: 10px;
+            font-size: 14px;
             position: fixed;
-            width: 100%;
             top: 0;
-            height: 60px; /* Reduced from 70px to 60px */
+            width: 100%;
+            z-index: 1001;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: white;
             display: flex;
             align-items: center;
-            padding: 5px 0; /* Adjusted padding */
+            justify-content: space-between;
+            padding: 10px 20px;
+            position: fixed;
+            top: 40px; /* Below the promo bar */
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        .navbar-brand {
-            color: white;
-            font-family: sans-serif;
-            font-weight: bolder;
-        }
-
-        .navbar-nav .nav-link {
-            color: white;
-            font-weight: bold;
-        }
-
+          
         .search-container {
             flex-grow: 1;
             display: flex;
@@ -39,8 +51,8 @@
 
         .search-form {
             display: flex;
-            width: 70%; /* Increased width */
-            max-width: 700px; /* Increased max width */
+            width: 60%;
+            max-width: 600px;
             border: 1px solid #ccc;
             border-radius: 5px;
             overflow: hidden;
@@ -48,44 +60,74 @@
 
         .search-input {
             flex-grow: 1;
-            padding: 10px;
+            padding: 8px;
             border: none;
             outline: none;
-            background-color: black; /* Match navbar */
-            color: white; /* White text */
+            background-color: white;
+            color: black;
         }
 
         .search-button {
-            background-color: white;
+            background-color: black;
+            color: white;
             border: none;
             cursor: pointer;
-            padding: 10px;
+            padding: 8px;
         }
 
-        body {
-            padding-top: 80px;
+        /* Icons */
+        .nav-icons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
         }
+
+            .nav-icons a {
+                text-decoration: none;
+                color: black;
+                font-size: 18px;
+            }
     </style>
-</head>
-<body>
+    </head>
+
+    <body>
+    <!-- Promo Bar -->
+    <div class="promo-bar">
+       GET YOUR CAMP GEAR NOW!
+    </div>
+
+    <!-- Navbar -->
+    <div class="navbar">
+       
+        <div class="search-container">
+            <form class="search-form">
+                <input type="text" class="search-input" placeholder="What are you looking for?">
+                <button class="search-button" style="color = white;">🔍</button>
+            </form>
+        </div>
+        
+    </div>
+
+    </style>
+
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: antiquewhite;">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">AVCOL CAMP GEAR HIRE</a>
+                <a style="color: black;"  class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">AVCOL CAMP GEAR HIRE</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link" style="color: white;"  asp-area="" asp-controller="Items" asp-action="Index">Hire Items</a>
+                            <a class="nav-link" style="color: black"  asp-area="" asp-controller="Items" asp-action="Index">Hire Items</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" style="color: white;"  asp-area="" asp-controller="Orders" asp-action="Index">Orders</a>
+                            <a class="nav-link" style="color: black;"  asp-area="" asp-controller="Orders" asp-action="Index">Orders</a>
                         </li>
                         <li class="nav-item">
                            
-                            <a class="nav-link" style="color: white;" asp-area="" asp-controller="Camps" asp-action="Index"> Camps</a>
+                            <a class="nav-link" style="color: black;" asp-area="" asp-controller="Camps" asp-action="Index"> Camps</a>
                         </li>
                     </ul>
                     <div class="search-container">
