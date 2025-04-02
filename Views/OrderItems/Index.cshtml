@@ -102,7 +102,7 @@
         //if an order exists, that has more then one item and the status id equals one display the check out button.
         if (firstOrderItem.Orders.StatusId == 1 && !User.IsInRole("Admin"))
         {
-        <a style="color:teal;" asp-controller="Orders" asp-action="CheckOut" asp-route-id="@ViewBag.orderId">CheckOut</a>
+            <a style="color:teal;" asp-controller="OrderItems" asp-action="ProcessOrder" asp-route-id="@ViewBag.orderId">CheckOut</a>
         }
         else//if user order status dosent equal one display thank you for order message
         {

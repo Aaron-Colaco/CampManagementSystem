@@ -1,26 +1,41 @@
 ﻿@model IEnumerable<WebApplication4.Models.Item>
 
-    @{
+@{
     ViewData["Title"] = "Index";
-    }
-
-    <h1>Hire Gear</h1>
+}
 
 
-    @if (ViewBag.displayPopUp == true)
+@{
+
+    //display the following html content if the viewbag display PopUp equals ture
+    if (ViewBag.displaySizePicker == true)
     {
-    <div class="centeredPopUP">
-        <h1>Your Item has been added to cart</h1>
-        <p>@ViewBag.Item.Name</p> <!-- Display the Item Name from the ViewBag -->
-        <p>${{ViewBag.Item.Price}}</p> <!-- Display the Item Price from the ViewBag -->
-        <!-- Two forms with buttons: one to go back to index, the other to redirect to the open cart action -->
-        <form asp-action="Index">
-            <input type="submit" class="continue-shopping-btn active" value="Continue Shopping" />
-        </form>
+        <a style="margin-right:50%" asp-action="Index">Go back</a>
 
-        <form asp-action="OpenCart" asp-controller="OrderItems">
-            <input type="submit" value="Go to Cart" class="add-to-cart-btn" />
-        </form>
+        <div class="centeredPopUP" style="margin-top:5%">
+
+            <div style="     background-color: #e0f2f1;
+         border-radius:28px; width:39%; margin:auto; padding:1%;" class="Item">
+
+
+                <img class="ItemImgage" src=" @ViewBag.Item.ImageURL" />
+
+
+
+                <h5>  @ViewBag.Item.Name </h5>
+
+                <h5>$@ViewBag.Item.Price </h5>
+
+
+            </div>
+            <!--Display the Item Name from the View Bag-->
+            <!--Display the Item Price from the View Bag-->
+
+            <div>
+                <h1>Please Pick A size</h1>
+
+            </div>
+        </div>
 
         <style>
 
@@ -34,20 +49,27 @@
                 margin: auto;
                 padding: 20px;
                 text-align: center;
-                background-color: #f0f0f0;
-                border: 2px solid #333;
+                background-color: #e0f2f1;
+                border: 2px solid black;
                 border-radius: 10px;
                 font-size: 24px;
-                color: #333;
+                color: black;
                 box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             }
 
-            .ItemsPage {
-                opacity: 20%
+            .ItemImgage {
+                overflow: hidden;
+                height: 7vh;
+            }
+
+            body {
+                overflow: hidden;
+                margin-bottom: 0%;
+                padding-bottom: 0%;
             }
 
             .centeredPopUP input[type ="submit"] {
-                background-color: #333;
+                background-color: black;
                 color: #fff;
                 padding: 10px 20px;
                 border: none;
@@ -56,127 +78,418 @@
                 margin-top: 20px;
             }
 
-            .AddToCart, .FilterButtons {
+            .AddToCart, .FilterButtons, pagebuttons {
                 display: none;
             }
+
+            .ItemsPage {
+                opacity: 5%;
+                overflow: hidden !important;
+                height: 80vh;
+            }
+
+            body {
+                height: 100vh;
+            }
+
         </style>
 
 
-    </div>
+
+
+
+
     }
 
-
-
-    <!--While pop up is displayed blur backgorund and hide add to cart buttons-->
+}
 
 
 
-    <form asp-action="Search" asp-controller="Items">
-
-        <input style="border-width: 2px; border-style:solid; height:4vh; border-radius:2px;" name="searchTerm" type="text" placeholder="Search Item" />
-        <input value="Search" style=" background-color: #245b73; color:white;" class="btn btn-outline-primary" maxlength="50" type="submit" />
-
-    </form>
+@{
+    if (ViewBag.displayPopUp == true)
+    {
 
 
-    <form asp-action="FilterByCategroy">
-        @{
-        //For each Cateogry stored in the view bag display an input in the form with the value being the category name.
-        // When the user clicks a category the form will be sumbited to the Filter Action in the Items controller passing in the value into the method Cateogry parrameter.
+        <div style="margin-top:5%" class="centeredPopUP">
+            <h1>Your Item as been added to cart</h1>
 
-        foreach (var Category in ViewBag.Category)
+            @ViewBag.Item.Name  <!--Display the Item Name from the View Bag-->
+            @ViewBag.Item.Price <!--Display the Item Price from the View Bag-->
+            <!--two forms with buttons, one to go back to index the other to redrict to the open cart action-->
+            <form asp-action="Index">
+                <input type="submit" class="continue-shopping-btn active" value="Continue Shopping " />
+            </form>
+            <form asp-action="OpenCart" asp-controller="OrderItems">
+                <input type="submit" value="Go to Cart" class="add-to-cart-btn" />
+            </form>
+
+
+        </div>
+        <!--While pop up is displayed blur backgorund and hide add to cart buttons-->
+        <style>
+
+
+
+            .centeredPopUP {
+                z-index: 1000;
+                position: absolute;
+                top: 5%;
+                left: 20%;
+                right: 20%;
+                width: 60%;
+                margin: auto;
+                padding: 20px;
+                text-align: center;
+                background-color: #e0f2f1;
+                border: 2px solid black;
+                border-radius: 10px;
+                font-size: 24px;
+                color: black;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .ItemsPage {
+                opacity: 5%;
+                height: 75vh;
+                overflow: hidden !important;
+            }
+
+            body {
+                height: 100vh;
+                overflow: hidden
+            }
+
+            .centeredPopUP input[type ="submit"] {
+                background-color: black;
+                color: #fff;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                font-size: 18px;
+                margin-top: 20px;
+            }
+
+            .AddToCart, .FilterButtons, .pagebuttons {
+                display: none;
+            }
+
+        </style>
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--If Cart is full display cart full and hide add to cart buttons-->
+@if (ViewBag.MaxQuantiy == true)
+{
+    <h1>Your Cart Is Full</h1>
+    <style>
+        .AddToCart {
+            display: none;
+        }
+    </style>
+}
+
+
+
+
+
+<div class="ItemsPage">
+    <br />
+    <h1><b>Avcol's Range</b></></h1>
+
+    <br />
+
+    <div>
+        @if (User.IsInRole("Admin"))//If the user is admin display
         {
-            <input type="submit" class="FilterButtons" name="Category" value="@Category.Name" />
+            <a asp-action="Create">Create New</a>
         }
+
+
+
+
+        <!--Form that passes the user input to the items Controller Search method-->
+        <form asp-action="Search" asp-controller="Items">
+
+            <input style="border-width: 2px; border-style:solid; height:4vh; border-radius:2px;" name="searchTerm" type="text" placeholder="Search Item" />
+            <button type="submit" style="background: none; border: none; cursor: pointer;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="bi bi-search" viewBox="0 0 16 16">
+                    <path fill="black" d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                </svg>
+            </button>
+
+        </form>
+        <br />
+        <!--Form that passes the user input to the items Controller filter method-->
+        <form asp-action="Filter" asp-controller="Items">
+
+
+            <input style="width: 5%; border-width: 2px; border-style:solid; height:4vh; border-radius:2px;" name="minPrice" type="number" placeholder="Min" max="300" maxlength="3" min="0" />
+            <input style="width: 5%; border-width: 2px; border-style:solid; height:4vh; border-radius:2px;" name="maxPrice" type="number" placeholder="Max" max="300" maxlength="3" min="0" />
+            <button type="submit" style="background: none; border: none; cursor: pointer;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="bi bi-search" viewBox="0 0 16 16">
+                    <path fill="black" d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                </svg>
+            </button>
+        </form>
+        <br />
+        <form asp-action="FilterByCategroy">
+            @{
+                //For each Cateogry stored in the view bag display an input in the form with the value being the category name.
+                // When the user clicks a category the form will be sumbited to the Filter Action in the Items controller passing in the value into the method Cateogry parrameter.
+
+                foreach (var Category in ViewBag.Category)
+                {
+                    <input type="submit" class="FilterButtons" name="Category" value="@Category.Name" />
+                }
+            }
+        </form>
+        <!--Reaload's the home page-->
+        <form>
+
+            <input class="FilterButtons" type="submit" asp-action="Index" value="See All" />
+
+        </form>
+
+    </div>
+
+
+    <div class="ItemsBox">
+
+        @{
+            //If no product are found display no products and proivde the user a link to reload the items page.
+            if (Model.FirstOrDefault() == null)
+            {
+                <h1> Products Not Found</h1>
+                <a class="FilterButtons" asp-action="Index">See Products Here</a>
+
+                <style>
+                    .container {
+                        height: 100vh;
+                        !important;
+                    }
+                </style>
+            }
+            else
+            {
+                <style>
+                    .container {
+                        height: fit-content !important;
+                    }
+                </style>
+            }
         }
-    </form>
+
+        @foreach (var item in Model)
+        {
 
 
 
 
-
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
+            <div style="background-color:white; border-radius:28px;" class="Item">
 
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Price)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CostToProduce)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ImageURL)
-                </th>
 
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CostToProduce)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ImageURL)
-                </td>
 
-                <td>
+                <img class="ItemImgage" src="@item.ImageURL" />
+
+
+                <br />       <br />
+                <h1 style="font-size:1rem;">@Html.DisplayFor(modelItem => item.Name)</h1>
+
+                <h1> @Html.DisplayFor(modelItem => item.Price)</h1>
+
+
+
+
+                <p>  @Html.DisplayFor(modelItem => item.Categorys.Name) </p>
+
+
+                @if (!User.IsInRole("Admin"))
+                {
+
+
                     <form asp-controller="OrderItems" asp-action="AddToCart">
 
-
                         <input type="hidden" name="itemId" value="@item.ItemId" />
+
                         <input type="submit" value="Add To Cart" class="AddToCart" />
                     </form>
+                }
 
-                </td>
+                @if (User.IsInRole("Admin"))//if the user is in the admin role display this content
+                {
 
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.ItemId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.ItemId">Details</a> |
+
+
+
+
+
+                    <a asp-action="Edit" asp-route-id="@item.ItemId">Edit</a>
+
                     <a asp-action="Delete" asp-route-id="@item.ItemId">Delete</a>
-                </td>
-            </tr>
-}
-        </tbody>
-    </table>
+                }
 
+                <br /> <br />
+            </div>
 
+        }
+
+    </div>
+</div>
+
+<div>
 
     <form asp-action="Index" style="margin-left:76%; margin-top:8%; display:flex">
         @{
             // Loop through the number of pages creating a sumbit button, starting from 1 up to the value of ViewBag.Pages
             for (int i = 1; i < ViewBag.Pages; i++)
             {
-                 //Check if the current page number(i) is equal to the active page ViewBag.PageNumber
-            if (i == ViewBag.PageNUmber)
+                // Check if the current page number(i) is equal to the active page ViewBag.PageNumber
+                @if (i == ViewBag.PageNUmber)
                 {
                     // render a input submit button for the current page with value of i.
-            <input class="pagebuttons" name="Page" value="@i" type="submit" style="background-color: black; color:white; text-align:center; padding: 5px 10px; border: none; border-radius: 3px; width:50%; margin:3%; text-align:center;" />
+                    <input class="pagebuttons" name="Page" value="@i" type="submit" style="background-color: black; color:white; text-align:center; padding: 5px 10px; border: none; border-radius: 3px; width:50%; margin:3%; text-align:center;" />
 
 
                 }
                 else
                 {
-                    // Render a submit button for the pthers page with a different styling form the active page with the value of i.
-            <input name="Page" class="pagebuttons" class="AddToCart" value="@i" type="submit" style="background-color: white; color: black; padding: 5px 10px; border: none; border-radius: 3px; width:35%; margin:3%; text-align:center;" />
+                // Render a submit button for the pthers page with a different styling form the active page with the value of i.
+                    <input name="Page" class="pagebuttons" class="AddToCart" value="@i" type="submit" style="background-color: white; color: black; padding: 5px 10px; border: none; border-radius: 3px; width:35%; margin:3%; text-align:center;" />
                 }
             }
 
             //When the user clicks a submit button it will pass the vlaue(page number ) to the index method.
         }
     </form>
+
+</div>
+
+<style>
+    body {
+        background-color: #f9f9f9;
+    }
+
+    @@media only screen and (max-Width: 800px) {
+        .ItemsPage {
+            grid-template-columns: 32% 32%;
+            grid-column-gap: 3%;
+            margin-left: 1%;
+            width: 96%;
+            grid-row-gap: 0.8%;
+        }
+
+
+        .ItemsBox {
+            text-align: center;
+            padding: 10px;
+            width: 80%;
+            height: 70%;
+            margin: auto;
+        }
+
+        .Item {
+            margin-top: 2%;
+        }
+
+        ItemImgage {
+            width: 55%;
+            height: 65%
+        }
+    }
+
+    @@media only screen and (min-Width: 800px) {
+        .ItemsBox {
+            grid-template-columns: 30% 30% 30%;
+            margin-top: -32.5%;
+            margin-left: 28%;
+        }
+
+        ItemsPage {
+            display: grid;
+            grid-template-columns: 16% 75%;
+        }
+
+        .FilterButtons {
+            display: block;
+        }
+
+        .ItemsBox {
+            display: grid;
+            grid-column-gap: 3%;
+            grid-row-gap: 5%;
+        }
+
+        .ItemsBox {
+            text-align: center;
+            padding: 10px;
+            width: 80%;
+            height: 70%;
+            margin-left: 23%;
+        }
+    }
+
+
+
+
+
+
+    .ItemImgage {
+        width: 80%;
+        height: 35vh;
+        border-radius: 10px;
+        transition: all 2s;
+    }
+
+        .ItemImgage:hover {
+            transform: scale(1.2);
+        }
+
+    .FilterButtons {
+        text-decoration: none;
+        color: black;
+        font-size: 2rem;
+        border: none;
+        background: none;
+    }
+
+        .FilterButtons:hover {
+            color: teal;
+        }
+
+    .AddToCart {
+        font-size: 1rem;
+        color: #fff;
+        border: none;
+        background-color: black;
+        padding: 10px 30px;
+        border-radius: 50px;
+        transition: 1000ms;
+        align-items: center;
+        cursor: pointer;
+    }
+
+        .AddToCart:hover {
+            transition: 1000ms;
+            padding: 10px 50px;
+            color: black;
+            background-color: white;
+            border: solid 2px black;
+        }
+
+</style>
+
+
