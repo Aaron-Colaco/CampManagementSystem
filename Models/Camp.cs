@@ -12,6 +12,7 @@ namespace WebApplication4.Models
         
         public DateTime Enddate { get; set; }
 
+        [Range(0,40)]
         public int peoplelimt { get; set; }
 
         [Range(9,13)]

@@ -35,6 +35,93 @@ namespace WebApplication4.Areas.Identity.Data
                     context.SaveChanges();
                 }
 
+                var camps = new[]
+{
+    // Camps for Year 10
+    new Camp
+    {
+        Startdate = new DateTime(2025, 06, 01),
+        Enddate = new DateTime(2025, 06, 07),
+        peoplelimt = 30,
+        Year = 10,
+    },
+    new Camp
+    {
+        Startdate = new DateTime(2025, 06, 08),
+        Enddate = new DateTime(2025, 06, 14),
+        peoplelimt = 30,
+        Year = 10,
+      
+    },
+    new Camp
+    {
+        Startdate = new DateTime(2025, 06, 15),
+        Enddate = new DateTime(2025, 06, 21),
+     peoplelimt = 30,
+        Year = 10,
+      
+    },
+
+    // Camps for Year 12
+    new Camp
+    {
+        Startdate = new DateTime(2025, 07, 01),
+        Enddate = new DateTime(2025, 07, 07),
+        peoplelimt = 30,
+        Year = 12,
+      
+    },
+    new Camp
+    {
+        Startdate = new DateTime(2025, 07, 08),
+        Enddate = new DateTime(2025, 07, 14),
+ peoplelimt = 30,
+        Year = 12,
+
+    },
+    new Camp
+    {
+        Startdate = new DateTime(2025, 07, 15),
+        Enddate = new DateTime(2025, 07, 21),
+    peoplelimt = 30,
+        Year = 12,
+    
+    },
+
+    // Camps for Year 13
+    new Camp
+    {
+        Startdate = new DateTime(2025, 08, 01),
+        Enddate = new DateTime(2025, 08, 07),
+         peoplelimt = 30,
+        Year = 13,
+
+    },
+    new Camp
+    {
+        Startdate = new DateTime(2025, 08, 08),
+        Enddate = new DateTime(2025, 08, 14),
+        peoplelimt = 30,
+        Year = 13,
+      
+    },
+    new Camp
+    {
+        Startdate = new DateTime(2025, 08, 15),
+        Enddate = new DateTime(2025, 08, 21),
+       peoplelimt = 30,
+        Year = 13,
+    
+    }
+};
+
+                context.Camp.AddRange(camps);
+                context.SaveChanges();
+
+
+
+
+
                 // Add items to the database
                 if (!context.Item.Any())
                 {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,8 @@ namespace WebApplication4.Controllers
         }
 
         // GET: Camps
+
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var user = _context.Users.Where(a => a.Id == User.FindFirstValue(ClaimTypes.NameIdentifier)).First();
@@ -28,7 +31,7 @@ namespace WebApplication4.Controllers
             return View(await Camp.ToListAsync());
         }
 
-        // GET: Camps/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -55,7 +58,7 @@ namespace WebApplication4.Controllers
             return View(camp);
         }
 
-
+        [Authorize]
         public async Task<IActionResult> Book(int Id)
         {
             var user = _context.Users.Where(a => a.Id == User.FindFirstValue(ClaimTypes.NameIdentifier)).First();
@@ -74,6 +77,8 @@ namespace WebApplication4.Controllers
         }
 
         // GET: Camps/Create
+
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -84,10 +89,11 @@ namespace WebApplication4.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Startdate,Enddate,peoplelimt,Year")] Camp camp)
+        public async Task<IActionResult> Create([Bind("Id,Startdate,peoplelimt,Year")] Camp camp)
         {
             if (!ModelState.IsValid)
             {
+                camp.Enddate = camp.Startdate.AddDays(5);
                 _context.Add(camp);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
