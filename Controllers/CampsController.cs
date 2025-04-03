@@ -93,7 +93,7 @@ namespace WebApplication4.Controllers
         {
             if (!ModelState.IsValid)
             {
-                camp.Enddate = camp.Startdate.AddDays(5);
+                camp.Enddate = camp.Startdate.AddDays(4);
                 _context.Add(camp);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
