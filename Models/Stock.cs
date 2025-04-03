@@ -10,7 +10,11 @@ namespace WebApplication4.Models
 
          [ForeignKey("Item")]
         public int ItemId { get; set; }
-        
+
+        [ForeignKey("User")]
+        public string UserId { get; set; }
+
+        public User user { get; set; }
 
 
     }
