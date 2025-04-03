@@ -34,15 +34,31 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Year)
         </dd>
+
+        <form asp-action="book" asp-controller="Camps">
+
+            <input type="hidden" name="Id" value="@Model.Id" />
+
+            <input type="submit" name="name" />
+
+        </form>
+
     </dl>
+    <h3>Location</h3>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3097.193525836951!2d175.5542449!3d-39.0792894!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6d6b08b1c5feecc7%3A0xe0df05130015224e!2sTaurewa%20Camp!5e0!3m2!1sen!2snz!4v1743671285361!5m2!1sen!2snz" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+
 
     @{
         <h3>Students In Camp</h3>
         foreach (var studentsOnCamp in ViewBag.studentsOnCamp)
         {
-            <h5> @studentsOnCamp.Email </h5>
-            <p> @studentsOnCamp.FirstName </p>
-            <br />
+            <h3>@studentsOnCamp.FirstName @studentsOnCamp.LastName</h3>
+
+            if(User.IsInRole("Admin"))
+            {
+                <p>@studentsOnCamp.Email | @studentsOnCamp.StudentNumber | @studentsOnCamp.DBO </p>
+            }
 
         }
     }
