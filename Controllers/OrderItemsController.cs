@@ -90,6 +90,7 @@ namespace WebApplication4.Controllers
                     OrderId = orderId,
                     ItemId = itemId,
                     Quantity = 1,
+                    GearAssigned = false
                    
                 };
                 // add the new Orderitem details to the database
@@ -256,8 +257,8 @@ namespace WebApplication4.Controllers
             {
                 LineItems = new List<SessionLineItemOptions>(),
                 CustomerEmail = User.Identity.Name,
-                SuccessUrl = "https://localhost:7055/OrderItems/Success",
-                CancelUrl = "https://localhost:7055/OrderItems/Cancel",
+                SuccessUrl = "https://localhost:7180/OrderItems/Success",
+                CancelUrl = "https://localhost:7180/OrderItems/Cancel",
                 Mode = "payment",
                 ClientReferenceId = User.FindFirstValue(ClaimTypes.NameIdentifier),
             };

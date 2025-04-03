@@ -8,6 +8,17 @@
 
 
 @{
+    
+        <h1>
+
+
+            Gear Requested
+
+            @ViewBag.GearRequested
+        </h1>
+    
+    
+
     //if no orders are found display no order found and show link to see products.
     if (Model.FirstOrDefault() == null)
     {
@@ -148,7 +159,9 @@
 
                         <td>
                             <a asp-controller="OrderItems" asp-route-id="@item.OrderId" asp-action="Index">See Items</a>
-                        </td>
+
+
+                            <a asp-controller="Stocks" asp-route-id="@item.OrderId" asp-action="AS">As</a>
 
 
 

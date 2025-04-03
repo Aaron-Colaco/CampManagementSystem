@@ -3,46 +3,208 @@
 @{
     ViewData["Title"] = "Details";
 }
+<br />
+<h2>
+    Thank You for Your Order  @Html.DisplayFor(model => model.user.FirstName)
 
-<h1>Details</h1>
+</h2>
+
+
+<style>
+    .OrderStatus {
+        width: 85%;
+        position: relative;
+        margin: 5%;
+        margin-top: 10%;
+        margin-bottom: 10%;
+    }
+
+    .empty-bar {
+        background: #ddd;
+        position: absolute;
+        width: 90%;
+        height: 10px;
+        top: 50%;
+        margin-left: 5%;
+        border-radius: 5px;
+        z-index: 1;
+    }
+
+    .color-bar {
+        background: teal;
+        ;
+        position: absolute;
+        height: 10px;
+        top: 50%;
+        margin-left: 4%;
+    }
+
+    .OrderStatus ul {
+        display: flex;
+        justify-content: space-between;
+        list-style: none;
+        padding: 0;
+        position: relative;
+        margin-top: -20px;
+        z-index: 3;
+    }
+
+        .OrderStatus ul > li {
+            background: #ddd;
+            text-align: center;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            position: relative;
+            transition: all 0.5s;
+            z-index: 4;
+        }
+
+    .OrderStatus .txt {
+        text-align: center;
+        margin-top: 8px;
+        width: fit-content;
+        font-weight: bolder;
+        font-size: 1rem;
+    }
+
+    .OrderStatus .bullet-1 .el,
+    .OrderStatus .bullet-2 .el,
+    .OrderStatus .bullet-3 .el,
+    .OrderStatus .bullet-4 .el {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        color: white;
+        background-color: black;
+        border-radius: 50px;
+    }
+</style>
+
+
+@{
+    if (Model.StatusId == 1)
+    {
+        <style>
+            .color-bar {
+                width: 0%;
+                z-index: 2;
+            }
+        </style>
+
+    }
+    if (Model.StatusId == 2)
+    {
+        <style>
+            .color-bar {
+                width: 31%;
+                z-index: 2;
+            }
+        </style>
+    }
+    if (Model.StatusId == 3)
+    {
+        <style>
+            .color-bar {
+                width: 61%;
+                z-index: 2;
+            }
+        </style>
+    }
+    if (Model.StatusId == 4)
+
+    {
+        <style>
+            .color-bar {
+                width: 91%;
+                z-index: 2;
+            }
+        </style>
+    }
+}
+
+
+<div class="OrderStatus">
+    <div class="empty-bar"></div>
+    <div class="color-bar"></div>
+    <ul>
+        <li class="bullet-1">
+            <div class="el"><i class="bx bx-check"></i>1</div>
+            <div class="txt">Order Placed</div>
+        </li>
+        <li class="bullet-2">
+            <div class="el"><i class="bx bx-check"></i>2</div>
+            <div class="txt">Preparing Order</div>
+        </li>
+        <li class="bullet-3">
+            <div class="el"><i class="bx bx-check"></i>3</div>
+            <div class="txt">Order Ready</div>
+        </li>
+        <li class="bullet-4">
+            <div class="el"><i class="bx bx-check"></i>4</div>
+            <div class="txt">Order Collected</div>
+        </li>
+    </ul>
+</div>
+
+
+
+<br />
+<br />
+
 
 <div>
-    <h4>Order</h4>
+    <h4>Order Details</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.OrderTime)
+        <dt class="col-sm-2">
+            <h6 class="Headings">OrderTime</h6>
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.OrderTime)
+
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.HireEndDate)
+
+        <dt class="col-sm-2">
+            <h6 class="Headings">Order Price</h6>
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.HireEndDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TotalPrice)
-        </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.TotalPrice)
+
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UserId)
+        <dt class="col-sm-2">
+            <h6 class="Headings">Customer Name</h6>
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UserId)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.user.FirstName)
+
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.status)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.status.Id)
-        </dd>
+
+
+
+
+
+
+
+
+
+
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.OrderId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div style="color:teal; font-weight:bold; font-size: 1rem;">
+
+    <a asp-controller="OrderItems" asp-route-id="@Model.OrderId" asp-action="Index">See Items In Order</a>
+    <br />
+
+    <a asp-action="Index">See all Orders</a>
+
 </div>
+
+<style>
+    .Headings {
+        color: teal;
+        font-weight-bold;
+        font-size: 1rem;
+    }
+</style>

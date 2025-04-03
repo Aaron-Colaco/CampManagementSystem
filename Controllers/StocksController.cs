@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Stripe.Climate;
 using WebApplication4.Data;
 using WebApplication4.Models;
 
@@ -22,11 +23,27 @@ namespace WebApplication4.Controllers
         // GET: Stocks
         public async Task<IActionResult> Index()
         {
+            var GearRequested = _context.OrderItem.Where(a => a.GearAssigned == false);
 
+            ViewBag.GearRequested = GearRequested.Sum(a => a.Quantity);
 
             var webApplication4Context = _context.Stock.Include(s => s.user);
             return View(await webApplication4Context.ToListAsync());
         }
+        public async Task<IActionResult> AS(string id)
+        {
+            var listOrderItems =  _context.OrderItem.Include(o => o.Items).Include(o => o.Orders).Where(a => a.OrderId == id);
+
+            var StockAvliable = _context.Stock.Where(a => a.UserId == null);
+
+            return View(await listOrderItems.ToArrayAsync());
+
+
+
+
+
+        }
+
 
         // GET: Stocks/Details/5
         public async Task<IActionResult> Details(int? id)

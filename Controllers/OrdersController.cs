@@ -23,6 +23,11 @@ namespace WebApplication4.Controllers
         // GET: Orders
         public async Task<IActionResult> Index()
         {
+
+            var GearRequested = _context.OrderItem.Where(a => a.GearAssigned == false && a.Orders.StatusId != 1);
+
+            ViewBag.GearRequested = GearRequested.Sum(a => a.Quantity);
+
             var OrderData = _context.Order.Include(o => o.status).Include(a => a.user).Where(a => a.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier));
 
         
@@ -39,21 +44,26 @@ namespace WebApplication4.Controllers
         // GET: Orders/Details/5
         public async Task<IActionResult> Details(string id)
         {
-            if (id == null)
+
+            var test = _context.Order.Where(a => a.OrderId == id && a.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            if (!User.IsInRole("Admin") && test == null)
             {
-                return NotFound();
+                throw new Exception();
             }
+
+            //find order bassed on the id passed into the method
 
             var order = await _context.Order
                 .Include(o => o.status)
-                .FirstOrDefaultAsync(m => m.OrderId == id);
-            if (order == null)
-            {
-                return NotFound();
-            }
+                .Include(a => a.UserId)
 
+                .FirstOrDefaultAsync(m => m.OrderId == id);
+
+            // return order to details page
             return View(order);
         }
+
 
         // GET: Orders/Create
         public IActionResult Create()
