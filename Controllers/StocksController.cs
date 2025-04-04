@@ -47,7 +47,31 @@ namespace WebApplication4.Controllers
 
 
 
+
         }
+        public async Task<IActionResult> a2(int StockId, string OrderId)
+        {
+           var stock = _context.Stock.Where(a => a.StockId == StockId).FirstOrDefault();
+            var order = _context.Order.Where(a => a.OrderId == OrderId).FirstOrDefault();
+
+            stock.UserId = order.UserId;
+            _context.SaveChanges();
+
+            return RedirectToAction("AS",new { id = OrderId });
+        }
+
+        public async Task <IActionResult> UA(int StockId, string OrderId)
+        {
+            var stock = _context.Stock.Where(a => a.StockId == StockId).FirstOrDefault();
+
+            stock.UserId = null;
+
+            _context.SaveChanges();
+
+            return RedirectToAction("AS", new { id = OrderId });
+
+        }
+
 
 
         // GET: Stocks/Details/5

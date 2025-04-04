@@ -2,8 +2,8 @@
 
 @{
     ViewData["Title"] = "Index";
-    
 }
+
 <table class="table">
     <thead>
         <tr>
@@ -12,48 +12,63 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var OrderItem in Model)
+        @foreach (var orderItem in Model)
         {
-            
-               
-                @if(OrderItem.GearAssigned == false)
-                {
+            if (!orderItem.GearAssigned)
+            {
                 <tr>
-                <td>@OrderItem.Items.Name</td>
-                <td>
-                    <form asp-action="a2" >
-                        <label >Select Item</label>
-                        <select name="stock" id="stock-@OrderItem.ItemId" class="form-select" onchange="this.form.submit()">
-                            <option value="" disabled selected>Select an option</option> 
-                            @foreach (var stock in ViewBag.Stock)
-                            {
-                                if (stock.ItemId == OrderItem.ItemId)
+
+                    <td>@orderItem.Items.Name</td>
+                    <td>
+                        
+                        <form asp-action="a2">
+                            <input type="hidden" value="@orderItem.OrderId" name="OrderId"/>
+                            <label for="stock-@orderItem.ItemId">Select Item</label>
+                            <select name="StockId" class="form-select" onchange="this.form.submit()">
+                                <option value="" disabled selected>Select an option</option>
+                                @foreach (var stock in ViewBag.Stock)
                                 {
-                                    <option value="@stock.ItemId">
-                                        @OrderItem.Items.Name (@stock.StockId)
-                                    </option>
+                                    if (stock.ItemId == orderItem.ItemId)
+                                    {
+                                        <option value="@stock.StockId">
+                                            @orderItem.Items.Name (@stock.StockId)
+                                        </option>
+                                    }
                                 }
-                            }
-                        </select>
-                    </form>
-              
+                            </select>
+                        </form>
                     </td>
                 </tr>
-                }
+            }
         }
 
-        <tr style="background-color: lightgreen">
-          
-            <td>
-                @foreach (var UserStock in ViewBag.UserStock)
-                {
-                    <div>
-                        @UserStock.Items.Name - @UserStock.StockId
-                    </div>
-                }
-            </td>
-        </tr>
+      
+    </tbody>
+</table>
 
-             
+<table class="table">
+    <thead>
+        <tr>
+            <th colspan="2" style="background-color: lightgreen;">
+                <strong>Allocated Stock:</strong>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var userStock in ViewBag.UserStock)
+        {
+            <tr>
+                <td>
+                    @userStock.Items.Name - @userStock.StockId
+                </td>
+                <td>
+                    <form asp-action="UA">
+                        <input type="hidden" value="@Model.FirstOrDefault().OrderId" name="OrderId" />
+                        <input type="hidden" value="@userStock.StockId" name="StockId" />
+                        <input type="submit" value="Submit" class="btn btn-primary" />
+                    </form>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
