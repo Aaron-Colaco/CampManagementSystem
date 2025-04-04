@@ -392,19 +392,17 @@ namespace WebApplication4.Migrations
             modelBuilder.Entity("WebApplication4.Models.Stock", b =>
                 {
                     b.Property<int>("StockId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StockId"));
 
                     b.Property<int>("ItemId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("StockId");
+
+                    b.HasIndex("ItemId");
 
                     b.HasIndex("UserId");
 
@@ -546,11 +544,17 @@ namespace WebApplication4.Migrations
 
             modelBuilder.Entity("WebApplication4.Models.Stock", b =>
                 {
-                    b.HasOne("WebApplication4.Models.User", "user")
+                    b.HasOne("WebApplication4.Models.Item", "Items")
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("WebApplication4.Models.User", "user")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Items");
 
                     b.Navigation("user");
                 });

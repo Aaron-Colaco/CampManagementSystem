@@ -24,10 +24,13 @@ namespace WebApplication4.Controllers
         public async Task<IActionResult> Index()
         {
             var GearRequested = _context.OrderItem.Where(a => a.GearAssigned == false);
+            var StockAvliable = _context.Stock.Where(a => a.UserId == null);
+         
+            ViewBag.StockNumber = StockAvliable.Count();
 
-            ViewBag.GearRequested = GearRequested.Sum(a => a.Quantity);
+            ViewBag.GearRequestedNumber = GearRequested.Sum(a => a.Quantity);
 
-            var webApplication4Context = _context.Stock.Include(s => s.user);
+            var webApplication4Context = _context.Stock.Include(s => s.user).Include(a => a.Items);
             return View(await webApplication4Context.ToListAsync());
         }
         public async Task<IActionResult> AS(string id)
@@ -40,12 +43,15 @@ namespace WebApplication4.Controllers
 
             ViewBag.Stock = StockAvliable;
 
-            ViewBag.GearRequestedNumber = GearRequested.Sum(a => a.Quantity);
+            var userstock = _context.Stock.Where(a => a.UserId == order.UserId).Include(a => a.Items);
+
+
+            ViewBag.GearRequestedNumber = GearRequested.Sum(a => a.Quantity) - userstock.Count();
 
 
             ViewBag.StockNumber = StockAvliable.Count();
 
-            ViewBag.UserStock = _context.Stock.Where(a => a.UserId == order.UserId).Include(a => a.Items);
+            ViewBag.UserStock = userstock;
 
             return View(await listOrderItems.ToArrayAsync());
 
@@ -107,7 +113,7 @@ namespace WebApplication4.Controllers
             }
             else
             {
-                return View("Index");
+                return RedirectToAction("Index");
             }
 
         }

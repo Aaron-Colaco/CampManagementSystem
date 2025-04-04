@@ -13,7 +13,9 @@
 
     <div style="background-color: #f4f7fa; border-radius: 10px; padding: 20px; width: 200px; text-align: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease;">
         <h3 style="font-size: 18px; color: #333; margin-bottom: 10px;">Total Gear Requested</h3>
-        <p style="font-size: 24px; font-weight: bold; color: #2b7a78; margin-top: 10px;">@ViewBag.GearRequestedNumber</p>
+        <p style="font-size: 24px; font-weight: bold; color: #2b7a78; margin-top: 10px;">
+            @ViewBag.GearRequestedNumber
+            </p>
     </div>
 
     <div style="background-color: #f4f7fa; border-radius: 10px; padding: 20px; width: 200px; text-align: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease;">
@@ -23,17 +25,7 @@
 </div>
 
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ItemId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.user)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
+    
     <tbody>
         @foreach (var item in Model)
         {
@@ -44,9 +36,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.StockId)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.user.Id)
-                </td>
+              
                 <td>
                     @Html.DisplayFor(modelItem => item.user.FirstName)
                 </td>

@@ -12,8 +12,8 @@ using WebApplication4.Data;
 namespace WebApplication4.Migrations
 {
     [DbContext(typeof(WebApplication4Context))]
-    [Migration("20250403095610_Stock")]
-    partial class Stock
+    [Migration("20250404083501_models")]
+    partial class models
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -353,6 +353,9 @@ namespace WebApplication4.Migrations
                     b.Property<int>("CampId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("GearAssigned")
+                        .HasColumnType("bit");
+
                     b.Property<int>("ItemId")
                         .HasColumnType("int");
 
@@ -387,6 +390,26 @@ namespace WebApplication4.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Status");
+                });
+
+            modelBuilder.Entity("WebApplication4.Models.Stock", b =>
+                {
+                    b.Property<int>("StockId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("StockId");
+
+                    b.HasIndex("ItemId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Stock");
                 });
 
             modelBuilder.Entity("WebApplication4.Models.User", b =>
@@ -520,6 +543,23 @@ namespace WebApplication4.Migrations
                     b.Navigation("Items");
 
                     b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("WebApplication4.Models.Stock", b =>
+                {
+                    b.HasOne("WebApplication4.Models.Item", "Items")
+                        .WithMany()
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebApplication4.Models.User", "user")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Items");
+
+                    b.Navigation("user");
                 });
 
             modelBuilder.Entity("WebApplication4.Models.User", b =>

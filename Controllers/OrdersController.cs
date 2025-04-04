@@ -56,7 +56,7 @@ namespace WebApplication4.Controllers
 
             var order = await _context.Order
                 .Include(o => o.status)
-                .Include(a => a.UserId)
+                .Include(a => a.user)
 
                 .FirstOrDefaultAsync(m => m.OrderId == id);
 
