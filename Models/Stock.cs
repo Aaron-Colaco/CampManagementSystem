@@ -6,7 +6,7 @@ namespace WebApplication4.Models
     public class Stock
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+       
 
         public int StockId { get; set; }
 

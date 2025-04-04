@@ -83,6 +83,7 @@ namespace WebApplication4.Controllers
             if(itemreq.Quantity == 1)
             {
                 itemreq.GearAssigned = true;
+                _context.SaveChanges();
             }
             else 
             {
@@ -91,10 +92,11 @@ namespace WebApplication4.Controllers
                 if(itemreq.Quantity == UserItems)
                 {
                     itemreq.GearAssigned = true;
+                    _context.SaveChanges();
                 }
 
             }
-
+            
           
             return RedirectToAction("AS",new { id = OrderId });
         }
