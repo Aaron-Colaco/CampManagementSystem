@@ -100,50 +100,28 @@
 
 
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: white; margin-top:-0.1%;">
-            <div class="container-fluid">
-                <a style="color: black;" class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">AVCOL CAMP GEAR HIRE</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" style="color: black" asp-area="" asp-controller="Items" asp-action="Index">Hire Items</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" style="color: black;" asp-area="" asp-controller="Orders" asp-action="Index">Orders</a>
-                        </li>
-                        <li class="nav-item">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Your Site</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <!-- Home link to Index action in Stocks controller -->
+                    <li class="nav-item active">
+                        <a class="nav-link" asp-action="Index" asp-controller="Stocks">Stock</a>
+                    </li>
 
-                            <a class="nav-link" style="color: black;" asp-area="" asp-controller="Camps" asp-action="Index"> Camps</a>
-                        </li>
-                    </ul>
-                    <div class="search-container">
-                        <form class="search-form" asp-action="Search" asp-controller="Items">
-                            <input class="search-input" name="SearchTerm" type="text" placeholder="Search An Item" maxlength="20">
-                            <button type="submit" class="search-button">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="bi bi-search" viewBox="0 0 16 16">
-                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-                                </svg>
-                            </button>
-                        </form>
-                    </div>
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-action="OpenCart" asp-controller="OrderItems">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" class="bi bi-bag" viewBox="0 0 16 16">
-                                    <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z" />
-                                </svg>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <partial name="_LoginPartial" />
-                        </li>
-                    </ul>
-                </div>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="AS" asp-controller="Stocks">Assign stock</a>
+                    </li>
+
+           
+                </ul>
             </div>
         </nav>
+
     </header>
     <div class="container">
         <main role="main" class="pb-3">

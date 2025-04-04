@@ -36,8 +36,14 @@ namespace WebApplication4.Controllers
             var listOrderItems =  _context.OrderItem.Include(o => o.Items).Include(o => o.Orders).Where(a => a.OrderId == id);
 
             var StockAvliable = _context.Stock.Where(a => a.UserId == null);
+            var GearRequested = listOrderItems.Where(a => a.GearAssigned == false);
 
             ViewBag.Stock = StockAvliable;
+
+            ViewBag.GearRequestedNumber = GearRequested.Sum(a => a.Quantity);
+
+
+            ViewBag.StockNumber = StockAvliable.Count();
 
             ViewBag.UserStock = _context.Stock.Where(a => a.UserId == order.UserId).Include(a => a.Items);
 
@@ -57,10 +63,37 @@ namespace WebApplication4.Controllers
             stock.UserId = order.UserId;
             _context.SaveChanges();
 
+
+
+            var GearRequested = _context.OrderItem.Where(a => a.OrderId == OrderId);
+            var UserStock = _context.Stock.Where(a => a.UserId == order.UserId).Include(a => a.Items);
+
+    
+
+            var itemreq = GearRequested.Where(a => a.ItemId == stock.ItemId).FirstOrDefault();
+
+
+
+            if(itemreq.Quantity == 1)
+            {
+                itemreq.GearAssigned = true;
+            }
+            else 
+            {
+                int UserItems = UserStock.Where(a => a.StockId == StockId).Count();
+
+                if(itemreq.Quantity == UserItems)
+                {
+                    itemreq.GearAssigned = true;
+                }
+
+            }
+
+          
             return RedirectToAction("AS",new { id = OrderId });
         }
 
-        public async Task <IActionResult> UA(int StockId, string OrderId)
+        public async Task <IActionResult> UA(int StockId, string? OrderId)
         {
             var stock = _context.Stock.Where(a => a.StockId == StockId).FirstOrDefault();
 
@@ -68,7 +101,14 @@ namespace WebApplication4.Controllers
 
             _context.SaveChanges();
 
-            return RedirectToAction("AS", new { id = OrderId });
+            if (OrderId != null)
+            {
+                return RedirectToAction("AS", new { id = OrderId });
+            }
+            else
+            {
+                return View("Index");
+            }
 
         }
 

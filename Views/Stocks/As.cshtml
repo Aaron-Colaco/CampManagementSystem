@@ -3,6 +3,19 @@
 @{
     ViewData["Title"] = "Index";
 }
+<div style="display: flex; justify-content: center; align-items: center; gap: 30px; margin-top: 50px;">
+
+    <div style="background-color: #f4f7fa; border-radius: 10px; padding: 20px; width: 200px; text-align: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+        <h3 style="font-size: 18px; color: #333; margin-bottom: 10px;">Total Gear Requested</h3>
+        <p style="font-size: 24px; font-weight: bold; color: #2b7a78; margin-top: 10px;">@ViewBag.GearRequestedNumber</p>
+    </div>
+
+    <div style="background-color: #f4f7fa; border-radius: 10px; padding: 20px; width: 200px; text-align: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+        <h3 style="font-size: 18px; color: #333; margin-bottom: 10px;">Available Stock</h3>
+        <p style="font-size: 24px; font-weight: bold; color: #2b7a78; margin-top: 10px;">@ViewBag.StockNumber</p>
+    </div>
+</div>
+
 
 <table class="table">
     <thead>
@@ -65,7 +78,7 @@
                     <form asp-action="UA">
                         <input type="hidden" value="@Model.FirstOrDefault().OrderId" name="OrderId" />
                         <input type="hidden" value="@userStock.StockId" name="StockId" />
-                        <input type="submit" value="Submit" class="btn btn-primary" />
+                        <input type="submit" value="Unassign" class="btn btn-primary" style="background-color: red"/>
                     </form>
                 </td>
             </tr>

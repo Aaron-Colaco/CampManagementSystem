@@ -9,14 +9,19 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<div style="display: flex; justify-content: center; align-items: center; gap: 30px; margin-top: 50px;">
 
-<h1>
+    <div style="background-color: #f4f7fa; border-radius: 10px; padding: 20px; width: 200px; text-align: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+        <h3 style="font-size: 18px; color: #333; margin-bottom: 10px;">Total Gear Requested</h3>
+        <p style="font-size: 24px; font-weight: bold; color: #2b7a78; margin-top: 10px;">@ViewBag.GearRequestedNumber</p>
+    </div>
 
+    <div style="background-color: #f4f7fa; border-radius: 10px; padding: 20px; width: 200px; text-align: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+        <h3 style="font-size: 18px; color: #333; margin-bottom: 10px;">Available Stock</h3>
+        <p style="font-size: 24px; font-weight: bold; color: #2b7a78; margin-top: 10px;">@ViewBag.StockNumber</p>
+    </div>
+</div>
 
-    Gear Requested
-
-    @ViewBag.GearRequested
-</h1>
 <table class="table">
     <thead>
         <tr>
@@ -30,20 +35,39 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ItemId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.user.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.StockId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.StockId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.StockId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Items.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StockId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.user.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.user.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.user.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.user.StudentNumber)
+                </td>
+                <td>
+                    <form asp-action="UA">
+                        <input type="hidden" value="@item.StockId" name="StockId" />
+                        <input type="submit" value="Unassign" class="btn btn-primary" style="background-color: red" />
+                    </form>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.StockId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.StockId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.StockId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
