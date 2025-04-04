@@ -32,9 +32,14 @@ namespace WebApplication4.Controllers
         }
         public async Task<IActionResult> AS(string id)
         {
+            var order = _context.Order.Where(a => a.OrderId == id).FirstOrDefault();
             var listOrderItems =  _context.OrderItem.Include(o => o.Items).Include(o => o.Orders).Where(a => a.OrderId == id);
 
             var StockAvliable = _context.Stock.Where(a => a.UserId == null);
+
+            ViewBag.Stock = StockAvliable;
+
+            ViewBag.UserStock = _context.Stock.Where(a => a.UserId == order.UserId).Include(a => a.Items);
 
             return View(await listOrderItems.ToArrayAsync());
 
@@ -78,7 +83,7 @@ namespace WebApplication4.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("StockId,ItemId,UserId")] Stock stock)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 _context.Add(stock);
                 await _context.SaveChangesAsync();

@@ -13,6 +13,8 @@ namespace WebApplication4.Models
          [ForeignKey("Item")]
         public int ItemId { get; set; }
 
+        public Item Items { get; set; }
+
         [ForeignKey("User")]
         public string? UserId { get; set; }
 

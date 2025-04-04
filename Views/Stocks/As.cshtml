@@ -1,1 +1,59 @@
-﻿
+﻿@model IEnumerable<WebApplication4.Models.OrderItem>
+
+@{
+    ViewData["Title"] = "Index";
+    
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Item</th>
+            <th>Stock Allocation</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var OrderItem in Model)
+        {
+            
+               
+                @if(OrderItem.GearAssigned == false)
+                {
+                <tr>
+                <td>@OrderItem.Items.Name</td>
+                <td>
+                    <form asp-action="a2" >
+                        <label >Select Item</label>
+                        <select name="stock" id="stock-@OrderItem.ItemId" class="form-select" onchange="this.form.submit()">
+                            <option value="" disabled selected>Select an option</option> 
+                            @foreach (var stock in ViewBag.Stock)
+                            {
+                                if (stock.ItemId == OrderItem.ItemId)
+                                {
+                                    <option value="@stock.ItemId">
+                                        @OrderItem.Items.Name (@stock.StockId)
+                                    </option>
+                                }
+                            }
+                        </select>
+                    </form>
+              
+                    </td>
+                </tr>
+                }
+        }
+
+        <tr style="background-color: lightgreen">
+          
+            <td>
+                @foreach (var UserStock in ViewBag.UserStock)
+                {
+                    <div>
+                        @UserStock.Items.Name - @UserStock.StockId
+                    </div>
+                }
+            </td>
+        </tr>
+
+             
+    </tbody>
+</table>
