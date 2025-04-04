@@ -37,12 +37,17 @@
 
             <div class="mb-3">
                 <label for="inputYearLevel" class="form-label">Year Level</label>
-                <input asp-for="Input.YearLevel" class="form-control" id="inputYearLevel" placeholder="Year Level (0-9)" />
+                <select asp-for="Input.YearLevel" class="form-select" id="inputYearLevel">
+                    <option value="">Select Year Level</option>
+                    <option value="9">Year 9</option>
+                    <option value="10">Year 10</option>
+                    <option value="11">Year 11</option>
+                    <option value="12">Year 12</option>
+                    <option value="13">Year 13</option>
+                </select>
                 <span asp-validation-for="Input.YearLevel" class="text-danger"></span>
             </div>
 
-
-           
             
 
 
