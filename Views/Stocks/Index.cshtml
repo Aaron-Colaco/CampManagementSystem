@@ -4,11 +4,34 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
+<h1>Gear Stock</h1>
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<div class="container-fluid mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <form asp-controller="Stocks" asp-action="Index" >
+                <div class="input-group input-group-lg shadow-sm">
+                    <input type="text"
+                           name="SearchTerm"
+                           class="form-control rounded-pill border-0"
+                           placeholder="Search stocks by item name, email, or student number"
+                           aria-label="Search stocks" />
+
+                    <div class="input-group-append">
+                        <button class="btn btn-primary rounded-pill ml-2 px-4" type="submit">
+                            Search
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
 <div style="display: flex; justify-content: center; align-items: center; gap: 30px; margin-top: 50px;">
 
     <div style="background-color: #f4f7fa; border-radius: 10px; padding: 20px; width: 200px; text-align: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease;">
@@ -47,9 +70,14 @@
                     @Html.DisplayFor(modelItem => item.user.StudentNumber)
                 </td>
                 <td>
+
+                    
                     <form asp-action="UA">
                         <input type="hidden" value="@item.StockId" name="StockId" />
+                             <input type="hidden" name="SearchTerm" value="@ViewBag.SearchTerm" />
+
                         <input type="submit" value="Unassign" class="btn btn-primary" style="background-color: red" />
+                   
                     </form>
                 </td>
                 <td>

@@ -21,7 +21,7 @@ namespace WebApplication4.Controllers
         }
 
         // GET: Stocks
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? SearchTerm)
         {
             var GearRequested = _context.OrderItem.Where(a => a.GearAssigned == false);
             var StockAvliable = _context.Stock.Where(a => a.UserId == null);
@@ -30,13 +30,26 @@ namespace WebApplication4.Controllers
 
             ViewBag.GearRequestedNumber = GearRequested.Sum(a => a.Quantity);
 
-            var webApplication4Context = _context.Stock.Include(s => s.user).Include(a => a.Items).OrderBy(a => a.UserId != null);
-            return View(await webApplication4Context.ToListAsync());
+            ViewBag.SearchTerm = SearchTerm; 
+            var stock = _context.Stock.Include(s => s.user).Include(a => a.Items).OrderBy(a => a.UserId != null);
+
+            if(SearchTerm != null)
+            {
+                var results = _context.Stock.Include(a => a.Items).Include(a => a.user).Where(a => a.Items.Name.Contains(SearchTerm) || a.user.Email.Contains(SearchTerm) || a.user.StudentNumber.Contains(SearchTerm) || a.user.FirstName.Contains(SearchTerm));
+
+
+
+                return View(await results.ToListAsync());
+            }
+
+       
+
+            return View(await stock.ToListAsync());
         }
         public async Task<IActionResult> AS(string id)
         {
             var order = _context.Order.Where(a => a.OrderId == id).FirstOrDefault();
-            var listOrderItems =  _context.OrderItem.Include(o => o.Items).Include(o => o.Orders).Where(a => a.OrderId == id);
+            var listOrderItems =  _context.OrderItem.Include(o => o.Items).Include(o => o.Orders).Where(a => a.OrderId == id && a.GearAssigned == false);
 
             var StockAvliable = _context.Stock.Where(a => a.UserId == null);
             var GearRequested = listOrderItems.Where(a => a.GearAssigned == false);
@@ -87,7 +100,8 @@ namespace WebApplication4.Controllers
             }
             else 
             {
-                int UserItems = UserStock.Where(a => a.StockId == StockId).Count();
+
+                int UserItems = _context.Stock.Where(a => a.Items.ItemId == stock.ItemId).Count();
 
                 if(itemreq.Quantity == UserItems)
                 {
@@ -101,7 +115,7 @@ namespace WebApplication4.Controllers
             return RedirectToAction("AS",new { id = OrderId });
         }
 
-        public async Task <IActionResult> UA(int StockId, string? OrderId)
+        public async Task <IActionResult> UA(int StockId, string? OrderId, string? SearchTerm)
         {
             var stock = _context.Stock.Where(a => a.StockId == StockId).FirstOrDefault();
 
@@ -115,11 +129,11 @@ namespace WebApplication4.Controllers
             }
             else
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new {SearchTerm = SearchTerm });
             }
 
         }
-
+        
 
 
         // GET: Stocks/Details/5
