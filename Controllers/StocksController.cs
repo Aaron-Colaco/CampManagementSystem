@@ -101,7 +101,7 @@ namespace WebApplication4.Controllers
             else 
             {
 
-                int UserItems = _context.Stock.Where(a => a.Items.ItemId == stock.ItemId).Count();
+                int UserItems = _context.Stock.Where(a => a.Items.ItemId == stock.ItemId && a.UserId == order.UserId).Count();
 
                 if(itemreq.Quantity == UserItems)
                 {
@@ -110,8 +110,8 @@ namespace WebApplication4.Controllers
                 }
 
             }
-            
-          
+
+            @ViewBag.OrderId = order.OrderId;
             return RedirectToAction("AS",new { id = OrderId });
         }
 

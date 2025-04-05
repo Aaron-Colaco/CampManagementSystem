@@ -76,7 +76,17 @@
                 </td>
                 <td>
                     <form asp-action="UA">
-                        <input type="hidden" value="@Model.FirstOrDefault().OrderId" name="OrderId" />
+                        @if (Model != null && Model.Any())
+                        {
+                            <input type="hidden" value="@Model.First().OrderId" name="OrderId" />
+                        }
+
+                        else
+                        {
+
+                            <input type="hidden" value="@ViewBag.OrderId" name="OrderId" />
+                        }
+
                         <input type="hidden" value="@userStock.StockId" name="StockId" />
                         <input type="submit" value="Unassign" class="btn btn-primary" style="background-color: red"/>
                     </form>
