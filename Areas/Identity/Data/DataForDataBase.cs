@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder; // Ensure this namespace is included
 using Microsoft.Extensions.DependencyInjection; // Needed for service resolution
 using WebApplication4.Data;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApplication4.Areas.Identity.Data
 {
@@ -268,34 +269,12 @@ namespace WebApplication4.Areas.Identity.Data
     new Stock { ItemId = 15, StockId = 1000143, UserId = null },
     new Stock { ItemId = 15, StockId = 1000144, UserId = null },
 
-    new Stock { ItemId = 16, StockId = 1000151, UserId = null },
-    new Stock { ItemId = 16, StockId = 1000152, UserId = null },
-    new Stock { ItemId = 16, StockId = 1000153, UserId = null },
-    new Stock { ItemId = 16, StockId = 1000154, UserId = null },
-
-    new Stock { ItemId = 17, StockId = 1000161, UserId = null },
-    new Stock { ItemId = 17, StockId = 1000162, UserId = null },
-    new Stock { ItemId = 17, StockId = 1000163, UserId = null },
-    new Stock { ItemId = 17, StockId = 1000164, UserId = null },
-
-    new Stock { ItemId = 18, StockId = 1000171, UserId = null },
-    new Stock { ItemId = 18, StockId = 1000172, UserId = null },
-    new Stock { ItemId = 18, StockId = 1000173, UserId = null },
-    new Stock { ItemId = 18, StockId = 1000174, UserId = null },
-
-    new Stock { ItemId = 19, StockId = 1000181, UserId = null },
-    new Stock { ItemId = 19, StockId = 1000182, UserId = null },
-    new Stock { ItemId = 19, StockId = 1000183, UserId = null },
-    new Stock { ItemId = 19, StockId = 1000184, UserId = null },
-
-    new Stock { ItemId = 20, StockId = 1000191, UserId = null },
-    new Stock { ItemId = 20, StockId = 1000192, UserId = null },
-    new Stock { ItemId = 20, StockId = 1000193, UserId = null },
-    new Stock { ItemId = 20, StockId = 1000194, UserId = null }
+    
 };
 
-
+                   
                     context.Stock.AddRange(stockData);
+
                     context.SaveChanges();
 
 

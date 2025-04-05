@@ -392,10 +392,7 @@ namespace WebApplication4.Migrations
             modelBuilder.Entity("WebApplication4.Models.Stock", b =>
                 {
                     b.Property<int>("StockId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StockId"));
 
                     b.Property<int>("ItemId")
                         .HasColumnType("int");

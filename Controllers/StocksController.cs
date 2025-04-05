@@ -30,7 +30,7 @@ namespace WebApplication4.Controllers
 
             ViewBag.GearRequestedNumber = GearRequested.Sum(a => a.Quantity);
 
-            var webApplication4Context = _context.Stock.Include(s => s.user).Include(a => a.Items);
+            var webApplication4Context = _context.Stock.Include(s => s.user).Include(a => a.Items).OrderBy(a => a.UserId != null);
             return View(await webApplication4Context.ToListAsync());
         }
         public async Task<IActionResult> AS(string id)
@@ -144,26 +144,56 @@ namespace WebApplication4.Controllers
         // GET: Stocks/Create
         public IActionResult Create()
         {
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+            ViewData["ItemId"] = new SelectList(_context.Item, "ItemId", "Name"); 
             return View();
         }
 
-        // POST: Stocks/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StockId,ItemId,UserId")] Stock stock)
+        public async Task<IActionResult> Create([Bind("StockId,ItemId,UserId")] Stock stock, int NumberToAdd)
         {
-            if (!ModelState.IsValid)
+            var items = _context.Stock.Where(a => a.ItemId == stock.ItemId);
+
+            int stockId;
+            if (items != null)
             {
-                _context.Add(stock);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                stockId = items.Max(a => a.StockId);
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", stock.UserId);
-            return View(stock);
+            else
+            {
+              //  base for new items for exaample ItemId=1 10000, ItemId=2  20000
+                stockId = stock.ItemId * 10000;
+            }
+
+            
+                // add NumberToAdd new records
+                for (int i = 1; i <= NumberToAdd; i++)
+                {
+                    while (_context.Stock.Any(a => a.StockId == stockId))
+                    {
+                        stockId++;
+                    }
+               
+                    _context.Stock.Add(new Stock
+                    {
+
+                        
+                        StockId = stockId,
+                        ItemId = stock.ItemId,
+                        UserId = null
+                    });
+                    await _context.SaveChangesAsync();
+                stockId++;
+            }
+
+                
+                return RedirectToAction(nameof(Index));
+            
+
+
+            return RedirectToAction("Index");
         }
+
 
         // GET: Stocks/Edit/5
         public async Task<IActionResult> Edit(int? id)

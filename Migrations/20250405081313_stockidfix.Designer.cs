@@ -12,8 +12,8 @@ using WebApplication4.Data;
 namespace WebApplication4.Migrations
 {
     [DbContext(typeof(WebApplication4Context))]
-    [Migration("20250404090353_stockidentiyfix")]
-    partial class stockidentiyfix
+    [Migration("20250405081313_stockidfix")]
+    partial class stockidfix
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -395,10 +395,7 @@ namespace WebApplication4.Migrations
             modelBuilder.Entity("WebApplication4.Models.Stock", b =>
                 {
                     b.Property<int>("StockId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StockId"));
 
                     b.Property<int>("ItemId")
                         .HasColumnType("int");
