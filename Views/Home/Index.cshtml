@@ -2,14 +2,14 @@
     ViewData["Title"] = "Home Page";
 }
 
-<section class="vid" style="margin:0%; padding: 0%; z-index: 10000">
+<section class="vid" style="margin:0%; padding: 0%; z-index: 10000; width:100%">
     <div class="holder">
-        <video src="~/Images/LandingPageVideo.mp4" autoplay muted loop playsinline style="width: 120%; height: auto; object-fit: cover;"></video>
+        <video src="~/Images/LandingPageVideo.mp4" autoplay muted loop playsinline style="width: 100%; height: auto; object-fit: cover;"></video>
     </div>
 
     <div class="video-overlay">
         <div id="hero" class="hero">
-            <h1 style="font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: bold; text-transform: uppercase; margin: 0;">Great Camp Adventures</h1>
+            <h1 style="font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: bold; text-transform: uppercase; margin: 0;">Camp Adventures</h1>
             <p style="font-size: 1.2rem; margin-top: 10px; letter-spacing: 1px;">Embrace the thrill of the outdoors, adventure, and lifelong memories at Taurewa Camp.</p>
         </div>
     </div>
@@ -148,48 +148,7 @@
 
         </section>
 
-        <section style="height: 400vh; overflow: hidden;">
-            <div style="background-color: #fff; color: #000;">
-                <div class="section">
-                    <div class="section-img">
-                        <img class="section-img-inner" src="~/Images/Gearout.png" alt="">
-                    </div>
-                    <div class="section-body">
-                        <div class="section-text">
-                            <h2 class="YearText">Need Gear for your Camp</h2>
-                            <p>
-                                Don't worry! You can get quality gear from us at an affordable price.
-                            </p>
-                            <a href="#" style="display: inline-block; margin-top: 20px; padding: 10px 20px; font-size: 1rem; text-transform: uppercase; text-decoration: none; background: rgb(38, 129, 143); color: rgb(210, 200, 200); font-weight: bold; border-radius: 5px; transition: 0.3s;">Hire Now</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="section">
-                    <div class="section-img">
-                        <img class="section-img-inner" src="~/Images/bag.png" alt="">
-                    </div>
-                    <div class="section-body">
-                        <div class="section-text">
-                            <h2 class="YearText">Ready to Go</h2>
-                            <p>
-                                See you at Taurewa! For many students, going on camp is one of the highlights of their Avondale College experience. We are fortunate in being able to offer students the opportunity to attend Taurewa, our outdoor education camp situated on the edge of the World Heritage Site of the Tongariro National Park.
-                            </p>
-                            <p>
-                                At Taurewa, students participate in a variety of outdoor activities which, depending on the season, can include tramping, rafting, rock-climbing, kayaking, ropes course, skiing, and mountain biking.
-                            </p>
-                            <p>
-                                All students in Year 10 attend with their home room class, and further camps are offered to students in Years 12 and 13. The groups are accompanied by teachers and parents, and activities are led by outdoor education specialists.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
- 
-      
-
-      </section>
+    
     
     
     <style>
@@ -219,75 +178,6 @@
 
 
 
-    .section {
-      display: flex;
-      min-height: 100vh;
-      position: relative;
-      z-index: 2;
-    }
-    .section > * {
-      width: 50%;
-    }
-    .section-img {
-      position: relative;
-      display: flex;
-    }
-    .section-img-inner {
-      border-radius: 28px;
-      margin: 3%;
-      overflow: hidden;
-      height: 80vh;
-      position: fixed;
-      left: 5%;
-      width: 40%;
-      top: 0;
-      mix-blend-mode: multiply;
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: 50% 50%;
-      filter: blur(30px);
-      opacity: 0;
-      background-position: 50% 40%;
-      transition: 0.6s ease, opacity 0.6s ease, background-position 0.8s ease;
-    }
-    .section-body {
-      display: flex;
-      align-items: center;
-    }
-    .section-text {
-      position: relative;
-      z-index: 1;
-      padding: 5vw;
-
-    }
-    .section.active .section-img-inner {
-      opacity: 1;
-      background-position: 50% 50%;
-      filter: blur(0);
-    }
-    h2 {
-      font-size: 3vw;
-      margin-bottom: 0.5em;
-      margin-top:</style>
-       <script>
-    window.addEventListener('scroll', function() {
-      var windowHeight = window.innerHeight;
-      var sections = document.querySelectorAll('.section');
-      for (var i = 0; i < sections.length; i++) {
-        var section = sections[i];
-        var sectionTop = section.offsetTop;
-        var sectionBottom = sectionTop + section.offsetHeight;
-        if (window.scrollY >= sectionTop - windowHeight / 3 && window.scrollY <= sectionBottom) {
-          document.body.className = document.body.className.replace(/\bcolor-\d+\b/g, '');
-          var allSections = document.querySelectorAll('.section');
-          for (var j = 0; j < allSections.length; j++) {
-            allSections[j].classList.remove('active');
-          }
-          section.classList.add('active');
-        }
-      }
-    });
-  </script>
 
 
 
@@ -296,62 +186,8 @@
 
 
 
+   
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    </section>
-    <section style="margin-top:-5%; z-index:1000; height:120vh; width: 100%; background-color: #ffffff; position: relative;">
-        <section class="reviews-section">
-            <h2  class="YearText" style="margin:auto; margin-left:25%;">What Our Students Say</h2>
-            <p>Hear from students who have experienced the adventure of Taurewa.</p>
-            <div class="reviews-container">
-                <div class="review-card">
-                    <p>"Taurewa was the highlight of my year! I gained confidence, new friends, and unforgettable memories."</p>
-                    <div class="customer-name">— bob Year 10 Student</div>
-                </div>
-                <div class="review-card">
-                    <p>"An amazing experience that pushed me out of my comfort zone and helped me grow as a person."</p>
-                    <div class="customer-name">— bob, Year 12 Student</div>
-                </div>
-                <div class="review-card">
-                    <p>"I will never forget the fun times at Taurewa—skiing, rafting, and the night hikes were incredible!"</p>
-                    <div class="customer-name">— bob, Year 13 Student</div>
-                </div>
-            </div>
-        </section>
-        <div class="contact-container">
-            <h2 class="YearText" style="margin: auto;">Contact Us</h2>
-            <form>
-                <input name="subject" value="Taurewa Inquiry" type="hidden" />
-                <div style="margin-bottom: 20px;">
-                    <label for="email">Enter your email:</label>
-                    <input type="email" id="email" name="email" placeholder="example@domain.com">
-                </div>
-                <div style="margin-bottom: 20px;">
-                    <label for="question">Enter your question:</label>
-                    <textarea id="question" name="htmlForBody" rows="4" placeholder="Write your question here..."></textarea>
-                </div>
-                <div style="text-align: center;">
-                    <button type="submit">Send</button>
-                </div>
-            </form>
-        </div>
-    </section>
 
     <style>
         #boxs {

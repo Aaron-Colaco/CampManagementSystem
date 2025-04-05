@@ -55,6 +55,7 @@ namespace WebApplication4.Controllers
             var GearRequested = listOrderItems.Where(a => a.GearAssigned == false);
 
             ViewBag.Stock = StockAvliable;
+            ViewBag.OrderId = id;
 
             var userstock = _context.Stock.Where(a => a.UserId == order.UserId).Include(a => a.Items);
 
@@ -118,7 +119,11 @@ namespace WebApplication4.Controllers
         public async Task <IActionResult> UA(int StockId, string? OrderId, string? SearchTerm)
         {
             var stock = _context.Stock.Where(a => a.StockId == StockId).FirstOrDefault();
+            var GearRequested = _context.OrderItem.Where(a => a.OrderId == OrderId);
 
+
+            var Gear = GearRequested.Where(a => a.ItemId == stock.ItemId).FirstOrDefault();
+            Gear.GearAssigned = false;
             stock.UserId = null;
 
             _context.SaveChanges();

@@ -71,6 +71,7 @@
                 </td>
                 <td>
 
+                    @if (item.user != null ){
                     
                     <form asp-action="UA">
                         <input type="hidden" value="@item.StockId" name="StockId" />
@@ -79,6 +80,7 @@
                         <input type="submit" value="Unassign" class="btn btn-primary" style="background-color: red" />
                    
                     </form>
+                    }
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.StockId">Edit</a> |
