@@ -220,8 +220,8 @@ namespace WebApplication4.Controllers
             await _context.SaveChangesAsync();
 
             //Create a Message for the email body, and pass that message to the Homecotntroller send email mehtod. along with passing the Cusotmer email and a subject. 
-            string EmailBody = "<h1>Dear " + userOrder.user.FirstName + ",</h1><p>Thank you for your order. We will work on processing your order as soon as we can. you wil recvice an email when it is ready to be collected</p><p>Your total cost was $" + userOrder.TotalPrice.ToString() + ".</p>";
-            HomeController.SendEmailToCustomer(userOrder.user.Email, EmailBody, "Thanks " + userOrder.user.FirstName);
+           // string EmailBody = "<h1>Dear " + userOrder.user.FirstName + ",</h1><p>Thank you for your order. We will work on processing your order as soon as we can. you wil recvice an email when it is ready to be collected</p><p>Your total cost was $" + userOrder.TotalPrice.ToString() + ".</p>";
+          //  HomeController.SendEmailToCustomer(userOrder.user.Email, EmailBody, "Thanks " + userOrder.user.FirstName);
 
             //Return action to the Order Controller index method.
             return RedirectToAction("Details", "Orders", new { id = orderId });

@@ -87,11 +87,33 @@
                             <input type="hidden" value="@ViewBag.OrderId" name="OrderId" />
                         }
 
+                        @if(ViewBag.OrderStatus != 4){
+
                         <input type="hidden" value="@userStock.StockId" name="StockId" />
                         <input type="submit" value="Unassign" class="btn btn-primary" style="background-color: red"/>
+                        }
                     </form>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+                    <form asp-action="Confirm">
+                        @if (Model != null && Model.Any())
+                        {
+                            <input type="hidden" value="@Model.First().OrderId" name="OrderId" />
+                        }
+
+                        else
+                        {
+
+                            <input type="hidden" value="@ViewBag.OrderId" name="OrderId" />
+                        }
+
+    @if (Model == null || !Model.Any())
+    {
+        <input type="submit" value="Confirm and Notify User Their Order is Ready" class="btn btn-primary" style="background-color: dodgerblue" />
+    }
+
+                        </form>

@@ -6,201 +6,81 @@
 
 <h1>Orders Page</h1>
 
-
-@{
-    
-        <h1>
-
-
-            Gear Requested
-
-            @ViewBag.GearRequested
-        </h1>
-    
-    
-
-    //if no orders are found display no order found and show link to see products.
-    if (Model.FirstOrDefault() == null)
-    {
-        <div style="margin: auto;">
-            <h1> No Orders Found</h1>
-            <p>Click Add to Cart To Create an Order.</p>
-            <a asp-asp-controller="Items" asp-action="Index">See Products Here</a>
-        </div>
-    }
-
-    else
-    {
-
-        //if user is a admin display the option to serach
-        @if (User.IsInRole("Admin"))
-        {
-            //Submits input of the form to the serach method.
-            <form asp-action="SearchByCustomer" asp-controller="Orders">
-
-
-                <h3 style="color: teal">Search Customer by name or email</h3>
-                <input maxlength="50" name="CustomerName" type="text" placeholder="Search Customer by name or email" />
-
-                <input type="submit" class="btn btn-primary" />
-            </form>
-
-
-            <form asp-controller="Orders" asp-action="FilterOrdersByDate">
-
-                <h3 style="color: teal">Select Two Dates To See Orders In That Range</h3>
-                @{
-                    // Calculates the minimum date for the form to be one year prior to today
-                    DateTime min = DateTime.Today.AddMonths(-12);
-
-                    // Sets the maximum date for the form to be the current date and time
-                    DateTime max = DateTime.Now;
-                }
-
-
-                <label for="Date 1">Date 1 </label>
-                <!-- Date input field with required attribute, min and max dates calculated above, and placeholder -->
-                <input required type="datetime-local" min="@min.ToString("yyyy-MM-dd")T00:00" max="@max.ToString("yyyy-MM-ddTHH:mm")" id="Date1" name="Date1" placeholder="00/00/0000" />
-
-
-
-                <label for="Date2">Date 2</label>
-                <!-- Date input field with required attribute, min and max dates calculated above, and placeholder -->
-                <input required type="datetime-local" min="@min.ToString("yyyy-MM-dd")T00:00" max="@max.ToString("yyyy-MM-ddTHH:mm")" id="Date2" name="Date2" placeholder="00/00/0000" />
-
-
-                <input type="submit" />
-            </form>
-        }
-
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        <!-- Display a tag to sort -->
-                        <a style="color:teal" asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">@Html.DisplayNameFor(model => model.OrderTime)</a>
-                    </th>
-                    <th>
-                        Total Price
-                    </th>
-                    <th>
-                        Status
-                    </th>
-
-
-
-
-
-                    <th></th>
-                </tr>
-            </thead>
-
-
-
-            <tbody>
-                @foreach (var item in Model)
+@if (!Model.Any())
+{
+    <div style="margin: auto;">
+        <h1>No Orders Found</h1>
+        <p>Click Add to Cart To Create an Order.</p>
+        <a asp-controller="Items" asp-action="Index">See Products Here</a>
+    </div>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <a style="color:teal" asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">
+                        @Html.DisplayNameFor(model => model.OrderTime)
+                    </a>
+                </th>
+                <th>Total Price</th>
+                <th>Status</th>
+                @if (User.IsInRole("Admin"))
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.OrderTime)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TotalPrice)
-                        </td>
+                    <th>User Email</th>
+                }
+                <th>Actions</th>
+            </tr>
+        </thead>
 
-
-                        @if (item.StatusId != 1 && !User.IsInRole("Admin"))
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.OrderTime)</td>
+                    <td>@Html.DisplayFor(modelItem => item.TotalPrice)</td>
+                    <td>
+                        @if (!User.IsInRole("Admin"))
                         {
-                            <td>
-                                Thank you, Your Order is now @Html.DisplayFor(modelItem => item.status.Name)
-                            </td>
-                        }
-                        else if (item.StatusId == 1 && !User.IsInRole("Admin"))
-                        {
-                            <td>  Waiting to be Checked out</td>
-                        }
-                        else if (item.StatusId != 1 && User.IsInRole("Admin"))
-                        {
-                            <td>
-                                @item.status.Name
-                            </td>
-                        }
-
-                        <td>
-                            @if (User.IsInRole("Admin"))
+                            if (item.StatusId != 1)
                             {
-                            <td>
-                                    @Html.DisplayFor(modelItem => item.user.Email)
-                            </td>
-                            <td>
-                                <a asp-action="StatusUpdate" asp-route-id="@item.OrderId">Update</a>
-                            </td>
-                            }
-
-
-                            @if (item.status.Id == 1)
-                            {
-                            <td>
-
-                                <a asp-action="Delete" asp-route-id="@item.OrderId">Delete</a>
-
-                            </td>
+                                <text>Thank you, Your Order is now @item.status.Name</text>
                             }
                             else
                             {
-
-
-                            <td>
-                                <a asp-controller="OrderItems" asp-route-id="@item.OrderId" asp-action="Index">See Items</a>
-                                <a asp-action="Details" asp-route-id="@item.OrderId">Details</a>
-                            </td>
+                                <text>Waiting to be Checked out</text>
                             }
+                        }
+                        else
+                        {
+                            <text>@item.status.Name</text>
+                        }
+                    </td>
 
-                        <td>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <td>@item.user.Email</td>
+                    }
+
+                    <td>
+                        @if (User.IsInRole("Admin") && item.StatusId != 1)
+                        {
+                            <a class="btn btn-primary" style="background-color: red" asp-controller="Stocks" asp-route-id="@item.OrderId" asp-action="AS">Assign Stock To User</a>
+                        }
+
+                        @if (item.status.Id == 1)
+                        {
+                            <a asp-action="Delete" asp-route-id="@item.OrderId">Delete</a>
+                        }
+                        else
+                        {
                             <a asp-controller="OrderItems" asp-route-id="@item.OrderId" asp-action="Index">See Items</a>
-
-
-
-                            <a class="btn btn-primary" style="background-color: red" asp-controller="Stocks" asp-route-id="@item.OrderId" asp-action="AS">As</a>
-
-
-
-
-
-                    </tr>
-                }
-
-
-            </tbody>
-
-
-
-        </table>
-
-
-        <form asp-action="Index" style="margin-left:90%; margin-top:3%;">
-            @{
-                // Loop through the number of pages creating a sumbit button, starting from 1 up to the value of ViewBag.Pages
-                for (int i = 1; i < ViewBag.Pages; i++)
-                {
-                    // Check if the current page number(i) is equal to the active page ViewBag.PageNumber
-                    @if (i == ViewBag.PageNUmber)
-                    {
-                        // render a input submit button for the current page with value of i.
-                        <input name="Page" value="@i" type="submit" style="background-color: black; color:white; text-align:center; padding: 5px 10px; border: none; border-radius: 3px; width:50%; margin:3%; text-align:center;" />
-
-
-                    }
-                    else
-                    {
-                        // Render a submit button for the pthers page with a different styling form the active page with the value of i.
-                        <input name="Page" value="@i" type="submit" style="background-color: teal; color:white; padding: 5px 10px; border: none; border-radius: 3px; width:35%; margin:3%; text-align:center;" />
-                    }
-                }
-
-                //When the user clicks a submit button it will pass the vlaue(page number ) to the index method.
+                            <a asp-action="Details" asp-route-id="@item.OrderId">Details</a>
+                        }
+                    </td>
+                </tr>
             }
-        </form>
-    }
+        </tbody>
+    </table>
 }

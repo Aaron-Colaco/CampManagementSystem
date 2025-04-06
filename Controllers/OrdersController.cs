@@ -28,16 +28,26 @@ namespace WebApplication4.Controllers
 
             ViewBag.GearRequested = GearRequested.Sum(a => a.Quantity);
 
-            var OrderData = _context.Order.Include(o => o.status).Include(a => a.user).Where(a => a.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier));
 
-        
+
+            var OrderData = from a in _context.Order
+                            select a;
+
+
+
             //If user is a admin return all orders where th status id is not one and inlcude the related customers.
             if (User.IsInRole("Admin"))
             {
                 OrderData = OrderData.Where(a => a.StatusId != 1).Include(o => o.status).Include(a => a.user);
 
             }
-          
+            else // if user is not admin only display their order, by using thier id to find only orders that belong to them(the logged in user).
+            {
+                OrderData = OrderData.Include(o => o.status).Include(a => a.user).Where(a => a.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            }
+
+
             return View(await OrderData.ToListAsync());
         }
 

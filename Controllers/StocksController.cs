@@ -67,11 +67,22 @@ namespace WebApplication4.Controllers
 
             ViewBag.UserStock = userstock;
 
+            ViewBag.OrderStatus = order.StatusId;
+
             return View(await listOrderItems.ToArrayAsync());
 
 
 
 
+
+
+        }
+        public async Task<IActionResult> Confirm(string OrderId)
+        {
+            var order = _context.Order.Where(a => a.OrderId == OrderId).FirstOrDefault();
+            order.StatusId = 4;
+            _context.SaveChangesAsync();
+            return RedirectToAction("Index", "Orders");
 
 
         }
@@ -123,17 +134,26 @@ namespace WebApplication4.Controllers
 
 
             var Gear = GearRequested.Where(a => a.ItemId == stock.ItemId).FirstOrDefault();
-            Gear.GearAssigned = false;
-            stock.UserId = null;
+
 
             _context.SaveChanges();
 
             if (OrderId != null)
             {
+
+                Gear.GearAssigned = false;
+                stock.UserId = null;
+                _context.SaveChanges();
+
                 return RedirectToAction("AS", new { id = OrderId });
             }
             else
             {
+
+                stock.UserId = null;
+                _context.SaveChanges();
+
+
                 return RedirectToAction("Index", new {SearchTerm = SearchTerm });
             }
 
