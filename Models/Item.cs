@@ -19,7 +19,6 @@ namespace WebApplication4.Models
 
         //Sets the range to (1 to 500) and also sets the data type of the price feild to currency
         [Required, DataType(DataType.Currency), Range(1, 500)]
-        public decimal CostToProduce { get; set; }
         //Sets the max lenght to 100 characters for this feild.
         [MaxLength(1000)]
         public string ImageURL { get; set; }

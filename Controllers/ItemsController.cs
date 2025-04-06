@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebApplication4.Data;
 using WebApplication4.Models;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace WebApplication4.Controllers
 {
@@ -115,6 +116,7 @@ namespace WebApplication4.Controllers
         // GET: Items/Create
         public IActionResult Create()
         {
+            ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "CategoryId", "Name");
             return View();
         }
 
@@ -123,17 +125,41 @@ namespace WebApplication4.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ItemId,Name,Price,CostToProduce,ImageURL,Description")] Item item)
+        [HttpPost]
+     
+        public async Task<IActionResult> Create([Bind("ItemId,Name,Price,CostToProduce,Description,CategoryId")] Item item, IFormFile Image)
         {
-            if (ModelState.IsValid)
+            item.ImageURL = "null";
+            // Process the image if one was uploaded.
+            if (Image != null && Image.Length > 0)
+            {
+                var fileName = Path.GetFileName(Image.FileName);
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
+
+                // Ensure wwwroot/images exists.
+                Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await Image.CopyToAsync(stream);
+                }
+                item.ImageURL = "/images/" + fileName;  // Use forward slash for URLs.
+
+            }
+
+
+            if (!ModelState.IsValid)
             {
                 _context.Add(item);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(item);
         }
 
+
+        // GET: Items/Edit/5
         // GET: Items/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -147,31 +173,51 @@ namespace WebApplication4.Controllers
             {
                 return NotFound();
             }
+
+            ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "CategoryId", "Name", item.CategoryId);
             return View(item);
         }
 
         // POST: Items/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ItemId,Name,Price,CostToProduce,ImageURL,Description")] Item item)
+        public async Task<IActionResult> Edit(int id, [Bind("ItemId,Name,Price,CostToProduce,ImageURL,Description,CategoryId")] Item item, IFormFile Image)
         {
             if (id != item.ItemId)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            item.ImageURL = "null";
+            // Process the image if one was uploaded.
+            if (Image != null && Image.Length > 0)
+            {
+                var fileName = Path.GetFileName(Image.FileName);
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
+
+                // Ensure wwwroot/images exists.
+                Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await Image.CopyToAsync(stream);
+                }
+                item.ImageURL = "/images/" + fileName;  // Use forward slash for URLs.
+
+                _context.SaveChangesAsync();
+            }
+
+            if (!ModelState.IsValid)
             {
                 try
                 {
                     _context.Update(item);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ItemExists(item.ItemId))
+                    if (!_context.Item.Any(e => e.ItemId == item.ItemId))
                     {
                         return NotFound();
                     }
@@ -180,10 +226,13 @@ namespace WebApplication4.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
             }
+
+           
+            ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "CategoryId", "Name", item.CategoryId);
             return View(item);
         }
+
 
         // GET: Items/Delete/5
         public async Task<IActionResult> Delete(int? id)
