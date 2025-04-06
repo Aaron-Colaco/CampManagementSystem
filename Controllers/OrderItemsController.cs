@@ -112,7 +112,7 @@ namespace WebApplication4.Controllers
             await _context.SaveChangesAsync();
 
             //Redirect to the items index action passing true for the display pop up parameter and ItemId for the item parrameter.
-            return RedirectToAction("Index", "Items", new { displayPopUp = true, item = itemId });
+            return RedirectToAction("Index", "Items", new { displayPopUp = true, itemId = itemId });
         }
 
 
