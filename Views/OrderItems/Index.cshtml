@@ -1,123 +1,82 @@
 ﻿@model IEnumerable<WebApplication4.Models.OrderItem>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "My Cart";
     double orderCost = 0;
 }
 
-<h1>My Cart </h1>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">My Cart</h1>
 
-
-@{
-    //if the cart is full display message
-    if (ViewBag.cartFull == true)
+    @if (ViewBag.cartFull == true)
     {
-        <h1>Your cart is Full Please Checkout or Remove Items</h1>
-    }
-}
-
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Item
-            </th>
-            <th>
-               Quantity
-            </th>
-            <th>
-                Size
-            </th>
-          
-            <th>
-               Price
-            </th>
-            <th>
-               Total Price
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-
-        @foreach (var OrderItem in Model)
-        {
-        <tr>
-             <td>
-              @OrderItem.Items.Name
-             </td>
-            <td>
-              @OrderItem.Quantity
-            </td>
-                
-
-
-                <td>
-             @OrderItem.Items.Price
-            </td>
-                <td>
-                    @{
-                        //calculate the line item price for the order, displays it and also updates the order cost variable with the total order cost.
-                        double costOfItem = OrderItem.Items.Price * OrderItem.Quantity;
-                        orderCost = orderCost + costOfItem;                                              
-                    }                                      
-                    
-                    <h3> $@costOfItem </h3>
-
-                    @{
-                        //if the order has not yet been paid for give the user the opition to delete it.
-                        if (OrderItem.Orders.StatusId == 1)
-                        {
-                            <form asp-action="Delete" style="margin-top:-13%; margin-left:40%">
-
-                                <input type="hidden" name="itemId" value="@OrderItem.ItemId"/>
-                                <b>  &nbsp;<input type="submit" value="X" /> </b>
-
-                            </form>
-                        }
-                    }
-
-                </td>
-                
-
-        </tr>
-        }
-        
-    </tbody>
-</table>
-
-
-<!--Display the Order Cost-->
-<h3>Order Cost @orderCost</h3>
-
-@{
-
-    var firstOrderItem = Model.FirstOrDefault();
-
-    //check if the user as any order by checking if any items exist.
-    if (firstOrderItem != null)
-    {
-
-        //if an order exists, that has more then one item and the status id equals one display the check out button.
-        if (firstOrderItem.Orders.StatusId == 1 && !User.IsInRole("Admin"))
-        {
-            <a style="color:teal;" asp-controller="OrderItems" asp-action="ProcessOrder" asp-route-id="@ViewBag.orderId">CheckOut</a>
-        }
-        else//if user order status dosent equal one display thank you for order message
-        {
-        <h3>
-            Thank You for Your Order
-        </h3>
-        }
-
-    }
-    else // if user has no items in thier order.
-    {
-        <h3>You have no items in your order</h3>
+        <div class="alert alert-warning text-center fw-bold">
+            Your cart is full. Please checkout or remove items.
+        </div>
     }
 
+    <div class="table-responsive">
+        <table class="table align-middle table-borderless shadow-sm">
+            <thead class="border-bottom border-2">
+                <tr class="text-muted small text-uppercase">
+                    <th>Item</th>
+                    <th class="text-center">Quantity</th>
+                    <th class="text-end">Price</th>
+                    <th class="text-end">Total</th>
+                    <th class="text-center">Remove</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var OrderItem in Model)
+                {
+                    double itemCost = OrderItem.Items.Price * OrderItem.Quantity;
+                    orderCost += itemCost;
 
+                    <tr class="border-bottom">
+                        <td class="fw-semibold">@OrderItem.Items.Name</td>
+                        <td class="text-center">@OrderItem.Quantity</td>
+                        <td class="text-end text-muted">$@OrderItem.Items.Price.ToString("F2")</td>
+                        <td class="text-end fw-bold text-success">$@itemCost.ToString("F2")</td>
+                        <td class="text-center">
+                            @if (OrderItem.Orders.StatusId == 1)
+                            {
+                                <form asp-action="Delete" method="post" class="d-inline">
+                                    <input type="hidden" name="itemId" value="@OrderItem.ItemId" />
+                                    <button type="submit" class="btn btn-sm btn-outline-danger" title="Remove item">
+                                        <i class="bi bi-x-lg"></i>
+                                    </button>
+                                </form>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 
-}
+    <div class="text-end mt-3">
+        <h4>Total Cost: <span class="text-primary fw-bold">$@orderCost.ToString("F2")</span></h4>
+    </div>
 
+    <div class="text-center mt-4">
+        @{
+            var firstOrderItem = Model.FirstOrDefault();
+
+            if (firstOrderItem != null)
+            {
+                if (firstOrderItem.Orders.StatusId == 1 && !User.IsInRole("Admin"))
+                {
+                    <a class="btn btn-lg btn-success px-5" asp-controller="OrderItems" asp-action="ProcessOrder" asp-route-id="@ViewBag.orderId">Checkout</a>
+                }
+                else
+                {
+                    <div class="alert alert-success fw-bold">Thank you for your order!</div>
+                }
+            }
+            else
+            {
+                <div class="alert alert-info">You have no items in your order.</div>
+            }
+        }
+    </div>
+</div>

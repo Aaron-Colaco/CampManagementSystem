@@ -54,13 +54,15 @@ namespace WebApplication4.Controllers
             var StockAvliable = _context.Stock.Where(a => a.UserId == null);
             var GearRequested = listOrderItems.Where(a => a.GearAssigned == false);
 
+            order.StatusId = 3;
+
             ViewBag.Stock = StockAvliable;
             ViewBag.OrderId = id;
 
             var userstock = _context.Stock.Where(a => a.UserId == order.UserId).Include(a => a.Items);
 
 
-            ViewBag.GearRequestedNumber = GearRequested.Sum(a => a.Quantity) - userstock.Count();
+            ViewBag.GearRequestedNumber = he order (GearRequested.Sum(a => a.Quantity) - userstock.Count());
 
 
             ViewBag.StockNumber = StockAvliable.Count();
