@@ -1,26 +1,26 @@
 ﻿@model IEnumerable<WebApplication4.Models.Order>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Orders";
 }
 
-<h1>Orders Page</h1>
+<h1 class="text-center mb-4">Orders</h1>
 
 @if (!Model.Any())
 {
-    <div style="margin: auto;">
-        <h1>No Orders Found</h1>
-        <p>Click Add to Cart To Create an Order.</p>
-        <a asp-controller="Items" asp-action="Index">See Products Here</a>
+    <div class="alert alert-info text-center">
+        <h2>No Orders Found</h2>
+        <p>Click Add to Cart to create an order.</p>
+        <a class="btn btn-primary" asp-controller="Items" asp-action="Index">See Products Here</a>
     </div>
 }
 else
 {
-    <table class="table">
-        <thead>
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
             <tr>
                 <th>
-                    <a style="color:teal" asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">
+                    <a class="text-teal" asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">
                         @Html.DisplayNameFor(model => model.OrderTime)
                     </a>
                 </th>
@@ -45,16 +45,16 @@ else
                         {
                             if (item.StatusId != 1)
                             {
-                                <text>Thank you, Your Order is now @item.status.Name</text>
+                                <span class="badge bg-success">Your Order is now @item.status.Name</span>
                             }
                             else
                             {
-                                <text>Waiting to be Checked out</text>
+                                <span class="badge bg-warning">Waiting to be Checked out</span>
                             }
                         }
                         else
                         {
-                            <text>@item.status.Name</text>
+                            <span class="badge bg-info">@item.status.Name</span>
                         }
                     </td>
 
@@ -66,17 +66,17 @@ else
                     <td>
                         @if (User.IsInRole("Admin") && item.StatusId != 1)
                         {
-                            <a class="btn btn-primary" style="background-color: red" asp-controller="Stocks" asp-route-id="@item.OrderId" asp-action="AS">Assign Stock To User</a>
+                            <a class="btn btn-danger btn-sm" asp-controller="Stocks" asp-route-id="@item.OrderId" asp-action="AS">Assign Stock</a>
                         }
 
                         @if (item.status.Id == 1)
                         {
-                            <a asp-action="Delete" asp-route-id="@item.OrderId">Delete</a>
+                            <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.OrderId">Delete</a>
                         }
                         else
                         {
-                            <a asp-controller="OrderItems" asp-route-id="@item.OrderId" asp-action="Index">See Items</a>
-                            <a asp-action="Details" asp-route-id="@item.OrderId">Details</a>
+                            <a class="btn btn-info btn-sm" asp-controller="OrderItems" asp-route-id="@item.OrderId" asp-action="Index">See Items</a>
+                            <a class="btn btn-secondary btn-sm" asp-action="Details" asp-route-id="@item.OrderId">Details</a>
                         }
                     </td>
                 </tr>
