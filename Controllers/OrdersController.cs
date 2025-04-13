@@ -21,7 +21,7 @@ namespace WebApplication4.Controllers
         }
 
         // GET: Orders
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? SearchTerm, int Status)
         {
 
             var GearRequested = _context.OrderItem.Where(a => a.GearAssigned == false && a.Orders.StatusId != 1);
@@ -39,6 +39,15 @@ namespace WebApplication4.Controllers
             if (User.IsInRole("Admin"))
             {
                 OrderData = OrderData.Where(a => a.StatusId != 1).Include(o => o.status).Include(a => a.user);
+
+                if(SearchTerm != null)
+                {
+                   OrderData = OrderData.Where(a => a.user.FirstName.Contains(SearchTerm) || a.user.StudentNumber == SearchTerm || a.user.Email.Contains(SearchTerm));
+                }
+                if (Status != 0)
+                {
+                  OrderData =  OrderData.Where(a => a.StatusId == Status);
+                }
 
             }
             else // if user is not admin only display their order, by using thier id to find only orders that belong to them(the logged in user).
