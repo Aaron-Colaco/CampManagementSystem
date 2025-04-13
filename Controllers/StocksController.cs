@@ -28,14 +28,14 @@ namespace WebApplication4.Controllers
          
             ViewBag.StockNumber = StockAvliable.Count();
 
-            ViewBag.GearRequestedNumber = GearRequested.Sum(a => a.Quantity);
+            ViewBag.GearHire = _context.Stock.Count(a => a.UserId != null);
 
             ViewBag.SearchTerm = SearchTerm; 
             var stock = _context.Stock.Include(s => s.user).Include(a => a.Items).OrderBy(a => a.UserId != null);
 
             if(SearchTerm != null)
             {
-                var results = _context.Stock.Include(a => a.Items).Include(a => a.user).Where(a => a.Items.Name.Contains(SearchTerm) || a.user.Email.Contains(SearchTerm) || a.user.StudentNumber.Contains(SearchTerm) || a.user.FirstName.Contains(SearchTerm));
+                var results = _context.Stock.Include(a => a.Items).Include(a => a.user).Where(a => a.Items.Name.Contains(SearchTerm) ||a.UserId.Contains(SearchTerm) || a.user.Email.Contains(SearchTerm) || a.user.StudentNumber.Contains(SearchTerm) || a.user.FirstName.Contains(SearchTerm));
 
 
 
@@ -54,15 +54,18 @@ namespace WebApplication4.Controllers
             var StockAvliable = _context.Stock.Where(a => a.UserId == null);
             var GearRequested = listOrderItems.Where(a => a.GearAssigned == false);
 
-            order.StatusId = 3;
+      
 
             ViewBag.Stock = StockAvliable;
             ViewBag.OrderId = id;
 
+            ViewBag.Status = order.StatusId;
+
+            ViewBag.UserSID = order.UserId;
             var userstock = _context.Stock.Where(a => a.UserId == order.UserId).Include(a => a.Items);
 
 
-            ViewBag.GearRequestedNumber = he order (GearRequested.Sum(a => a.Quantity) - userstock.Count());
+            ViewBag.GearRequestedNumber = _context.OrderItem.Where(a => a.OrderId == id).Sum(a => a.Quantity);
 
 
             ViewBag.StockNumber = StockAvliable.Count();
@@ -125,7 +128,7 @@ namespace WebApplication4.Controllers
 
             }
 
-            @ViewBag.OrderId = order.OrderId;
+            @ViewBag.Status = order.status;
             return RedirectToAction("AS",new { id = OrderId });
         }
 

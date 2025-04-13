@@ -88,7 +88,6 @@ namespace WebApplication4
                     user.Id = adminID;
                     user.UserName = "Admin@Camp.co.nz";
                     user.Email = "Admin@Camp.co.nz";
-                    user.CampId = 1;
                     
 
                     await userManager.CreateAsync(user, AdminPassword);

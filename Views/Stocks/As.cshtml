@@ -17,6 +17,8 @@
 </div>
 
 
+@if(ViewBag.Status == 2)
+{
 <table class="table">
     <thead>
         <tr>
@@ -25,6 +27,9 @@
         </tr>
     </thead>
     <tbody>
+
+
+     
         @foreach (var orderItem in Model)
         {
             if (!orderItem.GearAssigned)
@@ -54,10 +59,27 @@
                 </tr>
             }
         }
+        </tbody>
+    </table>
+    }
+     else
+       {
 
+    <div class="alert alert-info text-center" Style="Margin-top: 5%;">
+        <h2>Order Already Processed</h2>
+        <p>To Unassign Items From User click here </p>
+        <form asp-controller="Stocks" asp-action="Index">
+
+            <input type="hidden" name="SearchTerm" value="@ViewBag.UserSID">
+            <input type="submit" class="btn btn-primary" > value="Go to Stock Page" />
+
+        </form>
+    </div>
+
+
+       }
       
-    </tbody>
-</table>
+ 
 
 <table class="table">
     <thead>
@@ -75,6 +97,8 @@
                     @userStock.Items.Name - @userStock.StockId
                 </td>
                 <td>
+          
+
                     <form asp-action="UA">
                         @if (Model != null && Model.Any())
                         {
@@ -87,12 +111,20 @@
                             <input type="hidden" value="@ViewBag.OrderId" name="OrderId" />
                         }
 
-                        @if(ViewBag.OrderStatus != 4){
+                     
 
                         <input type="hidden" value="@userStock.StockId" name="StockId" />
-                        <input type="submit" value="Unassign" class="btn btn-primary" style="background-color: red"/>
+                        @if(ViewBag.Status == 2)
+                        {
+                            <input type="submit" value="Unassign" class="btn btn-primary" style="background-color: red"/>
                         }
-                    </form>
+                        else{
+                            <input value="Unassign" class="btn btn-primary" style="background-color: red; opacity: 50%;" lo/>
+
+
+                            
+                            }
+                        </form>
                 </td>
             </tr>
         }
@@ -102,6 +134,7 @@
                     <form asp-action="Confirm">
                         @if (Model != null && Model.Any())
                         {
+
                             <input type="hidden" value="@Model.First().OrderId" name="OrderId" />
                         }
 
@@ -113,7 +146,16 @@
 
     @if (Model == null || !Model.Any())
     {
-        <input type="submit" value="Confirm and Notify User Their Order is Ready" class="btn btn-primary" style="background-color: dodgerblue" />
+        if (ViewBag.Status == 4 || ViewBag.Status == 3)
+            {
+            <input type="submit" value="Confirm and Notify User Their Order is Ready" class="btn btn-primary" style="background-color: dodgerblue; opacity: 50%;" />
+
+            }
+            else
+            {
+            <input  value="Confirm and Notify User Their Order is Ready" class="btn btn-primary" style="background-color: dodgerblue" />
+
+            }
     }
 
                         </form>

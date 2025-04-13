@@ -36,89 +36,7 @@ namespace WebApplication4.Areas.Identity.Data
                     context.SaveChanges();
                 }
 
-                var camps = new[]
-{
-    // Camps for Year 10
-    new Camp
-    {
-        Startdate = new DateTime(2025, 06, 01),
-        Enddate = new DateTime(2025, 06, 07),
-        peoplelimt = 30,
-        Year = 10,
-    },
-    new Camp
-    {
-        Startdate = new DateTime(2025, 06, 08),
-        Enddate = new DateTime(2025, 06, 14),
-        peoplelimt = 30,
-        Year = 10,
       
-    },
-    new Camp
-    {
-        Startdate = new DateTime(2025, 06, 15),
-        Enddate = new DateTime(2025, 06, 21),
-     peoplelimt = 30,
-        Year = 10,
-      
-    },
-
-    // Camps for Year 12
-    new Camp
-    {
-        Startdate = new DateTime(2025, 07, 01),
-        Enddate = new DateTime(2025, 07, 07),
-        peoplelimt = 30,
-        Year = 12,
-      
-    },
-    new Camp
-    {
-        Startdate = new DateTime(2025, 07, 08),
-        Enddate = new DateTime(2025, 07, 14),
- peoplelimt = 30,
-        Year = 12,
-
-    },
-    new Camp
-    {
-        Startdate = new DateTime(2025, 07, 15),
-        Enddate = new DateTime(2025, 07, 21),
-    peoplelimt = 30,
-        Year = 12,
-    
-    },
-
-    // Camps for Year 13
-    new Camp
-    {
-        Startdate = new DateTime(2025, 08, 01),
-        Enddate = new DateTime(2025, 08, 07),
-         peoplelimt = 30,
-        Year = 13,
-
-    },
-    new Camp
-    {
-        Startdate = new DateTime(2025, 08, 08),
-        Enddate = new DateTime(2025, 08, 14),
-        peoplelimt = 30,
-        Year = 13,
-      
-    },
-    new Camp
-    {
-        Startdate = new DateTime(2025, 08, 15),
-        Enddate = new DateTime(2025, 08, 21),
-       peoplelimt = 30,
-        Year = 13,
-    
-    }
-};
-
-                context.Camp.AddRange(camps);
-                context.SaveChanges();
-
 
 
 
@@ -159,33 +77,17 @@ namespace WebApplication4.Areas.Identity.Data
 
                     var StatusData = new Status[]
                    {
-                    new Status{Name = "Pending"},
-                    new Status{Name = "Processing"},
-                    new Status{Name ="returned"},
-                    new Status{Name ="unreturned"}
+                    new Status{Name = "Pending"},//1
+                    new Status{Name = "Processing"},//2
+                    new Status{Name ="returned"},//3
+                    new Status{Name ="unreturned"}//4
 
                    };
                     context.Status.AddRange(StatusData);
                     context.SaveChanges();
 
 
-                    var CampData = new Camp[]
-                    {
-                            new Camp
-                            {
-                                
-                                Enddate= DateTime.Now,
-                                Startdate = DateTime.Now,
-                                peoplelimt = 1,
-                                Year = 11
-                            }
 
-
-                    };
-
-
-                    context.Camp.AddRange(CampData);
-                    context.SaveChanges();
 
 
                     context.Item.AddRange(ItemsData);
