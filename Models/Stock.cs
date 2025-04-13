@@ -16,9 +16,9 @@ namespace WebApplication4.Models
         public Item Items { get; set; }
 
         [ForeignKey("User")]
-        public string? UserId { get; set; }
+        public string? OrderId { get; set; }
 
-        public User user { get; set; }
+        public Order order { get; set; }
 
 
     }

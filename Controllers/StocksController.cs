@@ -24,18 +24,19 @@ namespace WebApplication4.Controllers
         public async Task<IActionResult> Index(string? SearchTerm)
         {
             var GearRequested = _context.OrderItem.Where(a => a.GearAssigned == false);
-            var StockAvliable = _context.Stock.Where(a => a.UserId == null);
+            var StockAvliable = _context.Stock.Where(a => a.OrderId == null);
          
             ViewBag.StockNumber = StockAvliable.Count();
 
-            ViewBag.GearHire = _context.Stock.Count(a => a.UserId != null);
+            ViewBag.GearHire = _context.Stock.Count(a => a.OrderId != null);
 
             ViewBag.SearchTerm = SearchTerm; 
-            var stock = _context.Stock.Include(s => s.user).Include(a => a.Items).OrderBy(a => a.UserId != null);
+            var stock = _context.Stock.Include(s => s.order).ThenInclude(a => a.user).
+                Include(a => a.Items).OrderBy(a => a.OrderId != null);
 
             if(SearchTerm != null)
             {
-                var results = _context.Stock.Include(a => a.Items).Include(a => a.user).Where(a => a.Items.Name.Contains(SearchTerm) ||a.UserId.Contains(SearchTerm) || a.user.Email.Contains(SearchTerm) || a.user.StudentNumber.Contains(SearchTerm) || a.user.FirstName.Contains(SearchTerm));
+                var results = _context.Stock.Include(a => a.Items).Include(a => a.order).ThenInclude(a => a.user).Where( a => a.Items.Name.Contains(SearchTerm) ||a.order.UserId.Contains(SearchTerm) || a.order.user.Email.Contains(SearchTerm) || a.order.user.StudentNumber.Contains(SearchTerm) || a.order.user.FirstName.Contains(SearchTerm));
 
 
 
@@ -51,7 +52,7 @@ namespace WebApplication4.Controllers
             var order = _context.Order.Where(a => a.OrderId == id).FirstOrDefault();
             var listOrderItems =  _context.OrderItem.Include(o => o.Items).Include(o => o.Orders).Where(a => a.OrderId == id && a.GearAssigned == false);
 
-            var StockAvliable = _context.Stock.Where(a => a.UserId == null);
+            var StockAvliable = _context.Stock.Where(a => a.order.UserId == null);
             var GearRequested = listOrderItems.Where(a => a.GearAssigned == false);
 
       
@@ -61,10 +62,10 @@ namespace WebApplication4.Controllers
 
             ViewBag.Status = order.StatusId;
 
-            ViewBag.StockGiven = _context.Stock.Count(a => a.UserId == order.UserId);
+            ViewBag.StockGiven = _context.Stock.Count(a => a.order.UserId == order.UserId);
 
             ViewBag.UserSID = order.UserId;
-            var userstock = _context.Stock.Where(a => a.UserId == order.UserId).Include(a => a.Items);
+            var userstock = _context.Stock.Where(a => a.order.UserId == order.UserId).Include(a => a.Items);
 
 
             ViewBag.GearRequestedNumber = _context.OrderItem.Where(a => a.OrderId == id).Sum(a => a.Quantity);
@@ -98,13 +99,13 @@ namespace WebApplication4.Controllers
            var stock = _context.Stock.Where(a => a.StockId == StockId).FirstOrDefault();
             var order = _context.Order.Where(a => a.OrderId == OrderId).FirstOrDefault();
 
-            stock.UserId = order.UserId;
+            stock.OrderId = OrderId;
             _context.SaveChanges();
 
 
 
             var GearRequested = _context.OrderItem.Where(a => a.OrderId == OrderId);
-            var UserStock = _context.Stock.Where(a => a.UserId == order.UserId).Include(a => a.Items);
+            var UserStock = _context.Stock.Where(a => a.OrderId == order.UserId).Include(a => a.Items);
 
     
 
@@ -120,7 +121,7 @@ namespace WebApplication4.Controllers
             else 
             {
 
-                int UserItems = _context.Stock.Where(a => a.Items.ItemId == stock.ItemId && a.UserId == order.UserId).Count();
+                int UserItems = _context.Stock.Where(a => a.Items.ItemId == stock.ItemId && a.order.UserId == order.UserId).Count();
 
                 if(itemreq.Quantity == UserItems)
                 {
@@ -149,7 +150,7 @@ namespace WebApplication4.Controllers
             {
 
                 Gear.GearAssigned = false;
-                stock.UserId = null;
+                stock.OrderId = null;
                 _context.SaveChanges();
 
                 return RedirectToAction("AS", new { id = OrderId });
@@ -157,7 +158,7 @@ namespace WebApplication4.Controllers
             else
             {
 
-                stock.UserId = null;
+                stock.OrderId = null;
                 _context.SaveChanges();
 
 
@@ -177,7 +178,7 @@ namespace WebApplication4.Controllers
             }
 
             var stock = await _context.Stock
-                .Include(s => s.user)
+                .Include(s => s.order).ThenInclude(a => a.user)
                 .FirstOrDefaultAsync(m => m.StockId == id);
             if (stock == null)
             {
@@ -226,7 +227,7 @@ namespace WebApplication4.Controllers
                         
                         StockId = stockId,
                         ItemId = stock.ItemId,
-                        UserId = null
+                        OrderId = null
                     });
                     await _context.SaveChangesAsync();
                 stockId++;
@@ -254,7 +255,7 @@ namespace WebApplication4.Controllers
             {
                 return NotFound();
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", stock.UserId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", stock.OrderId);
             return View(stock);
         }
 
@@ -290,7 +291,7 @@ namespace WebApplication4.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", stock.UserId);
+            ViewData["OrderId"] = new SelectList(_context.Users, "Id", "Id", stock.OrderId);
             return View(stock);
         }
 
@@ -303,7 +304,7 @@ namespace WebApplication4.Controllers
             }
 
             var stock = await _context.Stock
-                .Include(s => s.user)
+                .Include(s => s.order.user)
                 .FirstOrDefaultAsync(m => m.StockId == id);
             if (stock == null)
             {

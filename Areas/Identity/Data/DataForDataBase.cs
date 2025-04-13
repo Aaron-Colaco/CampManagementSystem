@@ -78,9 +78,9 @@ namespace WebApplication4.Areas.Identity.Data
                     var StatusData = new Status[]
                    {
                     new Status{Name = "Pending"},//1
-                    new Status{Name = "Processing"},//2
-                    new Status{Name ="returned"},//3
-                    new Status{Name ="unreturned"}//4
+                    new Status{Name = "Processing"},
+                    new Status{Name ="returned"},
+                    new Status{Name ="unreturned"}
 
                    };
                     context.Status.AddRange(StatusData);
@@ -96,80 +96,80 @@ namespace WebApplication4.Areas.Identity.Data
 
                     var stockData = new Stock[]
 {
-    new Stock { ItemId = 1, StockId = 1000001, UserId = null },
-    new Stock { ItemId = 1, StockId = 1000002, UserId = null },
-    new Stock { ItemId = 1, StockId = 1000003, UserId = null },
-    new Stock { ItemId = 1, StockId = 1000004, UserId = null },
+    new Stock { ItemId = 1, StockId = 1000001, OrderId = null },
+    new Stock { ItemId = 1, StockId = 1000002, OrderId = null },
+    new Stock { ItemId = 1, StockId = 1000003, OrderId = null },
+    new Stock { ItemId = 1, StockId = 1000004, OrderId = null },
 
-    new Stock { ItemId = 2, StockId = 1000011, UserId = null },
-    new Stock { ItemId = 2, StockId = 1000012, UserId = null },
-    new Stock { ItemId = 2, StockId = 1000013, UserId = null },
-    new Stock { ItemId = 2, StockId = 1000014, UserId = null },
+    new Stock { ItemId = 2, StockId = 1000011, OrderId = null },
+    new Stock { ItemId = 2, StockId = 1000012, OrderId = null },
+    new Stock { ItemId = 2, StockId = 1000013, OrderId = null },
+    new Stock { ItemId = 2, StockId = 1000014, OrderId = null },
 
-    new Stock { ItemId = 3, StockId = 1000021, UserId = null },
-    new Stock { ItemId = 3, StockId = 1000022, UserId = null },
-    new Stock { ItemId = 3, StockId = 1000023, UserId = null },
-    new Stock { ItemId = 3, StockId = 1000024, UserId = null },
+    new Stock { ItemId = 3, StockId = 1000021, OrderId = null },
+    new Stock { ItemId = 3, StockId = 1000022, OrderId = null },
+    new Stock { ItemId = 3, StockId = 1000023, OrderId = null },
+    new Stock { ItemId = 3, StockId = 1000024, OrderId = null },
 
-    new Stock { ItemId = 4, StockId = 1000031, UserId = null },
-    new Stock { ItemId = 4, StockId = 1000032, UserId = null },
-    new Stock { ItemId = 4, StockId = 1000033, UserId = null },
-    new Stock { ItemId = 4, StockId = 1000034, UserId = null },
+    new Stock { ItemId = 4, StockId = 1000031, OrderId = null },
+    new Stock { ItemId = 4, StockId = 1000032, OrderId = null },
+    new Stock { ItemId = 4, StockId = 1000033, OrderId = null },
+    new Stock { ItemId = 4, StockId = 1000034, OrderId = null },
 
-    new Stock { ItemId = 5, StockId = 1000041, UserId = null },
-    new Stock { ItemId = 5, StockId = 1000042, UserId = null },
-    new Stock { ItemId = 5, StockId = 1000043, UserId = null },
-    new Stock { ItemId = 5, StockId = 1000044, UserId = null },
+    new Stock { ItemId = 5, StockId = 1000041, OrderId = null },
+    new Stock { ItemId = 5, StockId = 1000042, OrderId = null },
+    new Stock { ItemId = 5, StockId = 1000043, OrderId = null },
+    new Stock { ItemId = 5, StockId = 1000044, OrderId = null },
 
-    new Stock { ItemId = 6, StockId = 1000051, UserId = null },
-    new Stock { ItemId = 6, StockId = 1000052, UserId = null },
-    new Stock { ItemId = 6, StockId = 1000053, UserId = null },
-    new Stock { ItemId = 6, StockId = 1000054, UserId = null },
+    new Stock { ItemId = 6, StockId = 1000051, OrderId = null },
+    new Stock { ItemId = 6, StockId = 1000052, OrderId = null },
+    new Stock { ItemId = 6, StockId = 1000053, OrderId = null },
+    new Stock { ItemId = 6, StockId = 1000054, OrderId = null },
 
-    new Stock { ItemId = 7, StockId = 1000061, UserId = null },
-    new Stock { ItemId = 7, StockId = 1000062, UserId = null },
-    new Stock { ItemId = 7, StockId = 1000063, UserId = null },
-    new Stock { ItemId = 7, StockId = 1000064, UserId = null },
+    new Stock { ItemId = 7, StockId = 1000061, OrderId = null },
+    new Stock { ItemId = 7, StockId = 1000062, OrderId = null },
+    new Stock { ItemId = 7, StockId = 1000063, OrderId = null },
+    new Stock { ItemId = 7, StockId = 1000064, OrderId = null },
 
-    new Stock { ItemId = 8, StockId = 1000071, UserId = null },
-    new Stock { ItemId = 8, StockId = 1000072, UserId = null },
-    new Stock { ItemId = 8, StockId = 1000073, UserId = null },
-    new Stock { ItemId = 8, StockId = 1000074, UserId = null },
+    new Stock { ItemId = 8, StockId = 1000071, OrderId = null },
+    new Stock { ItemId = 8, StockId = 1000072, OrderId = null },
+    new Stock { ItemId = 8, StockId = 1000073, OrderId = null },
+    new Stock { ItemId = 8, StockId = 1000074, OrderId = null },
 
-    new Stock { ItemId = 9, StockId = 1000081, UserId = null },
-    new Stock { ItemId = 9, StockId = 1000082, UserId = null },
-    new Stock { ItemId = 9, StockId = 1000083, UserId = null },
-    new Stock { ItemId = 9, StockId = 1000084, UserId = null },
+    new Stock { ItemId = 9, StockId = 1000081, OrderId = null },
+    new Stock { ItemId = 9, StockId = 1000082, OrderId = null },
+    new Stock { ItemId = 9, StockId = 1000083, OrderId = null },
+    new Stock { ItemId = 9, StockId = 1000084, OrderId = null },
 
-    new Stock { ItemId = 10, StockId = 1000091, UserId = null },
-    new Stock { ItemId = 10, StockId = 1000092, UserId = null },
-    new Stock { ItemId = 10, StockId = 1000093, UserId = null },
-    new Stock { ItemId = 10, StockId = 1000094, UserId = null },
+    new Stock { ItemId = 10, StockId = 1000091, OrderId = null },
+    new Stock { ItemId = 10, StockId = 1000092, OrderId = null },
+    new Stock { ItemId = 10, StockId = 1000093, OrderId = null },
+    new Stock { ItemId = 10, StockId = 1000094, OrderId = null },
 
-    new Stock { ItemId = 11, StockId = 1000101, UserId = null },
-    new Stock { ItemId = 11, StockId = 1000102, UserId = null },
-    new Stock { ItemId = 11, StockId = 1000103, UserId = null },
-    new Stock { ItemId = 11, StockId = 1000104, UserId = null },
+    new Stock { ItemId = 11, StockId = 1000101, OrderId = null },
+    new Stock { ItemId = 11, StockId = 1000102, OrderId = null },
+    new Stock { ItemId = 11, StockId = 1000103, OrderId = null },
+    new Stock { ItemId = 11, StockId = 1000104, OrderId = null },
 
-    new Stock { ItemId = 12, StockId = 1000111, UserId = null },
-    new Stock { ItemId = 12, StockId = 1000112, UserId = null },
-    new Stock { ItemId = 12, StockId = 1000113, UserId = null },
-    new Stock { ItemId = 12, StockId = 1000114, UserId = null },
+    new Stock { ItemId = 12, StockId = 1000111, OrderId = null },
+    new Stock { ItemId = 12, StockId = 1000112, OrderId = null },
+    new Stock { ItemId = 12, StockId = 1000113, OrderId = null },
+    new Stock { ItemId = 12, StockId = 1000114, OrderId = null },
 
-    new Stock { ItemId = 13, StockId = 1000121, UserId = null },
-    new Stock { ItemId = 13, StockId = 1000122, UserId = null },
-    new Stock { ItemId = 13, StockId = 1000123, UserId = null },
-    new Stock { ItemId = 13, StockId = 1000124, UserId = null },
+    new Stock { ItemId = 13, StockId = 1000121, OrderId = null },
+    new Stock { ItemId = 13, StockId = 1000122, OrderId = null },
+    new Stock { ItemId = 13, StockId = 1000123, OrderId = null },
+    new Stock { ItemId = 13, StockId = 1000124, OrderId = null },
 
-    new Stock { ItemId = 14, StockId = 1000131, UserId = null },
-    new Stock { ItemId = 14, StockId = 1000132, UserId = null },
-    new Stock { ItemId = 14, StockId = 1000133, UserId = null },
-    new Stock { ItemId = 14, StockId = 1000134, UserId = null },
+    new Stock { ItemId = 14, StockId = 1000131, OrderId = null },
+    new Stock { ItemId = 14, StockId = 1000132, OrderId = null },
+    new Stock { ItemId = 14, StockId = 1000133, OrderId = null },
+    new Stock { ItemId = 14, StockId = 1000134, OrderId = null },
 
-    new Stock { ItemId = 15, StockId = 1000141, UserId = null },
-    new Stock { ItemId = 15, StockId = 1000142, UserId = null },
-    new Stock { ItemId = 15, StockId = 1000143, UserId = null },
-    new Stock { ItemId = 15, StockId = 1000144, UserId = null },
+    new Stock { ItemId = 15, StockId = 1000141, OrderId = null },
+    new Stock { ItemId = 15, StockId = 1000142, OrderId = null },
+    new Stock { ItemId = 15, StockId = 1000143, OrderId = null },
+    new Stock { ItemId = 15, StockId = 1000144, OrderId = null },
 
     
 };

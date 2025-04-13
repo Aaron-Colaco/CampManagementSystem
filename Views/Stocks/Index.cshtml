@@ -56,11 +56,11 @@
                 <tr>
                     <td>@Html.DisplayFor(modelItem => item.Items.Name)</td>
                     <td>@Html.DisplayFor(modelItem => item.StockId)</td>
-                    <td>@Html.DisplayFor(modelItem => item.user.FirstName)</td>
-                    <td>@Html.DisplayFor(modelItem => item.user.Email)</td>
-                    <td>@Html.DisplayFor(modelItem => item.user.StudentNumber)</td>
+                    <td>@Html.DisplayFor(modelItem => item.order.user.FirstName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.order.user.Email)</td>
+                    <td>@Html.DisplayFor(modelItem => item.order.user.StudentNumber)</td>
                     <td>
-                        @if (item.user != null)
+                        @if (item.OrderId != null)
                         {
                             <form asp-action="UA" method="post" class="d-inline">
                                 <input type="hidden" name="StockId" value="@item.StockId" />
