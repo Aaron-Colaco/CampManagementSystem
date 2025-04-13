@@ -139,6 +139,9 @@ namespace WebApplication4.Controllers
         {
             var stock = _context.Stock.Where(a => a.StockId == StockId).FirstOrDefault();
             var GearRequested = _context.OrderItem.Where(a => a.OrderId == OrderId);
+            var OrderStock = _context.Stock.Where(a => a.StockId == StockId).FirstOrDefault();
+
+            string Id = OrderStock.OrderId;
 
 
             var Gear = GearRequested.Where(a => a.ItemId == stock.ItemId).FirstOrDefault();
@@ -157,9 +160,20 @@ namespace WebApplication4.Controllers
             }
             else
             {
-
+                
                 stock.OrderId = null;
                 _context.SaveChanges();
+
+                var order = _context.Order.Where(a => a.OrderId == Id).FirstOrDefault();
+
+                var Stock = _context.Stock.Where(a => a.OrderId == Id);
+
+                if(!Stock.Any())
+                {
+                    order.StatusId = 3;
+                    _context.SaveChanges();
+                }
+
 
 
                 return RedirectToAction("Index", new {SearchTerm = SearchTerm });
