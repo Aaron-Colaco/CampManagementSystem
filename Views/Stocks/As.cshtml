@@ -14,6 +14,10 @@
         <h3 style="font-size: 18px; color: #333; margin-bottom: 10px;">Available Stock</h3>
         <p style="font-size: 24px; font-weight: bold; color: #2b7a78; margin-top: 10px;">@ViewBag.StockNumber</p>
     </div>
+    <div style="background-color: #f4f7fa; border-radius: 10px; padding: 20px; width: 200px; text-align: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+        <h3 style="font-size: 18px; color: #333; margin-bottom: 10px;">Total Stock Assigned </h3>
+        <p style="font-size: 24px; font-weight: bold; color: #2b7a78; margin-top: 10px;">@ViewBag.StockGiven</p>
+    </div>
 </div>
 
 
@@ -71,7 +75,7 @@
         <form asp-controller="Stocks" asp-action="Index">
 
             <input type="hidden" name="SearchTerm" value="@ViewBag.UserSID">
-            <input type="submit" class="btn btn-primary" > value="Go to Stock Page" />
+            <input type="submit" class="btn btn-primary" value="Go to Stock Page" />
 
         </form>
     </div>
@@ -119,7 +123,7 @@
                             <input type="submit" value="Unassign" class="btn btn-primary" style="background-color: red"/>
                         }
                         else{
-                            <input value="Unassign" class="btn btn-primary" style="background-color: red; opacity: 50%;" lo/>
+                            <input value="Unassign" disabled type="submit" class="btn btn-primary" style="background-color: red; opacity: 50%;" lo/>
 
 
                             
@@ -148,12 +152,12 @@
     {
         if (ViewBag.Status == 4 || ViewBag.Status == 3)
             {
-            <input type="submit" value="Confirm and Notify User Their Order is Ready" class="btn btn-primary" style="background-color: dodgerblue; opacity: 50%;" />
+            <input type="submit" disabled value="Confirm and Notify User Their Order is Ready" class="btn btn-primary" style="background-color: dodgerblue; opacity: 50%;" />
 
             }
             else
             {
-            <input  value="Confirm and Notify User Their Order is Ready" class="btn btn-primary" style="background-color: dodgerblue" />
+            <input type="submit" value="Confirm and Notify User Their Order is Ready" class="btn btn-primary" style="background-color: dodgerblue" />
 
             }
     }

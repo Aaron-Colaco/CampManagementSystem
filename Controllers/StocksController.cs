@@ -61,6 +61,8 @@ namespace WebApplication4.Controllers
 
             ViewBag.Status = order.StatusId;
 
+            ViewBag.StockGiven = _context.Stock.Count(a => a.UserId == order.UserId);
+
             ViewBag.UserSID = order.UserId;
             var userstock = _context.Stock.Where(a => a.UserId == order.UserId).Include(a => a.Items);
 
