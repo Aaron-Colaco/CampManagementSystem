@@ -4,132 +4,152 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - WebApplication4</title>
+    <!-- Google Font: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WebApplication4.styles.css" asp-append-version="true" />
+
     <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            padding-top: 100px; /* Adjusted for fixed navbar */
-        }
+    body {
+        margin: 0;
+        padding-top: 80px;
+        background-color: #f9f9f9;
+        font-family: 'Inter', sans-serif;
+    }
 
-        /* Promo Bar */
-        .promo-bar {
-            background-color: black;
-            color: white;
-            text-align: center;
-            font-weight: bold;
-            padding: 10px;
-            font-size: 14px;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1001;
-        }
+    .promo-bar {
+        background-color: #000;
+        color: #fff;
+        text-align: center;
+        font-weight: 600;
+        padding: 8px;
+        font-size: 13px;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1050;
+        letter-spacing: 0.5px;
+    }
 
-        /* Navbar */
-        .navbar {
-            background-color: white;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 20px;
-            position: fixed;
-            top: 40px; /* Below the promo bar */
-            width: 100%;
-            z-index: 1000;
-            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-        }
+    .navbar {
+        background-color: #fff;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        position: fixed;
+        top: 40px;
+        width: 100%;
+        height: 8.8vh;
+        z-index: 1040;
+        padding: 0.5rem 1rem;
+        margin-top:-1%;
+    }
 
+    .navbar-brand,
+    .nav-link {
+        color: #000 !important;
+        font-weight: 500;
+        font-size: 1rem;
+        transition: color 0.3s ease;
+    }
 
-        .search-container {
-            flex-grow: 1;
-            display: flex;
-            justify-content: center;
-        }
+    .navbar-brand:hover,
+    .nav-link:hover {
+        color: #008080 !important;
+        text-decoration: none !important;
+    }
 
-        .search-form {
-            display: flex;
-            width: 60%;
-            max-width: 600px;
-            border: 1px solid #ccc;
-            border-radius: 28px;
-            overflow: hidden;
-        }
+    .search-container {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+        margin: 10px 0;
+    }
 
-        .search-input {
-            flex-grow: 1;
-            padding: 8px;
-            border: none;
-            outline: none;
-            background-color: white;
-            color: black;
-        }
+    .search-form {
+        display: flex;
+        width: 100%;
+        max-width: 500px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        overflow: hidden;
+        background-color: #fff;
+    }
 
-        .search-button {
-            background-color: black;
-            color: white;
-            border: none;
-            cursor: pointer;
-            padding: 8px;
-        }
+    .search-input {
+        flex-grow: 1;
+        padding: 10px 12px;
+        border: none;
+        outline: none;
+        font-size: 14px;
+        color: #333;
+    }
 
-        /* Icons */
-        .nav-icons {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
+    .search-button {
+        background-color: #000;
+        color: #fff;
+        border: none;
+        padding: 0 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
 
-            .nav-icons a {
-                text-decoration: none;
-                color: black;
-                font-size: 18px;
-            }
+    .search-button:hover {
+        background-color: #008080;
+    }
+
+    .search-button svg {
+        fill: #fff;
+    }
+
+    .bi-bag {
+        fill: black;
+    }
+
+    .nav-icons a {
+        text-decoration: none;
+        color: black;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+   
+    }
     </style>
+
 </head>
 
 <body>
-    <!-- Promo Bar -->
-    <div class="promo-bar" style="z-index: 100000000;">
+    <div class="promo-bar" style="z-index:100000000;">
         GET YOUR CAMP GEAR NOW!
     </div>
 
-
-    <style>
-        .navbar, .navbar a, .navbar .nav-link, .search-input {
-            font-family: 'Segoe UI', sans-serif;
-        }
-
-        .search-button svg,
-        .bi-bag {
-            fill: white;
-        }
-
-        .search-input {
-            border: none;
-            padding: 5px;
-        }
-    </style>
-
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: white; margin-top: -0.3%; width: 100%; z-index: 100000000;">
+    <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
-            <a style="color: black;" class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">AVCOL CAMP GEAR HIRE</a>
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">AVCOL CAMP GEAR HIRE</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" style="color: black;" asp-area="" asp-controller="Items" asp-action="Index">Hire Items</a>
+                        <a class="nav-link" asp-area="" asp-controller="Items" asp-action="Index">Hire Items</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" style="color: black;" asp-area="" asp-controller="Orders" asp-action="Index">Orders</a>
+                        <a class="nav-link" asp-area="" asp-controller="Orders" asp-action="Index">Orders</a>
                     </li>
+@if(User.IsInRole("Admin")){
                     <li class="nav-item">
-                        <a class="nav-link" style="color: black;" asp-area="" asp-controller="Stocks" asp-action="Index">Stock</a>
+                        <a class="nav-link" asp-area="" asp-controller="Stocks" asp-action="Index">Stock</a>
                     </li>
+}
                 </ul>
                 <div class="search-container">
                     <form class="search-form" asp-action="Search" asp-controller="Items">
@@ -143,9 +163,9 @@
                 </div>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" asp-action="OpenCart" asp-controller="OrderItems" >
-                            <svg color="black" xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-bag" viewBox="0 0 16 16">
-                                <path  d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z" />
+                        <a class="nav-link" asp-action="OpenCart" asp-controller="OrderItems">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-bag" viewBox="0 0 16 16">
+                                <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1 v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
                             </svg>
                         </a>
                     </li>
@@ -157,8 +177,6 @@
         </div>
     </nav>
 
-    <he
-    </header>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
