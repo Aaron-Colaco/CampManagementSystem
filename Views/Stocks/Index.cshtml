@@ -4,23 +4,22 @@
 }
 
 <h1 class="text-center mt-4">Gear Stock</h1>
-
-<div class="text-center mb-4">
-    <a class="btn btn-success" asp-action="Create">+ Create New</a>
+<div style="text-align: center; margin-bottom: 1rem;">
+    <a href="/Stocks/Create" style="background-color: #10B981; color: white; padding: 0.5rem 1.5rem; border-radius: 1rem; text-decoration: none; font-weight: bold; box-shadow: 0 4px 8px rgba(0,0,0,0.1); transition: background-color 0.2s;">
+        + Create New
+    </a>
 </div>
 
-<div class="container mb-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-8 col-md-10">
-            <form asp-controller="Stocks" asp-action="Index">
-                <div class="input-group input-group-lg shadow-sm">
-                    <input type="text" name="SearchTerm" class="form-control rounded-start-pill border-0" placeholder="Search by item, email, or student number" />
-                    <button class="btn btn-primary rounded-end-pill px-4" type="submit">Search</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+<form asp-controller="Stocks" asp-action="Index"
+      style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-items: center; padding: 1rem; background-color: white; border-radius: 1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.1); flex-wrap: wrap; justify-content: center;">
+
+    <input type="text" name="SearchTerm" placeholder="Search by item, email, or student number"
+           style="border: 1px solid #ccc; border-radius: 1rem; padding: 0.5rem 1rem; width: 70%; outline: none; box-shadow: none; transition: box-shadow 0.2s;"/>
+
+    <input type="submit"
+            style="background-color: #3B82F6; color: white; border: none; padding: 0.5rem 1.5rem; border-radius: 1rem; cursor: pointer; font-weight: bold; transition: background-color 0.2s;" value="Search"/>
+        
+</form>
 
 <div class="d-flex justify-content-center gap-4 mb-5">
     <div class="card text-center shadow-sm" style="width: 220px;">
@@ -65,14 +64,13 @@
                             <form asp-action="UA" method="post" class="d-inline">
                                 <input type="hidden" name="StockId" value="@item.StockId" />
                                 <input type="hidden" name="SearchTerm" value="@ViewBag.SearchTerm" />
-                                <button type="submit" class="btn btn-danger btn-sm">Unassign</button>
+                                <button type="submit" style="background-color: #3B82F6" class="btn btn-danger btn-sm">Unassign</button>
                             </form>
                         }
                     </td>
                     <td>
-                        <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@item.StockId">Edit</a>
-                        <a class="btn btn-sm btn-info text-white" asp-action="Details" asp-route-id="@item.StockId">Details</a>
-                        <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.StockId">Delete</a>
+                        <a class="btn btn-sm btn-warning" style="background-color:  #10B981" asp-action="Edit" asp-route-id="@item.StockId">Edit</a>
+                        <a class="btn btn-sm btn-danger"  asp-action="Delete" asp-route-id="@item.StockId">Delete</a>
                     </td>
                 </tr>
             }

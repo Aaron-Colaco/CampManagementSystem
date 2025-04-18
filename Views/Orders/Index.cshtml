@@ -18,7 +18,7 @@
     {
         <div class="alert alert-info text-center" Style="Margin-top: 5%;">
             <h2>No Orders Found</h2>
-            <
+            
             <a class="btn btn-primary" asp-controller="Orders" asp-action="Index">Refresh</a>
         </div>
 
@@ -28,22 +28,25 @@ else
 {
     @if (User.IsInRole("Admin"))
     {
-        <h2>Find Order </h2>
-        <form asp-controller="Orders" asp-action="Index" method="get" class="flex gap-4 items-center p-4 bg-white rounded-xl shadow-md">
-            <input type="text" name="SearchTerm" placeholder="Search Order by User Details"
-                   class="border border-gray-300 rounded-xl px-4 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        <h2 style="text-align: center; font-size: 2rem; margin-top: 4%;">Orders</h2>
 
-            <!-- Status Dropdown -->
-            <select name="Status" class="border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <form asp-controller="Orders" asp-action="Index" method="get"
+              style="width: 80%; margin: 0 auto; display: flex; gap: 1rem; align-items: center; padding: 1rem; background-color: white; border-radius: 1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.1); flex-wrap: wrap; justify-content: center;">
+
+            <input type="text" name="SearchTerm" placeholder="Search Order by User Details"
+                   style="border: 1px solid #ccc; border-radius: 1rem; padding: 0.5rem 1rem; width: 70%; outline: none; box-shadow: none; transition: box-shadow 0.2s;"
+                   onfocus="this.style.boxShadow='0 0 0 2px #3B82F6'" onblur="this.style.boxShadow='none'" />
+
+            <select name="Status"
+                    style="border: 1px solid #ccc; border-radius: 1rem; padding: 0.5rem 1rem; outline: none; box-shadow: none; transition: box-shadow 0.2s;">
                 <option value="">All</option>
                 <option value="2">Processing</option>
                 <option value="3">Return</option>
                 <option value="4">Unreturned</option>
             </select>
 
-            <input type="submit" class="btn btn-primary" value="Search"/>
-                
-            
+            <input type="submit" value="Search"
+                   style="background-color: #3B82F6; color: white; border: none; padding: 0.5rem 1.5rem; border-radius: 1rem; cursor: pointer; font-weight: bold; transition: background-color 0.2s;" />
         </form>
 
     }
@@ -74,18 +77,45 @@ else
                     <td>
                         @if (!User.IsInRole("Admin"))
                         {
-                            if (item.StatusId != 1)
+                            if (item.StatusId == 2)
                             {
                                 <span class="badge bg-success">Your Order is now @item.status.Name</span>
                             }
-                            else
+                            else if(item.StatusId == 1)
                             {
                                 <span class="badge bg-warning">Waiting to be Checked out</span>
+                            }
+                            else if(item.StatusId == 4)
+                            {
+                                <span class="badge bg-danger">Unreturned</span>
+
+                            }
+                            else if (item.StatusId == 3)
+                            {
+                                <span class="badge bg-success"> Returned </span>
+
+
                             }
                         }
                         else
                         {
-                            <span class="badge bg-info">@item.status.Name</span>
+                            if (item.StatusId == 2)
+                            {
+                                <span class="badge bg-warning">Needs Processing</span>
+
+                            }
+                           
+                            else if (item.StatusId == 4)
+                            {
+                                <span class="badge bg-danger">Unreturned</span>
+
+                            }
+                            else if (item.StatusId == 3)
+                            {
+                                <span class="badge bg-success"> Returned </span>
+
+
+                            }
                         }
                     </td>
 
@@ -97,19 +127,19 @@ else
                     <td>
                         @if (User.IsInRole("Admin") && item.StatusId != 1)
                         {
-                            <a class="btn btn-danger btn-sm" asp-controller="Stocks" asp-route-id="@item.OrderId" asp-action="AS">Assign Stock</a>
+                            <a class="btn btn-danger btn-sm" style="background-color: mediumslateblue" asp-controller="Stocks" asp-route-id="@item.OrderId" asp-action="AS">Assign Stock</a>
                         }
 
                         @if (item.status.Id == 1 && !User.IsInRole("Admin"))
                         {
-                            <a class="btn btn-info btn-sm" asp-controller="OrderItems" asp-route-id="@item.OrderId" asp-action="Index">See Items</a>
+                            <a class="btn btn-info btn-sm" style="background-color: #3B82F6" asp-controller="OrderItems" asp-route-id="@item.OrderId" asp-action="Index">See Items</a>
 
                             <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.OrderId">Delete</a>
                         }
                         else
                         {
-                            <a class="btn btn-info btn-sm" asp-controller="OrderItems" asp-route-id="@item.OrderId" asp-action="Index">See Items</a>
-                            <a class="btn btn-secondary btn-sm" asp-action="Details" asp-route-id="@item.OrderId">Details</a>
+                            <a class="btn btn-info btn-sm" style="background-color: #3B82F6" asp-controller="OrderItems" asp-route-id="@item.OrderId" asp-action="Index">See Items</a>
+                            <a class="btn btn-secondary btn-sm" style="background-color:  #10B981" asp-action="Details" asp-route-id="@item.OrderId">Details</a>
                         }
                     </td>
                 </tr>
