@@ -42,36 +42,77 @@
             <tr>
                 <th>Item Name</th>
                 <th>Stock ID</th>
-                <th>User Name</th>
-                <th>Email</th>
-                <th>Student Number</th>
-                <th>Unassign</th>
+                <th colspan="4">Status / Details</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
+                <!-- Row 1: Item Info -->
                 <tr>
-                    <td>@Html.DisplayFor(modelItem => item.Items.Name)</td>
-                    <td>@Html.DisplayFor(modelItem => item.StockId)</td>
-                    <td>@Html.DisplayFor(modelItem => item.order.user.FirstName)</td>
-                    <td>@Html.DisplayFor(modelItem => item.order.user.Email)</td>
-                    <td>@Html.DisplayFor(modelItem => item.order.user.StudentNumber)</td>
-                    <td>
+                    <td>@item.Items.Name</td>
+                    <td>@item.StockId</td>
+                    <td colspan="4">
                         @if (item.OrderId != null)
                         {
-                            <form asp-action="UA" method="post" class="d-inline">
-                                <input type="hidden" name="StockId" value="@item.StockId" />
-                                <input type="hidden" name="SearchTerm" value="@ViewBag.SearchTerm" />
-                                <button type="submit" style="background-color: #3B82F6" class="btn btn-danger btn-sm">Unassign</button>
-                            </form>
+                            <span class="badge bg-success">
+                                <i class="bi bi-person-fill"></i> In Use
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">
+                                <i class="bi bi-slash-circle"></i> Not in use
+                            </span>
                         }
                     </td>
                     <td>
-                        <a class="btn btn-sm btn-warning" style="background-color:  #10B981" asp-action="Edit" asp-route-id="@item.StockId">Edit</a>
-                        <a class="btn btn-sm btn-danger"  asp-action="Delete" asp-route-id="@item.StockId">Delete</a>
+                        <a asp-action="Edit" asp-route-id="@item.StockId"
+                           class="btn btn-sm btn-warning me-1">
+                            <i class="bi bi-pencil-square"></i> Edit
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@item.StockId"
+                           class="btn btn-sm btn-danger">
+                            <i class="bi bi-trash-fill"></i> Delete
+                        </a>
                     </td>
+                </tr>
+
+                <!-- Row 2: User Details -->
+                <tr class="table-secondary">
+                    <td></td>
+                    <td></td>
+
+                    @if (item.OrderId != null && item.order.user != null)
+                    {
+                        <td>@item.order.user.FirstName @item.order.user.LastName</td>
+                        <td>@item.order.user.Email</td>
+                        <td>@item.order.user.StudentNumber</td>
+                        <td></td> <!-- Filler to keep alignment -->
+                        <td>
+                            <form asp-action="UA" method="post" class="d-inline">
+                                <input type="hidden" name="StockId" value="@item.StockId" />
+                                <input type="hidden" name="SearchTerm" value="@ViewBag.SearchTerm" />
+                                <button type="submit" class="btn btn-sm" style="background-color: #8B5CF6; color: white;">
+                                    <i class="bi bi-box-arrow-left"></i> Unassign
+                                </button>
+                            </form>
+                        </td>
+                    }
+                    else
+                    {
+                        <td colspan="4" class="text-center text-muted fst-italic">
+                            — No user assigned —
+                        </td>
+                        <td></td>
+                        <td></td>
+                    }
+                </tr>
+
+                <!-- Spacer Row -->
+                <tr style="background-color: white;">
+                    <td colspan="7" style="height: 7vh;"></td>
                 </tr>
             }
         </tbody>
