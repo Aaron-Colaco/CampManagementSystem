@@ -40,10 +40,10 @@
                         <td class="text-center">
                             @if (OrderItem.Orders.StatusId == 1)
                             {
-                                <form asp-action="Delete" method="post" class="d-inline">
+                                <form asp-action="Delete" method="post" style="display: inline;">
                                     <input type="hidden" name="itemId" value="@OrderItem.ItemId" />
-                                    <button type="submit" class="btn btn-sm btn-outline-danger" title="Remove item">
-                                        <i class="bi bi-x-lg"></i>
+                                    <button type="submit" title="Remove item" style="background: none; border: 1px solid red; color: red; padding: 2px 8px; font-size: 16px; cursor: pointer; border-radius: 4px;">
+                                        ×
                                     </button>
                                 </form>
                             }
@@ -80,3 +80,50 @@
         }
     </div>
 </div>
+
+                    <style>
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f9f9f9;
+    }
+
+    h1 {
+        font-size: 2rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+
+
+    .btn-outline-danger {
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .btn-outline-danger:hover {
+        background-color: #e63946;
+        color: #fff;
+        border-color: #e63946;
+    }
+
+    .btn-success {
+        background-color: #008080;
+        border: none;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-success:hover {
+        background-color: #006666;
+    }
+
+    .text-primary {
+        color: #008080 !important;
+    }
+
+    
+
+
+</style>

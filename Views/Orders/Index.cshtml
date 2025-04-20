@@ -127,19 +127,21 @@ else
                     <td>
                         @if (User.IsInRole("Admin") && item.StatusId != 1)
                         {
-                            <a class="btn btn-danger btn-sm" style="background-color: mediumslateblue" asp-controller="Stocks" asp-route-id="@item.OrderId" asp-action="AS">Assign Stock</a>
+                            <a class="badge" style="background-color: mediumslateblue" asp-controller="Stocks" asp-route-id="@item.OrderId" asp-action="AS">Assign Stock</a>
                         }
 
                         @if (item.status.Id == 1 && !User.IsInRole("Admin"))
                         {
-                            <a class="btn btn-info btn-sm" style="background-color: #3B82F6" asp-controller="OrderItems" asp-route-id="@item.OrderId" asp-action="Index">See Items</a>
+                            <a class="badge" style="color: white; background-color: teal; text-decoration: none;" asp-controller="OrderItems" asp-route-id="@item.OrderId" asp-action="Index">See Items</a>
 
-                            <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.OrderId">Delete</a>
+                            <a class="badge" style="color: white; background-color: teal; text-decoration: none;" asp-action="Delete" asp-route-id="@item.OrderId">Delete</a>
+
                         }
                         else
                         {
-                            <a class="btn btn-info btn-sm" style="background-color: #3B82F6" asp-controller="OrderItems" asp-route-id="@item.OrderId" asp-action="Index">See Items</a>
-                            <a class="btn btn-secondary btn-sm" style="background-color:  #10B981" asp-action="Details" asp-route-id="@item.OrderId">Details</a>
+                            <a class="badge" style="color: white; background-color: teal; text-decoration: none;" asp-controller="OrderItems" asp-route-id="@item.OrderId" asp-action="Index">See Items</a>
+
+                            <a class="badge" style="color: white; background-color: teal; text-decoration: none;" asp-action="Details" asp-route-id="@item.OrderId">Details</a>
                         }
                     </td>
                 </tr>
@@ -147,3 +149,109 @@ else
         </tbody>
     </table>
 }
+
+<style>
+    .btn btn-info{
+        color: white;
+        background-color: teal;
+    }
+    body {
+        background-color: #f9fafb;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    h2 {
+        color: #111827;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    
+
+    .btn {
+        border-radius: 1rem;
+        padding: 0.4rem 1rem;
+        font-weight: 500;
+        transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+        .btn:hover {
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+    .table {
+        background-color: white;
+        border-radius: 1rem;
+        overflow: hidden;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+    }
+
+        .table thead {
+            background-color: #f3f4f6;
+            color: #374151;
+        }
+
+        .table th,
+        .table td {
+            vertical-align: middle;
+            padding: 1rem;
+        }
+
+    .badge {
+        padding: 0.5rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+
+    .text-teal {
+        color: teal;
+        text-decoration: none;
+    }
+
+        .text-teal:hover {
+            text-decoration: underline;
+        }
+
+    .form-container {
+        background-color: white;
+        border-radius: 1rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+        margin-top: 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .form-container input[type="text"],
+        .form-container select {
+            border: 1px solid #d1d5db;
+            border-radius: 1rem;
+            padding: 0.5rem 1rem;
+            outline: none;
+            transition: box-shadow 0.2s;
+        }
+
+            .form-container input[type="text"]:focus,
+            .form-container select:focus {
+                box-shadow: 0 0 0 2px #3B82F6;
+            }
+
+        .form-container input[type="submit"] {
+            background-color: #3B82F6;
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+
+            .form-container input[type="submit"]:hover {
+                background-color: #2563eb;
+            }
+</style>

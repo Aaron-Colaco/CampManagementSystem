@@ -3,18 +3,16 @@
 @{
     ViewData["Title"] = "Details";
 }
-<br />
-<h2>
-    Thank You for Your Order  @Html.DisplayFor(model => model.user.FirstName)
 
+<h2 class="text-center fw-bold mt-4 mb-5 text-black">
+    Thank You for Your Order, @Html.DisplayFor(model => model.user.FirstName)!
 </h2>
-
 
 <style>
     .OrderStatus {
         width: 85%;
         position: relative;
-        margin: 5%;
+        margin: 5% auto;
         margin-top: 10%;
         margin-bottom: 10%;
     }
@@ -32,7 +30,6 @@
 
     .color-bar {
         background: teal;
-        ;
         position: absolute;
         height: 10px;
         top: 50%;
@@ -82,7 +79,6 @@
     }
 </style>
 
-
 @{
     if (Model.StatusId == 1)
     {
@@ -92,7 +88,6 @@
                 z-index: 2;
             }
         </style>
-
     }
     if (Model.StatusId == 2)
     {
@@ -113,7 +108,6 @@
         </style>
     }
     if (Model.StatusId == 4)
-
     {
         <style>
             .color-bar {
@@ -123,7 +117,6 @@
         </style>
     }
 }
-
 
 <div class="OrderStatus">
     <div class="empty-bar"></div>
@@ -148,63 +141,42 @@
     </ul>
 </div>
 
-
-
-<br />
-<br />
-
-
 <div>
-    <h4>Order Details</h4>
+    <h3 class="text-black fw-bold">Order Details</h3>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            <h6 class="Headings">OrderTime</h6>
+            <span class="Headings">Order Time</span>
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.OrderTime)
-
         </dd>
 
         <dt class="col-sm-2">
-            <h6 class="Headings">Order Price</h6>
+            <span class="Headings">Order Price</span>
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.TotalPrice)
-
         </dd>
+
         <dt class="col-sm-2">
-            <h6 class="Headings">Customer Name</h6>
+            <span class="Headings">Customer Name</span>
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.user.FirstName)
-
         </dd>
-
-
-
-
-
-
-
-
-
-
     </dl>
 </div>
-<div style="color:teal; font-weight:bold; font-size: 1rem;">
 
-    <a asp-controller="OrderItems" asp-route-id="@Model.OrderId" asp-action="Index">See Items In Order</a>
-    <br />
-
+<div class="mt-4" style="color:teal; font-weight:bold; font-size: 1rem;">
+    <a asp-controller="OrderItems" asp-route-id="@Model.OrderId" asp-action="Index">See Items In Order</a><br />
     <a asp-action="Index">See all Orders</a>
-
 </div>
 
 <style>
     .Headings {
         color: teal;
-        font-weight-bold;
+        font-weight: bold;
         font-size: 1rem;
     }
 </style>
