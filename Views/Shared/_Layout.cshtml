@@ -4,7 +4,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - WebApplication4</title>
-    <!-- Google Font: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -34,6 +33,7 @@
         z-index: 1050;
         letter-spacing: 0.5px;
     }
+   @@media screen and (min-width: 1000px) {
 
     .navbar {
         background-color: #fff;
@@ -46,6 +46,19 @@
         padding: 0.5rem 1rem;
         margin-top: -0.5%;
     }
+   }
+
+        @@media screen and (max-width: 1000px) {
+            .navbar {
+                background-color: #fff;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+                position: fixed;
+                top: 40px;
+                width: 100%;
+                z-index: 1040;
+                margin-top: -0.5%;
+            }       
+        }
 
     .navbar-brand,
     .nav-link {
