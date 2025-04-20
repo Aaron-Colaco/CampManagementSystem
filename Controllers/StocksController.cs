@@ -32,7 +32,7 @@ namespace WebApplication4.Controllers
 
             ViewBag.SearchTerm = SearchTerm; 
             var stock = _context.Stock.Include(s => s.order).ThenInclude(a => a.user).
-                Include(a => a.Items).OrderBy(a => a.OrderId != null);
+                Include(a => a.Items).OrderBy(a => a.OrderId == null);
 
             if(SearchTerm != null)
             {
