@@ -127,7 +127,7 @@ else
                     <td>
                         @if (User.IsInRole("Admin") && item.StatusId != 1)
                         {
-                            <a class="badge" style="background-color: mediumslateblue" asp-controller="Stocks" asp-route-id="@item.OrderId" asp-action="AS">Assign Stock</a>
+                            <a class="badge" style="background-color: mediumslateblue; text-decoration: none;" asp-controller="Stocks" asp-route-id="@item.OrderId" asp-action="AS">Assign Stock</a>
                         }
 
                         @if (item.status.Id == 1 && !User.IsInRole("Admin"))
@@ -166,7 +166,12 @@ else
         margin-bottom: 1rem;
     }
 
-    
+    .badge:hover {
+        background-color: black !important;
+        color: white !important;
+        text-decoration: none;
+    }
+
 
     .btn {
         border-radius: 1rem;
