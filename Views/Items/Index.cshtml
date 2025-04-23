@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebApplication4.Models.Item>
+@model IEnumerable<WebApplication4.Models.Item>
 
 @{
     ViewData["Title"] = "Index";
@@ -139,19 +139,9 @@
 
         </form>
         <br />
-        <!--Form that passes the user input to the items Controller filter method-->
-        <form asp-action="Filter" asp-controller="Items">
-
-
-            <input style="width: 5%; border-width: 2px; border-style:solid; height:4vh; border-radius:2px;" name="minPrice" type="number" placeholder="Min" max="300" maxlength="3" min="0" />
-            <input style="width: 5%; border-width: 2px; border-style:solid; height:4vh; border-radius:2px;" name="maxPrice" type="number" placeholder="Max" max="300" maxlength="3" min="0" />
-            <button type="submit" style="background: none; border: none; cursor: pointer;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="bi bi-search" viewBox="0 0 16 16">
-                    <path fill="black" d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-                </svg>
-            </button>
-        </form>
-        <br />
+       
+       
+      
         <form asp-action="FilterByCategroy">
             @{
                 //For each Cateogry stored in the view bag display an input in the form with the value being the category name.
@@ -214,7 +204,7 @@
 
 
                 <br />       <br />
-                <h1 style="font-size:1rem;">@Html.DisplayFor(modelItem => item.Name)</h1>
+                <h1 style="font-size:1rem; color: teal;">@Html.DisplayFor(modelItem => item.Name)</h1>
 
                 <h1> @Html.DisplayFor(modelItem => item.Price)</h1>
 
@@ -403,7 +393,7 @@
         .AddToCart:hover {
             transition: 1000ms;
             padding: 10px 50px;
-            color: black;
+             color: teal;
             background-color: white;
             border: solid 2px black;
         }
