@@ -3,7 +3,8 @@
 <h2>Features</h2>
 
 <ul>
-  <li>Allows user to add items to cart</li>
+  <li>User Roles</li>
+  <li>Cart system</li>
   <li>Stripe payment API integration</li>
   <li>Allows admin to allocate specific stock to users based on what they ordered</li>
   <li>Tracks where each piece of camp gear is and who has it</li>
