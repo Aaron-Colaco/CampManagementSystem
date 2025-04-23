@@ -2,15 +2,24 @@
 
 
 <style>
-/* video section */
+    html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+    /* video section */
 .hero-video {
-    position: relative;
-    width: 100%;
-    height: 80vh;
+   position: relative;
+width: 110%;;
+ margin-left: -5%;
+  height: 80vh;
+overflow: • hidden;
     overflow: hidden;
 }
 .hero-video video {
-    width: 100%;
+    width: 138%;
+    margin-left: -20%;
     height: 100%;
     object-fit: cover;
     filter: brightness(60%);
@@ -84,9 +93,9 @@
     margin-bottom: 20px;
 }
 .card-content button {
-    background: var(--teal);
+    background: #247777;
     color: white;
-    border: 2px solid var(--teal);
+    border: 2px solid #247777;
     padding: 0.75rem;
     width: 100%;
     text-transform: uppercase;
@@ -96,31 +105,24 @@
 }
 .card-content button:hover {
     background: white;
-    color: var(--teal);
+    color: #247777;
 }
 
-/* basic reset + variables */
-:root {
-    --black: #000;
-    --white: #fff;
-    --teal: #247777;
-    --font-family: 'Helvetica Neue', Arial, sans-serif;
-}
+/* basic reset */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 body {
-    font-family: var(--font-family);
-    background: var(--white);
-    color: var(--black);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background: #fff;
+    color: #000;
 }
 a {
     color: inherit;
     text-decoration: none;
 }
-
 
 section {
     padding: 4rem 2rem;
@@ -135,19 +137,19 @@ section {
     margin-bottom: 2rem;
     color: black;
     font-size: 2rem;
-    border-bottom: 3px solid var(--teal);
+    border-bottom: 3px solid #247777;
     display: inline-block;
     padding-bottom: 0.5rem;
 }
 
-/* about section */
+
 #about .content {
     max-width: 800px;
     margin: 0 auto;
     line-height: 1.6;
 }
 
-/* features grid */
+
 #features .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
@@ -163,7 +165,7 @@ section {
 }
 #features .item h3 {
     margin-bottom: 0.75rem;
-    color: var(--teal);
+    color: #247777;
 }
 
 /* gallery */
@@ -188,12 +190,12 @@ section {
     border: 1px solid #ccc;
     border-radius: 10px;
     width: 100%;
-    font-family: var(--font-family);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
 }
 #contact button {
     padding: 1rem;
-    border: 2px solid var(--teal);
-    background: var(--teal);
+    border: 2px solid #247777;
+    background: #247777;
     color: white;
     text-transform: uppercase;
     cursor: pointer;
@@ -202,16 +204,12 @@ section {
 }
 #contact button:hover {
     background: white;
-    color: var(--teal);
+    color: #247777;
 }
 
-/* footer */
-footer {
-    background: black;
-    color: white;
-    text-align: center;
-    padding: 1rem;
-}
+
+
+
 </style>
 
 
