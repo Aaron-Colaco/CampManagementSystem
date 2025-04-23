@@ -9,8 +9,11 @@
   <li>Tracks where each piece of camp gear is and who has it</li>
   <li>Automated email sending</li>
 </ul>
-<img width="452" alt="image" src="https://github.com/user-attachments/assets/93ce7678-fdf7-4165-8539-2943b7ec8d66" />
-![image](https://github.com/user-attachments/assets/190c8c35-fa0e-417a-a830-569e60cd2fec)
-![image](https://github.com/user-attachments/assets/a34f6bc5-b8ca-4ba6-a208-d7f9c75b0716)
+<img width="1440" alt="Screenshot 2025-04-24 at 10 54 20 AM" src="https://github.com/user-attachments/assets/e4fe6647-5341-47b2-8374-5d7912ee83e1" />
 
-![image](https://github.com/user-attachments/assets/491680e3-d85f-4639-92d2-98f753f904e7)
+<img width="1440" alt="Screenshot 2025-04-24 at 10 48 38 AM" src="https://github.com/user-attachments/assets/232f99ad-586c-4979-a425-86c0bbdb5c08" />
+
+
+<img width="1439" alt="Screenshot 2025-04-24 at 10 56 22 AM" src="https://github.com/user-attachments/assets/64bc516f-dfc6-4e37-879e-bb22fa2a62d9" />
+
+
