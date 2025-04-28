@@ -89,7 +89,7 @@ namespace WebApplication4.Controllers
         {
             var order = _context.Order.Where(a => a.OrderId == OrderId).FirstOrDefault();
             order.StatusId = 4;
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Orders");
 
 
