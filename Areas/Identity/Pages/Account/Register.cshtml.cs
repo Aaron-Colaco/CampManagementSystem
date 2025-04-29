@@ -83,7 +83,6 @@ namespace WebApplication4.Areas.Identity.Pages.Account
 
             // Date of Birth with a regex validation for format (e.g., MM/DD/YYYY)
             [Required]
-            [RegularExpression(@"^(0[1-9]|1[0-2])\/([0-2][1-9]|3[0-1])\/\d{4}$", ErrorMessage = "Date of Birth must be in MM/DD/YYYY format.")]
             public string DOB { get; set; }
 
             // Student Number validation (6 digits only)

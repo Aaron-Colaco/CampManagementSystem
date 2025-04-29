@@ -23,9 +23,9 @@
                 <span asp-validation-for="Input.LastName" class="text-danger"></span>
             </div>
 
-            <div class="mb-3">
+            <div class="mb-3"> 
                 <label for="inputDOB" class="form-label">Date of Birth (MM/DD/YYYY)</label>
-                <input asp-for="Input.DOB" class="form-control" id="inputDOB" placeholder="MM/DD/YYYY" />
+                <input asp-for="Input.DOB" class="form-control" id="inputDOB" placeholder="MM/DD/YYYY" type="date" max="@DateTime.Now.ToString("yyyy-MM-dd")"/>
                 <span asp-validation-for="Input.DOB" class="text-danger"></span>
             </div>
 
