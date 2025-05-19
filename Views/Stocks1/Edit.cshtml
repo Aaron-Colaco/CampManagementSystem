@@ -1,23 +1,27 @@
 ﻿@model WebApplication4.Models.Stock
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
-<h1>Create</h1>
+<h1>Edit</h1>
 
 <h4>Stock</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create" method="post" >
+        <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-         
+            <input type="hidden" asp-for="StockId" />
             <div class="form-group">
                 <label asp-for="ItemId" class="control-label"></label>
                 <select asp-for="ItemId" class="form-control" asp-items="ViewBag.ItemId"></select>
                 <span asp-validation-for="ItemId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrderId" class="control-label"></label>
+                <select asp-for="OrderId" class="form-control" asp-items="ViewBag.OrderId"></select>
+                <span asp-validation-for="OrderId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ProductSize" class="control-label"></label>
@@ -25,24 +29,14 @@
                 <span asp-validation-for="ProductSize" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ProductSizeNumber" class="control-label"></label>
-                <select asp-for="ProductSizeNumber" class="form-control"></select>
-                <span asp-validation-for="ProductSizeNumber" class="text-danger"></span>
+                <label asp-for="ProductNumber" class="control-label"></label>
+                <select asp-for="ProductNumber" class="form-control"></select>
+                <span asp-validation-for="ProductNumber" class="text-danger"></span>
             </div>
-
-
             <div class="form-group">
-                <label>How much stock do you want to add?</label>
-                <input required  type="number" name="NumberToAdd" value="1" class="form-control" min="1" max="30"/>
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
-
-
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-
         </form>
-
     </div>
 </div>
 

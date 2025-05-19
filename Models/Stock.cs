@@ -20,6 +20,23 @@ namespace WebApplication4.Models
 
         public Order order { get; set; }
 
+        public enum Size
+        {
+            Small = 1,
+            Medium = 2,
+            Large = 3,
+            XLarge = 4
+        }
+
+        public enum Number
+        {
+         
+        }
+
+            public Size ProductSize { get; set; }
+            public Number ProductSizeNumber { get; set; }
+       
+
 
     }
 

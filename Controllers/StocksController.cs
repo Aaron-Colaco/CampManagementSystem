@@ -211,7 +211,7 @@ namespace WebApplication4.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StockId,ItemId,UserId")] Stock stock, int NumberToAdd)
+        public async Task<IActionResult> Create([Bind("StockId,ItemId,UserId")] Stock stock, int NumberToAdd, string ProductSize,string ProductNumber)
         {
             var items = _context.Stock.Where(a => a.ItemId == stock.ItemId);
 
