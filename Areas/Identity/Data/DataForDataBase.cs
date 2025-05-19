@@ -47,31 +47,31 @@ namespace WebApplication4.Areas.Identity.Data
                     var ItemsData = new Item[]
                     {
                         // Footwear
-                        new Item { Name = "Boots", CategoryId = 1, ImageURL = " ", Price = 6.00 },
-                        new Item { Name = "Running shoes", CategoryId = 1, ImageURL = " ", Price = 2.00 },
+                        new Item { Name = "Boots", CategoryId = 1, ImageURL = "/images/test.png", Price = 6.00 },
+                        new Item { Name = "Running shoes", CategoryId = 1, ImageURL = "/images/test.png", Price = 2.00 },
 
                         // Outerwear
-                        new Item { Name = "Raincoat", CategoryId = 2, ImageURL = " ", Price = 6.00 },
-                        new Item { Name = "Overtrousers - wet weather pants", CategoryId = 2, ImageURL = " ", Price = 6.00 },
+                        new Item { Name = "Raincoat", CategoryId = 2, ImageURL = "/images/test.png", Price = 6.00 },
+                        new Item { Name = "Overtrousers - wet weather pants", CategoryId = 2, ImageURL = "/images/test.png", Price = 6.00 },
 
                         // Tops
-                        new Item { Name = "Long sleeved vest - woollen or poly pro", CategoryId = 3, ImageURL = "", Price = 2.00 },
-                        new Item { Name = "Short sleeved vest - woollen or poly pro", CategoryId = 3, ImageURL = "", Price = 2.00 },
-                        new Item { Name = "Woollen jumper", CategoryId = 3, ImageURL = " ", Price = 3.00 },
-                        new Item { Name = "Bush shirt or polar fleece", CategoryId = 3, ImageURL = "", Price = 3.00 },
+                        new Item { Name = "Long sleeved vest - woollen or poly pro", CategoryId = 3, ImageURL = "/images/test.png", Price = 2.00 },
+                        new Item { Name = "Short sleeved vest - woollen or poly pro", CategoryId = 3, ImageURL = "/images/test.png", Price = 2.00 },
+                        new Item { Name = "Woollen jumper", CategoryId = 3, ImageURL = "/images/test.png", Price = 3.00 },
+                        new Item { Name = "Bush shirt or polar fleece", CategoryId = 3, ImageURL = "/images/test.png", Price = 3.00 },
 
                         // Bottoms
-                        new Item { Name = "Long johns - woollen or poly pro", CategoryId = 4, ImageURL = "", Price = 2.00 },
-                        new Item { Name = "Trackpants", CategoryId = 4, ImageURL = " ", Price = 1.00 },
-                        new Item { Name = "Shorts", CategoryId = 4, ImageURL = " ", Price = 1.00 },
+                        new Item { Name = "Long johns - woollen or poly pro", CategoryId = 4, ImageURL = "/images/test.png", Price = 2.00 },
+                        new Item { Name = "Trackpants", CategoryId = 4, ImageURL = "/images/test.png", Price = 1.00 },
+                        new Item { Name = "Shorts", CategoryId = 4, ImageURL = "/images/test.png", Price = 1.00 },
 
                         // Accessories
-                        new Item { Name = "Woollen Hats", CategoryId = 5, ImageURL = " ", Price = 1.00 },
-                        new Item { Name = "Woollen mittens", CategoryId = 5, ImageURL = " ", Price = 2.00 },
-                        new Item { Name = "Woollen socks", CategoryId = 5, ImageURL = " ", Price = 3.00 },
+                        new Item { Name = "Woollen Hats", CategoryId = 5, ImageURL = "/images/test.png", Price = 1.00 },
+                        new Item { Name = "Woollen mittens", CategoryId = 5, ImageURL = "/images/test.png", Price = 2.00 },
+                        new Item { Name = "Woollen socks", CategoryId = 5, ImageURL = "/images/test.png", Price = 3.00 },
 
                         // Sleeping Gear
-                        new Item { Name = "Sleeping Bag (-3°C) and Liner (inc. cleaning)", CategoryId = 6, ImageURL = " ", Price = 22.00 }
+                        new Item { Name = "Sleeping Bag (-3°C) and Liner (inc. cleaning)", CategoryId = 6, ImageURL = "/images/test.png", Price = 22.00 }
                     };
 
 
