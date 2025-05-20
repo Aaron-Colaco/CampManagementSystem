@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Stripe.Climate;
 using WebApplication4.Data;
 using WebApplication4.Models;
@@ -94,6 +95,9 @@ namespace WebApplication4.Controllers
 
 
         }
+
+
+
         public async Task<IActionResult> a2(int StockId, string OrderId)
         {
            var stock = _context.Stock.Where(a => a.StockId == StockId).FirstOrDefault();
@@ -202,17 +206,37 @@ namespace WebApplication4.Controllers
             return View(stock);
         }
 
-        // GET: Stocks/Create
-        public IActionResult Create()
+
+        public async Task<IActionResult> PickItem()
         {
-            ViewData["ItemId"] = new SelectList(_context.Item, "ItemId", "Name"); 
+            ViewData["ItemId"] = new SelectList(_context.Item, "ItemId", "Name");
             return View();
         }
+        public async Task<IActionResult> PickedItem(int itemId)
+        {
+          var item =  _context.Item.Where(a => a.ItemId == itemId).FirstOrDefault();
+
+            ViewBag.Cat = item.CategoryId;
+
+            ViewBag.ItemId = itemId;
+
+            ViewBag.Name = item.Name;
+
+
+            return View();
+
+           
+
+        }
+
+        // GET: Stocks/Create
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StockId,ItemId,UserId")] Stock stock, int NumberToAdd, string ProductSize,string ProductNumber)
+        public async Task<IActionResult> Create([Bind("StockId,ItemId,UserId,ClothingSizes,ShoeSizes")] Stock stock, int NumberToAdd, string ProductSize,string ProductNumber)
         {
+
             var items = _context.Stock.Where(a => a.ItemId == stock.ItemId);
 
             int stockId;

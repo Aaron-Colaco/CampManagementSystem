@@ -1,0 +1,79 @@
+﻿@using static WebApplication4.Models.Stock
+@model WebApplication4.Models.Stock
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Stock</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" method="post" >
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+         
+            <div class="form-group">
+                <label asp-for="ItemId" class="control-label"></label>
+                <input asp-for="ItemId" value="@ViewBag.ItemId" type="hidden"/>
+
+                <input disabled type="text"  value="@ViewBag.Name" class="form-control" />
+
+            
+                <span asp-validation-for="ItemId" class="text-danger"></span>
+            </div>
+
+          
+
+
+            @if (ViewBag.ViewBag.Cat != 1){
+
+            <div class="form-group">
+                <label asp-for="ClothingSizes" class="control-label"></label>
+                <select asp-for="ClothingSizes" class="form-control">
+                    @foreach (ClothingSize size in Enum.GetValues(typeof(ClothingSize)))
+                    {
+                        <option value="@size">@size.ToString()</option>
+                    }
+                </select>
+                <span asp-validation-for="ClothingSizes" class="text-danger"></span>
+            </div>
+            }else{
+
+            <div class="form-group">
+                <label asp-for="ShoeSizes" class="control-label"></label>
+                <select asp-for="ShoeSizes" class="form-control">
+                    @foreach (ShoeSize size in Enum.GetValues(typeof(ShoeSize)))
+                    {
+                        <option value="@size">@size.ToString()</option>
+                    }
+                </select>
+                <span asp-validation-for="ShoeSizes" class="text-danger"></span>
+            </div>
+            }
+            <div class="form-group">
+                <label>How much stock do you want to add?</label>
+                <input required  type="number" name="NumberToAdd" value="1" class="form-control" min="1" max="30"/>
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+
+
+
+        </form>
+
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

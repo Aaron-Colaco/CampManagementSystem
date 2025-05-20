@@ -20,7 +20,8 @@ namespace WebApplication4.Models
 
         public Order order { get; set; }
 
-        public enum Size
+
+        public enum ClothingSize
         {
             Small = 1,
             Medium = 2,
@@ -28,14 +29,20 @@ namespace WebApplication4.Models
             XLarge = 4
         }
 
-        public enum Number
+        public enum ShoeSize
         {
-         
+            US6 = 6,
+            US7 = 7,
+            US8 = 8,
+            US9 = 9,
+            US10 = 10,
+            US11 = 11,
+            US12 = 12
         }
 
-            public Size ProductSize { get; set; }
-            public Number ProductSizeNumber { get; set; }
-       
+        public ClothingSize? ClothingSizes { get; set; } = null;
+        public ShoeSize? ShoeSizes { get; set; } = null;
+
 
 
     }
