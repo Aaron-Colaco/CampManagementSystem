@@ -32,6 +32,8 @@ namespace WebApplication4.Models
 
         public Category Categorys { get; set; }
 
+        public ICollection<Stock> Stocks { get; set; }
+
 
 
     }

@@ -225,6 +225,7 @@ namespace WebApplication4.Controllers
 
             return View();
 
+            
            
 
         }
@@ -261,7 +262,7 @@ namespace WebApplication4.Controllers
                
                     _context.Stock.Add(new Stock
                     {
-
+                        if(Pr)
                         
                         StockId = stockId,
                         ItemId = stock.ItemId,

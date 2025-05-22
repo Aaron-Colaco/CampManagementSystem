@@ -11,14 +11,14 @@
 </div>
 
 <form asp-controller="Stocks" asp-action="Index"
-      style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-items: center; padding: 1rem; background-color: white; border-radius: 1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.1); flex-wrap: wrap; justify-content: center;">
+style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-items: center; padding: 1rem; background-color: white; border-radius: 1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.1); flex-wrap: wrap; justify-content: center;">
 
     <input type="text" name="SearchTerm" placeholder="Search by item, email, or student number"
-           style="border: 1px solid #ccc; border-radius: 1rem; padding: 0.5rem 1rem; width: 70%; outline: none; box-shadow: none; transition: box-shadow 0.2s;"/>
+    style="border: 1px solid #ccc; border-radius: 1rem; padding: 0.5rem 1rem; width: 70%; outline: none; box-shadow: none; transition: box-shadow 0.2s;"/>
 
     <input type="submit"
-            style="background-color: #3B82F6; color: white; border: none; padding: 0.5rem 1.5rem; border-radius: 1rem; cursor: pointer; font-weight: bold; transition: background-color 0.2s;" value="Search"/>
-        
+    style="background-color: #3B82F6; color: white; border: none; padding: 0.5rem 1.5rem; border-radius: 1rem; cursor: pointer; font-weight: bold; transition: background-color 0.2s;" value="Search"/>
+
 </form>
 
 <div class="d-flex justify-content-center gap-4 mb-5">
@@ -41,6 +41,7 @@
         <thead class="table-dark">
             <tr>
                 <th>Item Name</th>
+                <th>Size</th>
                 <th>Stock ID</th>
                 <th colspan="4">Status / Details</th>
                 <th>Actions</th>
@@ -51,6 +52,16 @@
             {
                 <tr>
                     <td>@item.Items.Name</td>
+
+                    <td>
+                    @if(item.Items.CategoryId == 1)
+                    {
+                        @item.ShoeSizes;
+                    }else
+                    {
+                      @item.ClothingSizes;
+                    }
+                    </td>
                     <td>@item.StockId</td>
                     <td colspan="4">
                         @if (item.OrderId != null)
