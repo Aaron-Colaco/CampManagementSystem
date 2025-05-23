@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Stripe.Climate;
 using WebApplication4.Data;
+using WebApplication4.Migrations;
 using WebApplication4.Models;
 
 namespace WebApplication4.Controllers
@@ -235,7 +236,7 @@ namespace WebApplication4.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StockId,ItemId,UserId,ClothingSizes,ShoeSizes")] Stock stock, int NumberToAdd, string ProductSize,string ProductNumber)
+        public async Task<IActionResult> Create([Bind("StockId,ItemId,UserId,ClothingSizes,ShoeSizes")] Stock stock, int NumberToAdd, string ClothingSizes, string ShoeSizes)
         {
 
             var items = _context.Stock.Where(a => a.ItemId == stock.ItemId);
@@ -259,16 +260,36 @@ namespace WebApplication4.Controllers
                     {
                         stockId++;
                     }
-               
+
+
+                if (ClothingSizes != null)
+                {
                     _context.Stock.Add(new Stock
                     {
-                        if(Pr)
-                        
+
+                        ClothingSizes = stock.ClothingSizes,
                         StockId = stockId,
                         ItemId = stock.ItemId,
                         OrderId = null
                     });
-                    await _context.SaveChangesAsync();
+                }
+
+                if (ShoeSizes  != null)
+                {
+                    _context.Stock.Add(new Stock
+                    {
+
+                        ShoeSizes = stock.ShoeSizes,
+                        StockId = stockId,
+                        ItemId = stock.ItemId,
+                        OrderId = null
+                    });
+
+                }
+
+       
+
+        await _context.SaveChangesAsync();
                 stockId++;
             }
 
@@ -277,7 +298,7 @@ namespace WebApplication4.Controllers
             
 
 
-            return RedirectToAction("Index");
+         
         }
 
 
@@ -289,28 +310,40 @@ namespace WebApplication4.Controllers
                 return NotFound();
             }
 
+            var Item = _context.Stock.Where(a => a.StockId == id).Include(a => a.Items).FirstOrDefault();
+
+
+            var item = _context.Item.Where(a => a.ItemId == Item.ItemId).FirstOrDefault();
+            ViewBag.Cat = item.CategoryId;
+
+            ViewBag.ItemId = id;
+
+            ViewBag.Name = item.Name;
+
+
             var stock = await _context.Stock.FindAsync(id);
             if (stock == null)
             {
                 return NotFound();
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", stock.OrderId);
+            ViewData["ItemId"] = new SelectList(_context.Item, "ItemId", "ImageURL", stock.ItemId);
+            ViewData["OrderId"] = new SelectList(_context.Order, "OrderId", "OrderId", stock.OrderId);
             return View(stock);
         }
 
-        // POST: Stocks/Edit/5
+        // POST: Stocks1/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("StockId,ItemId,UserId")] Stock stock)
+        public async Task<IActionResult> Edit(int id, [Bind("StockId,ItemId,OrderId,ClothingSizes,ShoeSizes")] Stock stock)
         {
             if (id != stock.StockId)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 try
                 {
@@ -330,9 +363,11 @@ namespace WebApplication4.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["OrderId"] = new SelectList(_context.Users, "Id", "Id", stock.OrderId);
+            ViewData["ItemId"] = new SelectList(_context.Item, "ItemId", "ImageURL", stock.ItemId);
+            ViewData["OrderId"] = new SelectList(_context.Order, "OrderId", "OrderId", stock.OrderId);
             return View(stock);
         }
+
 
         // GET: Stocks/Delete/5
         public async Task<IActionResult> Delete(int? id)
