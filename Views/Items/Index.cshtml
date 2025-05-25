@@ -8,7 +8,7 @@
 @{
     var sizes = ViewBag.Sizes as List<ShoeSize>;
 
-    var ClothesSizes = ViewBag.Sizes as List<ClothingSize>;
+    var s = ViewBag.Sizes as List<ClothingSize>;
 
 }
 
@@ -40,15 +40,16 @@
 
                         @foreach (var size in ViewBag.Sizes)
                         {
-                                <input type="submit" value="@(sizes)" name="size" class="btn btn-outline-secondary" />
+                                <input type="submit" value="@((int)size)" name="size" class="btn btn-outline-secondary" />
                             }
                         }
                         else
                         {
-                            @foreach (var size in ViewBag.Sizes)
+                            @foreach (var ss in ViewBag.Sizes)
                             {
-                                <input type="submit" value="@(ClothesSizes)" name="size" class="btn btn-outline-secondary" />
+                                <input type="submit" value="@ss.ToString()" name="size" class="btn btn-outline-secondary" />
                             }
+
 
                         }
                         
