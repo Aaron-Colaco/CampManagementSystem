@@ -23,6 +23,12 @@ namespace WebApplication4.Controllers
         // Decalres the constant number of Items Per Page as 6
         public const int ITEMSPERPAGE = 6;
 
+        public async Task<IActionResult> SizePicker(int itemId)
+        {
+
+            return RedirectToAction("Index", "Items", new { displaySizePicker = true, itemId = itemId });
+        }
+
         public async Task<IActionResult> Index(int page = 1, int itemId = 1, bool displayPopUp = false, bool displaySizePicker = false)
         {
             ViewBag.displaySizePicker = displaySizePicker;
@@ -31,13 +37,35 @@ namespace WebApplication4.Controllers
 
 
 
-
             //Finds the item in the database where the item has an id that matches the ItemId passed into the method and stores it the he view bag
-            ViewBag.Item = _context.Item.Where(a => a.ItemId == itemId).FirstOrDefault();
+            var Item = _context.Item.Where(a => a.ItemId == itemId).FirstOrDefault();
             //Stores the value of the display pop-up boolean in the view bag 
             ViewBag.displayPopUp = displayPopUp;
             //Find all the items in the database as well as their category stored in a variable called items
             var Items = _context.Item.Include(i => i.Categorys);
+
+            ViewBag.Item = Item;
+            var stock = _context.Stock.Where(a => a.ItemId == itemId);
+
+
+            if (Item.CategoryId == 1)
+            {
+                var allStock = await stock
+    .Where(a => a.ShoeSizes != null).ToListAsync(); 
+
+ViewBag.Sizes = allStock .Select(a => a.ShoeSizes.Value).Distinct().ToList(); 
+
+
+            }
+            else {
+                var allStock = await stock
+                  .Where(a => a.ClothingSizes != null).ToListAsync();
+
+                ViewBag.Sizes = allStock.Select(a => a.ClothingSizes.Value).Distinct().ToList();
+
+
+            }
+
 
             //Calculates the number of pages needed based on the number of products in the database.
             ViewBag.Pages = (int)Math.Ceiling((double)Items.Count() / ITEMSPERPAGE);
@@ -52,8 +80,6 @@ namespace WebApplication4.Controllers
             return View(await Items.Skip((page - 1) * ITEMSPERPAGE).Take(ITEMSPERPAGE).ToListAsync());
 
         }
-
-
 
 
         public async Task<IActionResult> Search(string searchTerm)
