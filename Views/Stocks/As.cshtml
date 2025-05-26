@@ -27,6 +27,8 @@
     <thead>
         <tr>
             <th>Item</th>
+                <th>Size Requested</th>
+
             <th>Stock Allocation</th>
         </tr>
     </thead>
@@ -41,6 +43,8 @@
                 <tr>
 
                     <td>@orderItem.Items.Name</td>
+                        <td>@orderItem.SizesReq</td>
+
                     <td>
                         
                         <form asp-action="a2">
@@ -50,12 +54,28 @@
                                 <option value="" disabled selected>Select an option</option>
                                 @foreach (var stock in ViewBag.Stock)
                                 {
-                                    if (stock.ItemId == orderItem.ItemId)
+                                    if(orderItem.Items.CategoryId == 1){
+                                   
+                                    if (stock.ItemId == orderItem.ItemId && stock.ShoeSizes?.ToString() == "US" + orderItem.SizesReq)
                                     {
                                         <option value="@stock.StockId">
-                                            @orderItem.Items.Name (@stock.StockId)
-                                        </option>
-                                    }
+                                                @orderItem.Items.Name (@stock.StockId) | US @orderItem.SizesReq 
+
+                                                </option>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (stock.ItemId == orderItem.ItemId && stock.ClothingSizes?.ToString() == orderItem.SizesReq)
+                                            {
+                                                <option value="@stock.StockId">
+                                                    @orderItem.Items.Name (@stock.StockId) | US @orderItem.SizesReq
+
+                                                </option>
+                                            }
+
+                                        }
+
                                 }
                             </select>
                         </form>
@@ -98,8 +118,23 @@
         {
             <tr>
                 <td>
-                    @userStock.Items.Name - @userStock.StockId
+                    @userStock.Items.Name -  @userStock.StockId 
                 </td>
+                
+                    @if(userStock.Items.CategoryId == 1)
+                    {
+                        <td>
+                        @userStock.ShoeSizes
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                        @userStock.ClothingSizes
+                        </td>
+                    }
+
+                
                 <td>
           
 

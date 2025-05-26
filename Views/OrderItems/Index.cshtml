@@ -22,6 +22,8 @@
                     <th>Item</th>
                     <th class="text-center">Quantity</th>
                     <th class="text-end">Price</th>
+                    <th class="text-end">Size</th>
+
                     <th class="text-end">Total</th>
                     <th class="text-center">Remove</th>
                 </tr>
@@ -36,6 +38,8 @@
                         <td class="fw-semibold">@OrderItem.Items.Name</td>
                         <td class="text-center">@OrderItem.Quantity</td>
                         <td class="text-end text-muted">$@OrderItem.Items.Price.ToString("F2")</td>
+                        <td class="text-center">@OrderItem.SizesReq</td>
+
                         <td class="text-end fw-bold text-success">$@itemCost.ToString("F2")</td>
                         <td class="text-center">
                             @if (OrderItem.Orders.StatusId == 1)

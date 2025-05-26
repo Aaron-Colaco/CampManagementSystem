@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using static WebApplication4.Models.Stock;
 
 namespace WebApplication4.Models
 {
@@ -32,6 +33,11 @@ namespace WebApplication4.Models
         public bool GearAssigned { get; set; }
 
 
+        public string SizesReq { get; set; } = null;
+
+        
+
+        
 
 
     }

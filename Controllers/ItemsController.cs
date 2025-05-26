@@ -29,12 +29,12 @@ namespace WebApplication4.Controllers
             return RedirectToAction("Index", "Items", new { displaySizePicker = true, itemId = itemId });
         }
 
-        public async Task<IActionResult> Index(int page = 1, int itemId = 1, bool displayPopUp = false, bool displaySizePicker = false)
+        public async Task<IActionResult> Index(int page = 1, int itemId = 1, bool displayPopUp = false, bool displaySizePicker = false, string size = "s")
         {
             ViewBag.displaySizePicker = displaySizePicker;
 
 
-
+            ViewBag.size = size;
 
 
             //Finds the item in the database where the item has an id that matches the ItemId passed into the method and stores it the he view bag
@@ -45,7 +45,7 @@ namespace WebApplication4.Controllers
             var Items = _context.Item.Include(i => i.Categorys);
 
             ViewBag.Item = Item;
-            var stock = _context.Stock.Where(a => a.ItemId == itemId);
+            var stock =  _context.Stock.Where(a => a.ItemId == itemId && a.OrderId == null);
 
 
             if (Item.CategoryId == 1)

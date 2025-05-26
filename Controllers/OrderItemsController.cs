@@ -44,7 +44,7 @@ namespace WebApplication4.Controllers
 
 
 
-        public async Task<IActionResult> AddToCart(int itemId)
+        public async Task<IActionResult> AddToCart(int itemId, string size)
         {
 
             //If user is not logined in redrict to to Register page
@@ -71,7 +71,7 @@ namespace WebApplication4.Controllers
             }
 
             //Find if any items in the order where the itemId is the same as the itemid passed into the method
-            var ExistingItem = itemsInOrder.Where(a => a.ItemId == itemId).FirstOrDefault();
+            var ExistingItem = itemsInOrder.Where(a => a.ItemId == itemId && a.SizesReq == size).FirstOrDefault();
 
 
 
@@ -90,7 +90,8 @@ namespace WebApplication4.Controllers
                     OrderId = orderId,
                     ItemId = itemId,
                     Quantity = 1,
-                    GearAssigned = false
+                    GearAssigned = false,
+                    SizesReq = size.ToString()
                    
                 };
                 // add the new Orderitem details to the database
@@ -112,7 +113,7 @@ namespace WebApplication4.Controllers
             await _context.SaveChangesAsync();
 
             //Redirect to the items index action passing true for the display pop up parameter and ItemId for the item parrameter.
-            return RedirectToAction("Index", "Items", new { displayPopUp = true, itemId = itemId });
+            return RedirectToAction("Index", "Items", new { displayPopUp = true, itemId = itemId, size = size});
         }
 
 

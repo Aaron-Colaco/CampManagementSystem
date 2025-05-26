@@ -11,151 +11,229 @@
     var s = ViewBag.Sizes as List<ClothingSize>;
 
 }
-
-@if (ViewBag.displaySizePicker == true)
-{
-    <a class="back-link" asp-action="Index">← Go back</a>
-
-    <div class="centeredPopUP">
-        <div class="item-card">
-            <img class="ItemImage" src="@ViewBag.Item.ImageURL" alt="Item image" />
-            <h3>@ViewBag.Item.Name</h3>
-            <h4>$@ViewBag.Item.Price</h4>
-        </div>
-
+@{
+    @if (ViewBag.displaySizePicker == true)
+    {
         <div>
-            <h2>Please Pick a Size</h2>
+<a style="margin-right:50%" asp-action="Index">Go back</a>
 
-            <form asp-controller="OrderItems" asp-action="AddToCart">
-                <input name="itemId" type="hidden" value="@ViewBag.Item.ItemId" />
+<div class="centeredPopUP" style="margin-top:5%">
 
-                @if (ViewBag.Sizes == null || ViewBag.Sizes.Count == 0)
-                {
-                    <p>No sizes available.</p>
+    <div style="     background-color: #e0f2f1;
+     border-radius:28px; width:39%; margin:auto; padding:1%;" class="Item">
+
+
+        <img class="ItemImgage" src=" @ViewBag.Item.ImageURL" />
+
+
+
+        <h5>  @ViewBag.Item.Name </h5>
+
+        <h5>$@ViewBag.Item.Price </h5>
+
+
+    </div>
+    <!--Display the Item Name from the View Bag-->
+    <!--Display the Item Price from the View Bag-->
+
+    <div>
+        <h1>Please Pick A size</h1>
+
+
+        <form asp-controller="OrderItems" asp-action="AddToCart">
+
+            <input name="itemId" type="hidden" value="@ViewBag.Item.ItemId" />
+            
+           
+            <div class="size-options"> @if (ViewBag.Item.CategoryId == 1)
+                { @foreach (var size in ViewBag.Sizes)
+                    {
+                        <input type="submit" value="@((int)size)" name="size" class="btn btn-outline-secondary" />
+                    }        
                 }
                 else
-                {
-                    <div class="size-options">
-                       @if(ViewBag.Item.CategoryId == 1){
-
-                        @foreach (var size in ViewBag.Sizes)
-                        {
-                                <input type="submit" value="@((int)size)" name="size" class="btn btn-outline-secondary" />
-                            }
-                        }
-                        else
-                        {
-                            @foreach (var ss in ViewBag.Sizes)
-                            {
-                                <input type="submit" value="@ss.ToString()" name="size" class="btn btn-outline-secondary" />
-                            }
-
-
-                        }
-                        
-                                                   
- }
-                    </div>
+                { @foreach (var ss in ViewBag.Sizes)
+                    {
+                        <input type="submit" value="@ss.ToString()" name="size" class="btn btn-outline-secondary" />
+                    }         
                 }
-            </form>
-
-        </div>
-    </div>
-}
-
-@if (ViewBag.displayPopUp == true)
-{
-    <div class="centeredPopUP">
-        <h2>Your item has been added to the cart</h2>
-        <p><strong>@ViewBag.Item.Name</strong> - $@ViewBag.Item.Price</p>
-
-        <form asp-action="Index">
-            <input type="submit" value="Continue Shopping" class="popup-btn" />
         </form>
-        <form asp-action="OpenCart" asp-controller="OrderItems">
-            <input type="submit" value="Go to Cart" class="popup-btn" />
-        </form>
+
+
     </div>
+</div>
+</div>
 
 <style>
-    body {
-        background-color: #fff;
-        color: #000;
-        font-family: 'Segoe UI', sans-serif;
-        overflow: hidden;
-        margin: 0;
-        height: 100vh;
-    }
 
     .centeredPopUP {
         z-index: 1000;
         position: absolute;
-        top: 10%;
-        left: 50%;
-        transform: translateX(-50%);
+        top: 5%;
+        left: 20%;
+        right: 20%;
         width: 60%;
-        padding: 30px;
-        text-align: center;
-        background-color: #fff;
-        border: 2px solid #008080;
-        border-radius: 16px;
-        box-shadow: 0 0 20px rgba(0,0,0,0.15);
-    }
-
-    .item-card {
-        background-color: #000;
-        color: #fff;
-        border-radius: 12px;
+        margin: auto;
         padding: 20px;
-        margin-bottom: 20px;
+        text-align: center;
+        background-color: #e0f2f1;
+        border: 2px solid black;
+        border-radius: 10px;
+        font-size: 24px;
+        color: black;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
-    .ItemImage {
-        height: 100px;
-        object-fit: contain;
-        margin-bottom: 10px;
+    .ItemImgage {
+        overflow: hidden;
+        height: 7vh;
     }
 
-    .size-options input[type="submit"],
-    .popup-btn {
-        background-color: #008080;
+    body {
+        overflow: hidden;
+        margin-bottom: 0%;
+        padding-bottom: 0%;
+    }
+
+    .centeredPopUP input[type ="submit"] {
+        background-color: black;
         color: #fff;
+        padding: 10px 20px;
         border: none;
-        border-radius: 6px;
-        padding: 10px 16px;
-        margin: 8px;
-        cursor: pointer;
-        font-size: 16px;
-        transition: background 0.3s ease;
+        border-radius: 5px;
+        font-size: 18px;
+        margin-top: 20px;
     }
 
-    .size-options input[type="submit"]:hover,
-    .popup-btn:hover {
-        background-color: #006666;
+    .AddToCart, .FilterButtons, pagebuttons {
+        display: none;
     }
 
-    .back-link {
-        display: inline-block;
-        margin: 20px;
-        color: #008080;
-        font-weight: bold;
-        text-decoration: none;
-    }
-
-    .warning-text {
-        color: #c62828;
-        font-weight: bold;
-    }
-
-    .AddToCart,
-    .FilterButtons,
-    .pagebuttons,
     .ItemsPage {
-        display: none !important;
+        opacity: 5%;
+        overflow: hidden !important;
+        height: 80vh;
     }
+
+    body {
+        height: 100vh;
+    }
+
 </style>
+
+
+
+
+
+
+    
+
+}
 }
 
+
+
+@{
+    //display the following html content if the viewbag display PopUp equals ture
+    if (ViewBag.displayPopUp == true)
+    {
+
+
+        <div style="margin-top:5%" class="centeredPopUP">
+            <h1>Your Item as been added to cart</h1>
+
+            @ViewBag.Item.Name  <!--Display the Item Name from the View Bag-->
+            <br />
+            @ViewBag.size
+            <br />
+          $  @ViewBag.Item.Price <!--Display the Item Price from the View Bag-->
+
+
+            <!--two forms with buttons, one to go back to index the other to redrict to the open cart action-->
+            <form asp-action="Index">
+                <input type="submit" class="continue-shopping-btn active" value="Continue Shopping " />
+            </form>
+            <form asp-action="OpenCart" asp-controller="OrderItems">
+                <input type="submit" value="Go to Cart" class="add-to-cart-btn" />
+            </form>
+
+
+        </div>
+        <!--While pop up is displayed blur backgorund and hide add to cart buttons-->
+        <style>
+
+
+
+            .centeredPopUP {
+                z-index: 1000;
+                position: absolute;
+                top: 5%;
+                left: 20%;
+                right: 20%;
+                width: 60%;
+                margin: auto;
+                padding: 20px;
+                text-align: center;
+                background-color: #e0f2f1;
+                border: 2px solid black;
+                border-radius: 10px;
+                font-size: 24px;
+                color: black;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .ItemsPage {
+                opacity: 5%;
+                height: 75vh;
+                overflow: hidden !important;
+            }
+
+            body {
+                height: 100vh;
+                overflow: hidden
+            }
+
+            .centeredPopUP input[type ="submit"] {
+                background-color: black;
+                color: #fff;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                font-size: 18px;
+                margin-top: 20px;
+            }
+
+            .AddToCart, .FilterButtons, .pagebuttons {
+                display: none;
+            }
+
+        </style>
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--If Cart is full display cart full and hide add to cart buttons-->
+@if (ViewBag.MaxQuantiy == true)
+{
+    <h1>Your Cart Is Full</h1>
+    <style>
+        .AddToCart {
+            display: none;
+        }
+    </style>
+}
 
 
 
