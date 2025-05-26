@@ -138,13 +138,13 @@ namespace WebApplication4.Controllers
 
                 _context.Order.Add(order);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("AdminPage", new { orderId = order.OrderId });
+                return RedirectToAction("CreateOrder", new { orderId = order.OrderId });
 
             }
 
             return View();
         }
-        public async Task<IActionResult> AdminPage(string OrderId)
+        public async Task<IActionResult> CreateOrder(string OrderId)
         {
             ViewBag.OrderId = OrderId;
 
@@ -157,7 +157,15 @@ namespace WebApplication4.Controllers
 
             var Items = _context.Item.Include(i => i.Categorys);
 
-            return View();
+            var StockAvliable = _context.Stock.Where(a => a.order.UserId == null);
+
+            ViewBag.Stock = StockAvliable;
+
+
+
+
+
+            return View(await Items.ToListAsync());
 
         }
 
