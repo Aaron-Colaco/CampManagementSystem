@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Stripe.Climate;
 using WebApplication4.Data;
+using WebApplication4.Migrations;
 using WebApplication4.Models;
+using Order = WebApplication4.Models.Order;
 
 namespace WebApplication4.Controllers
 {
@@ -20,6 +23,7 @@ namespace WebApplication4.Controllers
             _context = context;
         }
 
+        
         // GET: Orders
         public async Task<IActionResult> Index(string? SearchTerm, int Status)
         {
@@ -96,17 +100,68 @@ namespace WebApplication4.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrderId,OrderTime,HireEndDate,TotalPrice,UserId,StatusId")] Order order)
+
+        public async Task<IActionResult> Create(string firstName, string lastName, string studentNumber)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(order);
+                User user = null;
+
+                // Try to get the user or create them if not found
+                do
+                {
+                    user = _context.Users.FirstOrDefault(a => a.StudentNumber == studentNumber);
+
+                    if (user == null)
+                    {
+                        user = new User
+                        {
+                            FirstName = firstName,
+                            LastName = lastName,
+                            StudentNumber = studentNumber
+                        };
+
+                        _context.Users.Add(user);
+                        await _context.SaveChangesAsync();
+                    }
+
+                } while (user == null); // Repeat until user is created and retrieved
+
+                // Now create a new Order for this user
+                var order = new Order
+                {
+                    UserId = user.Id,
+                    OrderTime = DateTime.Now,
+                    StatusId = 1,
+                    
+                };
+
+                _context.Order.Add(order);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("AdminPage", new { orderId = order.OrderId });
+
             }
-            ViewData["StatusId"] = new SelectList(_context.Set<Status>(), "Id", "Id", order.StatusId);
-            return View(order);
+
+            return View();
         }
+        public async Task<IActionResult> AdminPage(string OrderId)
+        {
+            ViewBag.OrderId = OrderId;
+
+            var Order = _context.Order.Where(a => a.OrderId == OrderId).FirstOrDefault();
+
+            var orderUser = _context.Users.FirstOrDefault(u => u.Id == Order.UserId);
+           
+                ViewBag.StudentNumber = orderUser.StudentNumber;
+
+
+            var Items = _context.Item.Include(i => i.Categorys);
+
+            return View();
+
+        }
+
+
 
         // GET: Orders/Edit/5
         public async Task<IActionResult> Edit(string id)

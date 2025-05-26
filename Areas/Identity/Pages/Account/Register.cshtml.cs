@@ -144,7 +144,7 @@ namespace WebApplication4.Areas.Identity.Pages.Account
                 await _emailStore.SetEmailAsync((User)user, Input.Email, CancellationToken.None);
 
                 user.StudentNumber = Input.StudentNumber;
-                user.DOB = Input.DOB;
+               
                 user.LastName = Input.LastName;
                 user.FirstName = Input.FirstName;
                 user.YearLevel = Input.YearLevel;
