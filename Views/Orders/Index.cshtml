@@ -68,7 +68,7 @@ else
                 <th>Status</th>
                 @if (User.IsInRole("Admin"))
                 {
-                    <th>User Email</th>
+                    <th>Student Name</th>
                 }
                 <th>Actions</th>
             </tr>
@@ -108,7 +108,7 @@ else
                         {
                             if (item.StatusId == 2)
                             {
-                                <span class="badge bg-warning">Needs Processing</span>
+                                <span style="background-color: mediumslateblue;" class="badge">Needs Processing</span>
 
                             }
                            
@@ -134,7 +134,8 @@ else
 
                     @if (User.IsInRole("Admin"))
                     {
-                        <td>@item.user.Email</td>
+                                    <td>@item.user.FirstName&nbsp;@item.user.LastName</td>
+
                     }
 
                     <td>
@@ -146,24 +147,32 @@ else
                             }
                         }
 
-                        @if (item.status.Id == 1 && !User.IsInRole("Admin"))
+                        @if (item.StatusId == 1 && !User.IsInRole("Admin"))
                         {
                             <a class="badge" style="color: white; background-color: teal; text-decoration: none;" asp-controller="OrderItems" asp-route-id="@item.OrderId" asp-action="Index">See Items</a>
 
                             <a class="badge" style="color: white; background-color: teal; text-decoration: none;" asp-action="Delete" asp-route-id="@item.OrderId">Delete</a>
 
                         }
-                        else if (item.status.Id == 5 && User.IsInRole("Admin"))
+                        @if (item.StatusId == 5 && User.IsInRole("Admin"))
                         {
-                            <a class="badge" style="color: white; background-color: teal; text-decoration: none;" asp-controller="Orders" name="OrderId" value="@item.OrderId" asp-action="CreateOrder">Add Items</a>
-
-                            <a class="badge" style="color: white; background-color: teal; text-decoration: none;" asp-action="Delete" asp-route-id="@item.OrderId">Delete</a>
+                            <form asp-action="CreateOrder" asp-controller="Orders" method="post" style="display: inline;">
+                                <input type="hidden" name="OrderId" value="@item.OrderId" />
+                                <button type="submit" class="badge"
+                                        style="color: white; background-color: teal; text-decoration: none; border: none; cursor: pointer;">
+                                    Add Items
+                                </button>
+                            </form>
+                        
+                        <a class="badge" style="color: white; background-color: teal; text-decoration: none;" asp-action="Delete" asp-route-id="@item.OrderId">Delete</a>
 
                         }
                         else
                         {
-                            <a class="badge" style="color: white; background-color: teal; text-decoration: none;" asp-controller="OrderItems" asp-route-id="@item.OrderId" asp-action="Index">See Items</a>
+                                                   @if (!User.IsInRole("Admin")){
 
+                            <a class="badge" style="color: white; background-color: teal; text-decoration: none;" asp-controller="OrderItems" asp-route-id="@item.OrderId" asp-action="Index">See Items</a>
+                                                   }
                             <a class="badge" style="color: white; background-color: teal; text-decoration: none;" asp-action="Details" asp-route-id="@item.OrderId">Details</a>
                         }
                     </td>
@@ -190,9 +199,10 @@ else
     }
 
     .badge:hover {
-        background-color: black !important;
-        color: white !important;
+        
         text-decoration: none;
+       opacity: 0.5;
+       color: black;
     }
 
 

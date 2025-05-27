@@ -46,11 +46,11 @@ namespace WebApplication4.Controllers
 
                 if(SearchTerm != null)
                 {
-                   OrderData = OrderData.Where(a => a.user.FirstName.Contains(SearchTerm) || a.user.StudentNumber == SearchTerm || a.user.Email.Contains(SearchTerm));
+                   OrderData = OrderData.Where(a => a.user.FirstName.Contains(SearchTerm) || a.user.StudentNumber == SearchTerm || a.user.Email.Contains(SearchTerm)).Include(a => a.user);
                 }
                 if (Status != 0)
                 {
-                  OrderData =  OrderData.Where(a => a.StatusId == Status);
+                  OrderData =  OrderData.Where(a => a.StatusId == Status).Include(a => a.user);
                 }
 
             }
@@ -148,13 +148,13 @@ namespace WebApplication4.Controllers
         }
         public async Task<IActionResult> Confirm(string OrderId)
         {
-            var Order = _context.Order.Where(a => a.OrderId == OrderId).FirstOrDefault();
+            var Order = _context.Order.Where(a => a.OrderId == OrderId).Include(a => a.user).FirstOrDefault();
 
             Order.StatusId = 2;
 
            await  _context.SaveChangesAsync();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new {SearchTerm = Order.user.StudentNumber});
 
         }
 
@@ -177,7 +177,7 @@ namespace WebApplication4.Controllers
 
             var Items = _context.Item.Include(i => i.Categorys);
 
-            var StockAvliable = _context.Stock;
+            var StockAvliable = _context.Stock.Where(a => a.OrderId == null);
 
             ViewBag.Stock = StockAvliable;
 

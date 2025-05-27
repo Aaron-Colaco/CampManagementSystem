@@ -13,7 +13,7 @@
 </p>
 
 
-<div style="max-height: 50vh; overflow-y: auto;">
+<div style="max-height: 40vh; overflow-y: auto;">
     <table class="table table-bordered">
         <thead class="table-success">
             <tr >
@@ -170,7 +170,7 @@
                 <tr class="border-bottom">
                     <td class="fw-semibold">@OrderItem.Items.Name</td>
                     <td class="text-center">@OrderItem.Quantity</td>
-                    <td class="text-end text-muted">$@OrderItem.Items.Price.ToString("F2")</td>
+                    <td class="text-center">$@OrderItem.Items.Price.ToString("F2")</td>
                     <td class="text-center">@OrderItem.SizesReq</td>
                     
 
@@ -182,7 +182,7 @@
 
                     
                     <td class="text-center">
-                        @if (OrderItem.Orders.StatusId == 1)
+                        @if (OrderItem.Orders.StatusId == 5)
                         {
                             <form asp-action="Delete" method="post" style="display:inline;">
                                 <input type="hidden" name="itemId" value="@OrderItem.ItemId" />
@@ -200,6 +200,7 @@
 <div class="text-end mt-3">
     <h4>Total Cost: <span class="text-primary fw-bold">@ViewBag.Order.TotalPrice.ToString("F2")</span></h4>
     <form asp-action="Confirm" >
-        <button type="submit" class="btn btn-success mt-2">Confirm</button>
+        <input type="hidden" name="OrderId" value="@ViewBag.OrderId" />
+        <input type="submit" value="Confrim" class="btn btn-success mt-2"/>
     </form>
 </div>

@@ -54,22 +54,34 @@
                                 <option value="" disabled selected>Select an option</option>
                                 @foreach (var stock in ViewBag.Stock)
                                 {
-                                    if(orderItem.Items.CategoryId == 1){
-                                   
-                                    if (stock.ItemId == orderItem.ItemId && stock.ShoeSizes?.ToString() == "US" + orderItem.SizesReq)
+                                    if(orderItem.Items.CategoryId == 1)
+                                    {
+                                            string S = " ";
+
+                                            if (orderItem.SizesReq.Contains("US"))
+                                            {
+                                                S = orderItem.SizesReq;
+                                            }
+                                            else
+                                            {
+                                                S = "US" + orderItem.SizesReq;
+                                            }
+
+
+                                    if (stock.ItemId == orderItem.ItemId && stock.ShoeSizes?.ToString() == S)
                                     {
                                         <option value="@stock.StockId">
                                                 @orderItem.Items.Name (@stock.StockId) | US @orderItem.SizesReq 
 
                                                 </option>
                                             }
-                                        }
+                                    }
                                         else
                                         {
                                             if (stock.ItemId == orderItem.ItemId && stock.ClothingSizes?.ToString() == orderItem.SizesReq)
                                             {
                                                 <option value="@stock.StockId">
-                                                    @orderItem.Items.Name (@stock.StockId) | US @orderItem.SizesReq
+                                                    @orderItem.Items.Name (@stock.StockId) | @orderItem.SizesReq
 
                                                 </option>
                                             }
@@ -102,17 +114,16 @@
 
 
        }
-      
- 
 
-<table class="table">
+<table class="table" style="width: 100%;">
     <thead>
         <tr>
-            <th colspan="2" style="background-color: lightgreen;">
+            <th colspan="100%" style="background-color: lightgreen; width: 100%;">
                 <strong>Allocated Stock:</strong>
             </th>
         </tr>
     </thead>
+
     <tbody>
         @foreach (var userStock in ViewBag.UserStock)
         {
