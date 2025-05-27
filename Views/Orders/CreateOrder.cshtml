@@ -1,36 +1,197 @@
 ﻿@model IEnumerable<WebApplication4.Models.Item>
+@using static WebApplication4.Models.Stock
+
 @{
     ViewData["Title"] = "Index";
+    var stockList = ViewBag.Stock as List<WebApplication4.Models.Stock>;
 }
+<h1 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 0.5rem; margin-top:3%;">
+    Creating Order For @ViewBag.orderUser.FirstName @ViewBag.orderUser.LastName
+</h1>
+<p style="font-size: 0.9rem; color: #555; margin: 0.2rem 0;">
+    Student number: @ViewBag.orderUser.StudentNumber
+</p>
+<p style="font-size: 0.9rem; color: #555; margin: 0.2rem 0;">
+    Invoice number: @ViewBag.OrderId
+</p>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>@Html.DisplayNameFor(model => model.First().Name)</th>
-            <th>@Html.DisplayNameFor(model => model.First().Price)</th>
-            <th>Sizes</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.Name</td>
-                <td>$@item.Price</td>
-                <td>
-                    @if (item.CategoryId == 1)
-                    {
-                       
 
+<div style="max-height: 75vh; overflow-y: auto;">
+    <table class="table table-bordered">
+        <thead class="table-success">
+            <tr >
+                <th>@Html.DisplayNameFor(model => model.First().Name)</th>
+                <th>@Html.DisplayNameFor(model => model.First().Price)</th>
+                <th>Sizes</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                var itemStocks = stockList?.Where(s => s.ItemId == item.ItemId).ToList();
+                var hasStock = itemStocks != null && itemStocks.Any(s => (item.CategoryId == 1 && s.ShoeSizes != null) || (item.CategoryId != 1 && s.ClothingSizes != null));
+                <tr>
+                    <td>@item.Name</td>
+                    <td>$@item.Price</td>
+                    <td>
+                        <form asp-action="AddItem">
+
+                            <input type="hidden" value="@ViewBag.OrderId" name="OrderId" />
+                            <input type="hidden" value="@item.ItemId" /> 
+                        
                         <select class="form-select">
-                            @foreach (var size in sizes)
+                           
+                            @{
+                                string x = " ";
+                            }
+                            <option disabled selected>Pick available Sizes</option>
+
+                            @foreach (var stock in ViewBag.Stock)
                             {
-                                <option value="@size">@size</option>
+
+
+                                if (item.CategoryId == 1)
+                                {
+                                    if (stock.ItemId == item.ItemId && stock.ShoeSizes != null)
+                                    {
+                                        if(x != @stock.ShoeSizes.ToString()){
+                                        <option name ="Size" onchange="Submit" value="@stock.ShoeSizes.ToString();">
+                                            @stock.ShoeSizes.ToString()
+                                        </option>
+                                        }
+                                        x = @stock.ShoeSizes.ToString();
+                                    }
+                                }
+                               
+
+                               else {
+                                    if (stock.ItemId == item.ItemId && stock.ClothingSizes != null)
+                                    {
+                                        if (x != @stock.ClothingSizes.ToString())
+                                        {
+                                        <option value="@stock.ClothingSizes.ToString()">
+                                            @stock.ClothingSizes.ToString()
+                                        </option>
+                                        }
+                                        x = @stock.ClothingSizes.ToString();
+
+                                    }
+                                }
+                               
                             }
                         </select>
-                    }
-                </td>
-            </tr>
+                        </form>
+                    </td>
+                </tr>
+            }
+            
+        </tbody>
+    </table>
+</div>
+
+<style>
+    thead th {
+        position: sticky;
+        top: 0;
+        background-color: #28a745;
+        color: white;
+        z-index: 10;
+    }
+</style>
+<style>
+    h1 {
+        font-size: 2rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+
+    thead th {
+        position: sticky;
+        top: 0;
+        background-color: #28a745; /* green header */
+        color: white;
+        z-index: 10;
+    }
+
+    .btn-outline-danger {
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .btn-outline-danger:hover {
+            background-color: #e63946;
+            color: #fff;
+            border-color: #e63946;
         }
-    </tbody>
-</table>
+
+    .btn-success {
+        background-color: #008080;
+        border: none;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-success:hover {
+            background-color: #006666;
+        }
+
+    .text-primary {
+        color: #008080 !important;
+    }
+
+    .scrollable-table {
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+</style>
+
+<!-- Scrollable table container -->
+<div class="table-responsive scrollable-table mt-4">
+    <table class="table align-middle table-borderless shadow-sm">
+        <thead class="border-bottom border-2">
+            <tr class="text-muted small text-uppercase">
+                <th>Item</th>
+                <th class="text-center">Quantity</th>
+                <th class="text-end">Price</th>
+                <th class="text-center">Size</th>
+                <th class="text-end">Total</th>
+                <th class="text-center">Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var OrderItem in ViewBag.OrderItems)
+            {
+                double itemCost = OrderItem.Items.Price * OrderItem.Quantity;
+              .
+
+                <tr class="border-bottom">
+                    <td class="fw-semibold">@OrderItem.Items.Name</td>
+                    <td class="text-center">@OrderItem.Quantity</td>
+                    <td class="text-end text-muted">$@OrderItem.Items.Price.ToString("F2")</td>
+                    <td class="text-center">@OrderItem.SizesReq</td>
+                    <td class="text-end fw-bold text-success">$@itemCost.ToString("F2")</td>
+                    <td class="text-center">
+                        @if (OrderItem.Orders.StatusId == 1)
+                        {
+                            <form asp-action="Delete" method="post" style="display:inline;">
+                                <input type="hidden" name="itemId" value="@OrderItem.ItemId" />
+                                <button type="submit" title="Remove item" class="btn-outline-danger">×</button>
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<div class="text-end mt-3">
+    <h4>Total Cost: <span class="text-primary fw-bold">@ViewBag.Order.TotalCost.ToString("F2")</span></h4>
+    <form asp-action="ConfirmOrder" method="post">
+        <button type="submit" class="btn btn-success mt-2">Confirm</button>
+    </form>
+</div>

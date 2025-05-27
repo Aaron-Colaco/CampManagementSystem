@@ -148,24 +148,77 @@ namespace WebApplication4.Controllers
         {
             ViewBag.OrderId = OrderId;
 
+            ViewBag.Order = _context.Order.Where(a => a.OrderId == OrderId).FirstOrDefault();
+
             var Order = _context.Order.Where(a => a.OrderId == OrderId).FirstOrDefault();
 
             var orderUser = _context.Users.FirstOrDefault(u => u.Id == Order.UserId);
            
                 ViewBag.StudentNumber = orderUser.StudentNumber;
 
+            ViewBag.orderUser = orderUser;
+
 
             var Items = _context.Item.Include(i => i.Categorys);
 
-            var StockAvliable = _context.Stock.Where(a => a.order.UserId == null);
+            var StockAvliable = _context.Stock;
 
             ViewBag.Stock = StockAvliable;
 
+            ViewBag.OrderItems = _context.OrderItem.Where(a => a.OrderId == OrderId);
 
-
+            
 
 
             return View(await Items.ToListAsync());
+
+        }
+        public async Task<IActionResult> AddItem(string OrderId, int ItemId, string Size)
+        {
+            var ExistingItem = _context.OrderItem.Where(a => a.ItemId == ItemId && a.SizesReq == Size).FirstOrDefault();
+
+
+
+            if (ExistingItem != null)
+            {
+                ExistingItem.Quantity++;
+            }
+            else 
+            {
+
+                var OrderItem = new OrderItem
+                {
+                    OrderId = OrderId,
+                    ItemId = ItemId,
+                    Quantity = 1,
+                    GearAssigned = false,
+                    SizesReq = Size
+
+                };
+                // add the new Orderitem details to the database
+                _context.OrderItem.Add(OrderItem);
+            }
+            
+            
+            
+
+            //save changes
+            await _context.SaveChangesAsync();
+
+            //Find the Order where the OrderId is equal to the orderId string.
+            var Order = _context.Order.Where(a => a.OrderId == OrderId).First();
+
+            // Call the Items In order method again to update the var itemsInOrder
+            var itemsInOrder = _context.OrderItem.Where(a => a.OrderId == OrderId).Include(a => a.Items);
+
+            //Set the total Price of the order to the sum of the( items Price * Items Quantity) in the var itemsInOrder.
+            Order.TotalPrice = (decimal)itemsInOrder.Sum(a => a.Items.Price * a.Quantity);
+
+            //save changes
+            await _context.SaveChangesAsync();
+
+
+            return RedirectToAction("CreateOrder", new { orderId = OrderId });
 
         }
 
