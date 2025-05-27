@@ -1,0 +1,144 @@
+﻿@model IEnumerable<WebApplication4.Models.Stock>
+
+@{
+    ViewData["Title"] = "Gear Invoice";
+    var oneWeekFromToday = DateTime.Today.AddDays(7).ToString("dddd, dd MMMM yyyy");
+}
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    color: black;
+    background-color: white;
+    padding: 20px;
+}
+
+#print-section {
+    max-width: 800px;
+    margin: auto;
+    margin-top: 5%;
+    background: white;
+    padding: 30px;
+    border: 1px solid #000;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.logo {
+    width: 100px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 0;
+}
+
+.table {
+    width: 100%;
+    border-collapse: separate; /* needed for rounded corners */
+    border-spacing: 0;
+    margin-top: 20px;
+    border-radius: 10px;
+    overflow: hidden; /* clip corners */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.print-button {
+    display: block;
+    margin: 20px auto;
+    padding: 12px 30px;
+    background: #222;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+}
+
+.print-button:hover {
+    background: #444;
+}
+
+
+@@media print {
+    .print-button {
+        display: none;
+    }
+
+    body * {
+        visibility: hidden;
+    }
+
+    #print-section, #print-section * {
+        visibility: visible;
+    }
+
+    #print-section {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+    }
+}
+</style>
+
+
+<div id="print-section" style:>
+    <button asp-action="Index" asp-controller="Orders" class="print-button" onclick="window.print()">Print Page</button>
+
+    <img src="/images/logo.png" alt="School Logo" class="logo" />
+
+    <h1>Gear Hire Invoice</h1>
+
+    <p><strong>Student Name:</strong> @ViewBag.orderUser.FirstName @ViewBag.orderUser.LastName</p>
+    <p><strong>Student Number:</strong> @ViewBag.StudentNumber</p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Size</th>
+                <th>Price</th>
+                <th>Stock ID</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Items.Name</td>
+                <td>
+                    @if (item.Items.CategoryId == 1)
+                    {
+                        @item.ShoeSizes
+                    }
+                    else
+                    {
+                        @item.ClothingSizes
+                    }
+                </td>
+                <td>@item.Items.Price</td>
+                <td>@item.StockId</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+    <div class="statement" style="margin-top: 30px;">
+        <p>This gear is <strong>your responsibility</strong>; it is to be looked after and kept in good condition.</p>
+        <p>It is to be washed, dried, and returned the week after your camp.</p>
+        <p>Your total gear hire charge is: <strong>$@ViewBag.Order.TotalPrice</strong></p>
+        <p>This will be loaded onto your family account and is payable by: <strong>@oneWeekFromToday</strong></p>
+        <p><strong>Any lost/unreturned items</strong> will incur a replacement fee on your family account.</p>
+        <p><em>Please see overleaf for cleaning instructions.</em></p>
+    </div>
+</div>

@@ -22,8 +22,27 @@ namespace WebApplication4.Controllers
         {
             _context = context;
         }
+       public async Task<IActionResult> Invoice(string id)
+        {
+            ViewBag.OrderId = id;
 
-        
+            ViewBag.Order = _context.Order.Where(a => a.OrderId == id).FirstOrDefault();
+
+            var Order = _context.Order.Where(a => a.OrderId == id).FirstOrDefault();
+
+            var orderUser = _context.Users.FirstOrDefault(u => u.Id == Order.UserId);
+
+            ViewBag.StudentNumber = orderUser.StudentNumber;
+
+            ViewBag.orderUser = orderUser;
+
+            var Stock = _context.Stock.Where(a => a.OrderId == id).Include(a => a.Items);
+
+            return View(await Stock.ToListAsync());
+
+        }
+
+
         // GET: Orders
         public async Task<IActionResult> Index(string? SearchTerm, int Status)
         {
