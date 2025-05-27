@@ -11,12 +11,9 @@
 <p style="font-size: 0.9rem; color: #555; margin: 0.2rem 0;">
     Student number: @ViewBag.orderUser.StudentNumber
 </p>
-<p style="font-size: 0.9rem; color: #555; margin: 0.2rem 0;">
-    Invoice number: @ViewBag.OrderId
-</p>
 
 
-<div style="max-height: 75vh; overflow-y: auto;">
+<div style="max-height: 50vh; overflow-y: auto;">
     <table class="table table-bordered">
         <thead class="table-success">
             <tr >
@@ -37,9 +34,9 @@
                         <form asp-action="AddItem">
 
                             <input type="hidden" value="@ViewBag.OrderId" name="OrderId" />
-                            <input type="hidden" value="@item.ItemId" /> 
-                        
-                        <select class="form-select">
+                            <input type="hidden" name="ItemId" value="@item.ItemId" />
+
+                            <select Name="Size" class="form-select" onchange="this.form.submit()">
                            
                             @{
                                 string x = " ";
@@ -55,7 +52,7 @@
                                     if (stock.ItemId == item.ItemId && stock.ShoeSizes != null)
                                     {
                                         if(x != @stock.ShoeSizes.ToString()){
-                                        <option name ="Size" onchange="Submit" value="@stock.ShoeSizes.ToString();">
+                                        <option  value="@stock.ShoeSizes.ToString()">
                                             @stock.ShoeSizes.ToString()
                                         </option>
                                         }
@@ -69,7 +66,7 @@
                                     {
                                         if (x != @stock.ClothingSizes.ToString())
                                         {
-                                        <option value="@stock.ClothingSizes.ToString()">
+                                        <option  value="@stock.ClothingSizes.ToString()">
                                             @stock.ClothingSizes.ToString()
                                         </option>
                                         }
@@ -93,7 +90,7 @@
     thead th {
         position: sticky;
         top: 0;
-        background-color: #28a745;
+        background-color: darkgreen;
         color: white;
         z-index: 10;
     }
@@ -108,8 +105,7 @@
     thead th {
         position: sticky;
         top: 0;
-        background-color: #28a745; /* green header */
-        color: white;
+        color: black;
         z-index: 10;
     }
 
@@ -147,7 +143,10 @@
         overflow-y: auto;
     }
 </style>
-
+<br />
+<h1 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 0.5rem; margin-top:3%;">
+    Items Added @ViewBag.orderUser.FirstName @ViewBag.orderUser.LastName
+</h1>
 <!-- Scrollable table container -->
 <div class="table-responsive scrollable-table mt-4">
     <table class="table align-middle table-borderless shadow-sm">
@@ -155,24 +154,33 @@
             <tr class="text-muted small text-uppercase">
                 <th>Item</th>
                 <th class="text-center">Quantity</th>
-                <th class="text-end">Price</th>
+                <th class="text-center">Price</th>
                 <th class="text-center">Size</th>
-                <th class="text-end">Total</th>
-                <th class="text-center">Remove</th>
+                <th class="text-center">Total</th>
+                <th class="text-left">Remove</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var OrderItem in ViewBag.OrderItems)
             {
-                double itemCost = OrderItem.Items.Price * OrderItem.Quantity;
-              .
+
+                 
+
 
                 <tr class="border-bottom">
                     <td class="fw-semibold">@OrderItem.Items.Name</td>
                     <td class="text-center">@OrderItem.Quantity</td>
                     <td class="text-end text-muted">$@OrderItem.Items.Price.ToString("F2")</td>
                     <td class="text-center">@OrderItem.SizesReq</td>
-                    <td class="text-end fw-bold text-success">$@itemCost.ToString("F2")</td>
+                    
+
+                    <td class="text-center">
+                        $@((OrderItem.Quantity * OrderItem.Items.Price).ToString("F2"))
+                    </td>
+
+                    
+
+                    
                     <td class="text-center">
                         @if (OrderItem.Orders.StatusId == 1)
                         {
@@ -190,7 +198,7 @@
 
 
 <div class="text-end mt-3">
-    <h4>Total Cost: <span class="text-primary fw-bold">@ViewBag.Order.TotalCost.ToString("F2")</span></h4>
+    <h4>Total Cost: <span class="text-primary fw-bold">@ViewBag.Order.TotalPrice.ToString("F2")</span></h4>
     <form asp-action="ConfirmOrder" method="post">
         <button type="submit" class="btn btn-success mt-2">Confirm</button>
     </form>

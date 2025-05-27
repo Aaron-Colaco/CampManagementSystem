@@ -80,7 +80,9 @@ namespace WebApplication4.Areas.Identity.Data
                     new Status{Name = "Pending"},//1
                     new Status{Name = "Processing"},
                     new Status{Name ="returned"},
-                    new Status{Name ="unreturned"}
+                    new Status{Name ="unreturned"},
+                    new Status{Name = "AdminOrder"},
+
 
                    };
                     context.Status.AddRange(StatusData);
