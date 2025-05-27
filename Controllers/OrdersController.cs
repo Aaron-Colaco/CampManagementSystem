@@ -118,7 +118,9 @@ namespace WebApplication4.Controllers
                         {
                             FirstName = firstName,
                             LastName = lastName,
-                            StudentNumber = studentNumber
+                            StudentNumber = studentNumber,
+                            Email = "Ac" + studentNumber + "@avcol.school.nz"
+                            
                         };
 
                         _context.Users.Add(user);
@@ -132,7 +134,7 @@ namespace WebApplication4.Controllers
                 {
                     UserId = user.Id,
                     OrderTime = DateTime.Now,
-                    StatusId = 1,
+                    StatusId = 5,
                     
                 };
 
@@ -144,6 +146,20 @@ namespace WebApplication4.Controllers
 
             return View();
         }
+        public async Task<IActionResult> Confirm(string OrderId)
+        {
+            var Order = _context.Order.Where(a => a.OrderId == OrderId).FirstOrDefault();
+
+            Order.StatusId = 2;
+
+           await  _context.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+
+        }
+
+
+
         public async Task<IActionResult> CreateOrder(string OrderId)
         {
             ViewBag.OrderId = OrderId;
@@ -175,7 +191,7 @@ namespace WebApplication4.Controllers
         }
         public async Task<IActionResult> AddItem(string OrderId, int ItemId, string Size)
         {
-            var ExistingItem = _context.OrderItem.Where(a => a.ItemId == ItemId && a.SizesReq == Size).FirstOrDefault();
+            var ExistingItem = _context.OrderItem.Where(a => a.ItemId == ItemId && a.SizesReq == Size && a.OrderId == OrderId).FirstOrDefault();
 
 
 

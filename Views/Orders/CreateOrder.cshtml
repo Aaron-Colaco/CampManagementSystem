@@ -145,7 +145,7 @@
 </style>
 <br />
 <h1 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 0.5rem; margin-top:3%;">
-    Items Added @ViewBag.orderUser.FirstName @ViewBag.orderUser.LastName
+    Items Added 
 </h1>
 <!-- Scrollable table container -->
 <div class="table-responsive scrollable-table mt-4">
@@ -199,7 +199,7 @@
 
 <div class="text-end mt-3">
     <h4>Total Cost: <span class="text-primary fw-bold">@ViewBag.Order.TotalPrice.ToString("F2")</span></h4>
-    <form asp-action="ConfirmOrder" method="post">
+    <form asp-action="Confirm" >
         <button type="submit" class="btn btn-success mt-2">Confirm</button>
     </form>
 </div>

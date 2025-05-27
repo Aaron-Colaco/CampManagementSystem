@@ -102,6 +102,7 @@ else
 
 
                             }
+                          
                         }
                         else
                         {
@@ -122,6 +123,12 @@ else
 
 
                             }
+                            else if (item.StatusId == 5)
+                            {
+                                <span class="badge bg-warning"> Pending </span>
+
+
+                            }
                         }
                     </td>
 
@@ -131,14 +138,24 @@ else
                     }
 
                     <td>
-                        @if (User.IsInRole("Admin") && item.StatusId != 1)
+                        @if (User.IsInRole("Admin"))
                         {
-                            <a class="badge" style="background-color: mediumslateblue; text-decoration: none;" asp-controller="Stocks" asp-route-id="@item.OrderId" asp-action="AS">Assign Stock</a>
+                            if(item.StatusId != 1 && item.StatusId != 5)
+                            {
+                                <a class="badge" style="background-color: mediumslateblue; text-decoration: none;" asp-controller="Stocks" asp-route-id="@item.OrderId" asp-action="AS">Assign Stock</a>
+                            }
                         }
 
                         @if (item.status.Id == 1 && !User.IsInRole("Admin"))
                         {
                             <a class="badge" style="color: white; background-color: teal; text-decoration: none;" asp-controller="OrderItems" asp-route-id="@item.OrderId" asp-action="Index">See Items</a>
+
+                            <a class="badge" style="color: white; background-color: teal; text-decoration: none;" asp-action="Delete" asp-route-id="@item.OrderId">Delete</a>
+
+                        }
+                        else if (item.status.Id == 5 && User.IsInRole("Admin"))
+                        {
+                            <a class="badge" style="color: white; background-color: teal; text-decoration: none;" asp-controller="Orders" name="OrderId" value="@item.OrderId" asp-action="CreateOrder">Add Items</a>
 
                             <a class="badge" style="color: white; background-color: teal; text-decoration: none;" asp-action="Delete" asp-route-id="@item.OrderId">Delete</a>
 
