@@ -4,11 +4,6 @@
     ViewData["Title"] = "Orders";
 }
 
-<div style="text-align: center; margin-top: 3%;">
-    <a asp-action="Create" asp-controller="Orders" style="background-color: #10B981; color: white; padding: 0.5rem 1.5rem; border-radius: 1rem; text-decoration: none; font-weight: bold; box-shadow: 0 4px 8px rgba(0,0,0,0.1); transition: background-color 0.2s;">
-        + Create New
-    </a>
-</div>
 
 
 @if (!Model.Any())
@@ -34,7 +29,14 @@ else
 {
     @if (User.IsInRole("Admin"))
     {
-        <h2 style="text-align: center; font-size: 2rem; margin-top: 4%;">Orders</h2>
+        <h1 style="text-align: center; font-size: 2.3rem; margin-top: 4%;">Orders</h1>
+
+        <div style="text-align: center; margin-top: 3%;">
+            <a asp-action="Create" asp-controller="Orders" style="background-color: #336539; color: white; padding: 0.5rem 1.5rem; border-radius: 1rem; text-decoration: none; font-weight: bold; box-shadow: 0 4px 8px rgba(0,0,0,0.1); transition: background-color 0.2s;">
+                + Create New
+            </a>
+        </div>
+
 
         <form asp-controller="Orders" asp-action="Index" method="get"
               style="width: 80%; margin: 0 auto; display: flex; gap: 1rem; align-items: center; padding: 1rem; background-color: white; border-radius: 1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.1); flex-wrap: wrap; justify-content: center;">

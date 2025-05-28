@@ -346,6 +346,17 @@ namespace WebApplication4.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+       public async Task<IActionResult> DeleteItem(int ItemId, string OrderId)
+        {
+            var OrderItemToRemove = _context.OrderItem.Where(a => a.OrderId == OrderId && a.ItemId == ItemId).FirstOrDefault();
+            _context.OrderItem.Remove(OrderItemToRemove);
+            _context.SaveChanges();
+
+            // Redirect action to Open Cart
+            return RedirectToAction("CreateOrder", new { orderId = OrderId });
+
+        }
+
         private bool OrderExists(string id)
         {
             return _context.Order.Any(e => e.OrderId == id);

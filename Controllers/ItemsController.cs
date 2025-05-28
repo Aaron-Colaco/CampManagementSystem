@@ -76,9 +76,15 @@ ViewBag.Sizes = allStock .Select(a => a.ShoeSizes.Value).Distinct().ToList();
             //Stores the categorys in the database in the viewbag.
             ViewBag.Category = _context.Category;
 
-            //Return the index view, skip the (page number passed into the method) -1 * 6 amount of items. Then take 6 items to list on the items view/page.
-            return View(await Items.Skip((page - 1) * ITEMSPERPAGE).Take(ITEMSPERPAGE).ToListAsync());
-
+            if (!User.IsInRole("Admin"))
+            {
+                //Return the index view, skip the (page number passed into the method) -1 * 6 amount of items. Then take 6 items to list on the items view/page.
+                return View(await Items.Skip((page - 1) * ITEMSPERPAGE).Take(ITEMSPERPAGE).ToListAsync());
+            }
+            else
+            {
+                return View(await Items.ToListAsync());
+            }
         }
 
 

@@ -19,11 +19,7 @@
                 <select asp-for="ItemId" class="form-control" asp-items="ViewBag.ItemId"></select>
                 <span asp-validation-for="ItemId" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="OrderId" class="control-label"></label>
-                <select asp-for="OrderId" class="form-control" asp-items="ViewBag.OrderId"></select>
-                <span asp-validation-for="OrderId" class="text-danger"></span>
-            </div>
+            
            
             @if (ViewBag.Cat != 1){
 
@@ -50,8 +46,8 @@
                 <span asp-validation-for="ShoeSizes" class="text-danger"></span>
             </div>
             }
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <div class="form-group text-center mt-4">
+                <input type="submit" value="Save" class="btn" style="background-color: slateblue; color: white;" />
             </div>
         </form>
     </div>
