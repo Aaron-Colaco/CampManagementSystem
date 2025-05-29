@@ -98,7 +98,7 @@
             }
         </style>
     }
-    if (Model.StatusId == 3)
+    if (Model.StatusId == 4)
     {
         <style>
             .color-bar {
@@ -107,7 +107,7 @@
             }
         </style>
     }
-    if (Model.StatusId == 4)
+    if (Model.StatusId == 3)
     {
         <style>
             .color-bar {
@@ -132,11 +132,11 @@
         </li>
         <li class="bullet-3">
             <div class="el"><i class="bx bx-check"></i>3</div>
-            <div class="txt">Order Ready</div>
+            <div class="txt">Unreturned</div>
         </li>
         <li class="bullet-4">
             <div class="el"><i class="bx bx-check"></i>4</div>
-            <div class="txt">Order Collected</div>
+            <div class="txt">Returned </div>
         </li>
     </ul>
 </div>
@@ -160,11 +160,25 @@
         </dd>
 
         <dt class="col-sm-2">
-            <span class="Headings">Customer Name</span>
+            <span class="Headings">Student Name</span>
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.user.FirstName)
         </dd>
+        <dt class="col-sm-2">
+            <span class="Headings">Student Number </span>
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.user.StudentNumber)
+        </dd>
+        <dt class="col-sm-2">
+            <span class="Headings">Student Email </span>
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.user.StudentNumber)@@avcol.school.nz
+
+        </dd>
+
     </dl>
 </div>
 

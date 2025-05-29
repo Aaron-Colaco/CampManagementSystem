@@ -185,8 +185,8 @@
                         @if (OrderItem.Orders.StatusId == 5)
                         {
                             <form asp-action="DeleteItem" method="post" style="display:inline;">
-                                <input type="hidden" name="ItemId" value="@OrderItem.OrderId" />
-                               <input type="hidden" name="OrderId" value="@OrderItem.ItemId" />
+                                <input type="hidden" name="OrderId" value="@OrderItem.OrderId" />
+                               <input type="hidden" name="ItemId" value="@OrderItem.ItemId" />
 
 
                                 <button type="submit" title="Remove item" class="btn-outline-danger">×</button>

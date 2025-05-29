@@ -71,6 +71,11 @@ namespace WebApplication4.Controllers
                 {
                   OrderData =  OrderData.Where(a => a.StatusId == Status).Include(a => a.user);
                 }
+                else
+                {
+                    OrderData = OrderData.Where(a => a.StatusId != 3).Include(a => a.user);
+
+                }
 
             }
             else // if user is not admin only display their order, by using thier id to find only orders that belong to them(the logged in user).
@@ -80,7 +85,7 @@ namespace WebApplication4.Controllers
             }
 
 
-            return View(await OrderData.ToListAsync());
+            return View(await OrderData.OrderByDescending(a => a.OrderTime).ToListAsync());
         }
 
         // GET: Orders/Details/5
