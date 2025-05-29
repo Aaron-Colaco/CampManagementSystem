@@ -316,7 +316,7 @@ namespace WebApplication4.Controllers
             var item = _context.Item.Where(a => a.ItemId == Item.ItemId).FirstOrDefault();
             ViewBag.Cat = item.CategoryId;
 
-            ViewBag.ItemId = id;
+            ViewBag.ItemId = item.ItemId;
 
             ViewBag.Name = item.Name;
 
@@ -326,8 +326,6 @@ namespace WebApplication4.Controllers
             {
                 return NotFound();
             }
-            ViewData["ItemId"] = new SelectList(_context.Item, "ItemId", "ImageURL", stock.ItemId);
-            ViewData["OrderId"] = new SelectList(_context.Order, "OrderId", "OrderId", stock.OrderId);
             return View(stock);
         }
 
@@ -336,8 +334,9 @@ namespace WebApplication4.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("StockId,ItemId,OrderId,ClothingSizes,ShoeSizes")] Stock stock)
+        public async Task<IActionResult> Edit(int id, [Bind("StockId,OrderId,ClothingSizes,ShoeSizes")] Stock stock, int ItemId)
         {
+            stock.ItemId = ItemId;
             if (id != stock.StockId)
             {
                 return NotFound();
@@ -363,8 +362,6 @@ namespace WebApplication4.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ItemId"] = new SelectList(_context.Item, "ItemId", "ImageURL", stock.ItemId);
-            ViewData["OrderId"] = new SelectList(_context.Order, "OrderId", "OrderId", stock.OrderId);
             return View(stock);
         }
 

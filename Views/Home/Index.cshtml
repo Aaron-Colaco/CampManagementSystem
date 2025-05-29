@@ -1,308 +1,378 @@
 
+@{
+    if (!User.IsInRole("Admin"))
+    {
+
+
+        <section id="hero" class="hero-video">
+            <div class="video-wrapper">
+                <video src="~/Images/LandingPageVideo.mp4" autoplay muted loop playsinline></video>
+                <div class="video-overlay">
+                    <h1>Camp Equipment Hire</h1>
+                    <p>Reliable, affordable gear for your next adventure.</p>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="about">
+            <h2>About Taurewa Camp</h2>
+            <div class="content">
+                <p>Terewa Camp offers a wide range of quality camping equipment and versatile spaces to make your outdoor experience memorable and hassle-free.</p>
+                <p>Nestled in the heart of nature, our facilities are designed for comfort and convenience, whether you’re planning a family retreat, team-building weekend, or school excursion.</p>
+            </div>
+        </section>
+
+
+
+        <section id="cards" class="cards-section">
+            <div class="cards-container">
+                <div class="card">
+                    <img src="~/Images/Snow.jpg" alt="Basic Kit">
+                    <div class="card-content">
+                        <h2>Basic</h2>
+                        <h3>From NZ $45/day</h3>
+                        <p>Tent,  stars.</p>
+                        <form>
+                            <button class="link" type="submit">Hire Now</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="~/Images/water.jpg" alt="Adventure Bundle">
+                    <div class="card-content">
+                        <h2>Ale</h2>
+                        <h3>From NZ $85/day</h3>
+                        <p>K</p>
+                        <form>
+                            <button class="link" type="submit">Hire Now</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="~/Images/Boat.jpg" alt="Group Package">
+                    <div class="card-content">
+                        <h2>Gre</h2>
+                        <h3>From NZ $150/day</h3>
+                        <p>school camps.</p>
+                        <form>
+                            <button class="link" type="submit">Hire Now</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="about">
+            <h2>About Taurewa Camp</h2>
+            <div class="content">
+                <p>Terewa Camp offers a wide range of quality camping equipment and versatile spaces to make your outdoor experience memorable and hassle-free.</p>
+                <p>Nestled in the heart of nature, our facilities are designed for comfort and convenience, whether you’re planning a family retreat, team-building weekend, or school excursion.</p>
+            </div>
+        </section>
+
+
+        <section id="about">
+            <h2>About Taurewa Camp</h2>
+            <div class="content">
+                <p>Terewa Camp offers a wide range of quality camping equipment and versatile spaces to make your outdoor experience memorable and hassle-free.</p>
+                <p>Nestled in the heart of nature, our facilities are designed for comfort and convenience, whether you’re planning a family retreat, team-building weekend, or school excursion.</p>
+            </div>
+        </section>
+
+
+
+        <section id="contact">
+            <h2>Contact Us</h2>
+        <form>
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <textarea rows="5" placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+        </section>
+    }
+    else
+    {
+        <section id="cards" class="cards-section" style="padding: 60px 0; background-color: #f4f4f4; height: 80vh; margin-top: 10%;">
+
+            <div class="cards-container" style="height: 45vh; margin-top: 20%;   display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; max-width: 1200px; margin: auto;">
+
+                <!-- See Items -->
+                <div class="card" style="background:  white; height: 50vh; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 300px;">
+                    <img src="~/Images/Snow.jpg" alt="Items" style="width: 100%; height: 27vh; object-fit: cover;">
+                    <div class="card-content" style="padding: 20px;">
+                        <h2>View Items</h2>
+                        <p>Create new items, update details, and edit pricing.</p>
+                        <form action="/Items">
+                            <button type="submit" class="link" style="background-color: #336539; color: white; padding: 10px 20px; border: none; border-radius: 5px;">Go to Items</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Manage Orders -->
+                <div class="card" style=" height: 50vh;background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 300px;">
+                    <img src="~/Images/water.jpg" alt="Orders" style="width: 100%; height: 27vh; object-fit: cover;">
+                    <div class="card-content" style="padding: 20px;">
+                        <h2>Manage Orders</h2>
+                        <p>Create new orders, assign stock to users, and track unreturned Orders.</p>
+                        <form action="/Orders">
+                            <button type="submit" class="link" style="background-color: #336539; color: white; padding: 10px 20px; border: none; border-radius: 5px;">Go to Orders</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- See Stock -->
+                <div class="card" style=" height: 50vh; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 300px;">
+                    <img src="~/Images/Boat.jpg" alt="Stock" style="width: 100%; height: 27vh; object-fit: cover;">
+                    <div class="card-content" style="padding: 20px;">
+                        <h2>Manage Stock</h2>
+                        <p>Manage sizes stock levels, and process gear returns.</p>
+                        <form action="/Stocks">
+                            <button type="submit" class="link" style="background-color: #336539; color: white; padding: 10px 20px; border: none; border-radius: 5px;">Go to Stock</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+
+
+    }
+}
 
 
 <style>
     html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-}
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
 
     /* video section */
-.hero-video {
-   position: relative;
-width: 110%;;
- margin-left: -5%;
-  height: 80vh;
-overflow: • hidden;
-    overflow: hidden;
-}
-.hero-video video {
-    width: 138%;
-    margin-left: -20%;
-    height: 100%;
-    object-fit: cover;
-    filter: brightness(60%);
-}
+    .hero-video {
+        position: relative;
+        width: 110%;
+        ;
+        margin-left: -5%;
+        height: 80vh;
+        overflow: • hidden;
+        overflow: hidden;
+    }
 
-/* text on top of video */
-.video-overlay {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    color: white;
-    z-index: 5;
-    text-align: center;
-}
-.video-overlay h1 {
-    font-size: 3rem;
-    font-family: 'Playfair Display', serif;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-}
-.video-overlay p {
-    font-size: 1.25rem;
-}
+        .hero-video video {
+            width: 138%;
+            margin-left: -20%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(60%);
+        }
 
-/* cards section */
-.cards-section {
-    background-color: #f9f9f9;
-    padding: 60px 20px;
-}
-.cards-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    margin: 0 auto;
-    max-width: 1200px;
-}
-.card {
-    background-color: white;
-    border-radius: 20px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    overflow: hidden;
-    transition: transform 0.3s;
-}
-.card:hover {
-    transform: translateY(-5px);
-}
-.card img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-}
-.card-content {
-    padding: 20px;
-}
-.card-content h2 {
-    font-size: 1.5rem;
-    color: black;
-    margin-bottom: 5px;
-}
-.card-content h3 {
-    font-size: 1rem;
-    color: teal;
-    margin-bottom: 15px;
-}
-.card-content p {
-    font-size: 0.95rem;
-    color: #333;
-    margin-bottom: 20px;
-}
-.card-content button {
-    background: #247777;
-    color: white;
-    border: 2px solid #247777;
-    padding: 0.75rem;
-    width: 100%;
-    text-transform: uppercase;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background 0.3s, color 0.3s;
-}
-.card-content button:hover {
-    background: white;
-    color: #247777;
-}
+    /* text on top of video */
+    .video-overlay {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        color: white;
+        z-index: 5;
+        text-align: center;
+    }
 
-/* basic reset */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    background: #fff;
-    color: #000;
-}
-a {
-    color: inherit;
-    text-decoration: none;
-}
+        .video-overlay h1 {
+            font-size: 3rem;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
 
-section {
-    padding: 4rem 2rem;
-}
+        .video-overlay p {
+            font-size: 1.25rem;
+        }
 
-/* headings for sections */
-#about h2,
-#features h2,
-#gallery h2,
-#contact h2 {
-    text-align: center;
-    margin-bottom: 2rem;
-    color: black;
-    font-size: 2rem;
-    border-bottom: 3px solid #247777;
-    display: inline-block;
-    padding-bottom: 0.5rem;
-}
+    /* cards section */
+    .cards-section {
+        background-color: #f9f9f9;
+        padding: 60px 20px;
+    }
 
+    .cards-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin: 0 auto;
+        max-width: 1200px;
+    }
 
-#about .content {
-    max-width: 800px;
-    margin: 0 auto;
-    line-height: 1.6;
-}
+    .card {
+        background-color: white;
+        border-radius: 20px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        overflow: hidden;
+        transition: transform 0.3s;
+    }
 
+        .card:hover {
+            transform: translateY(-5px);
+        }
 
-#features .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
-    gap: 1.5rem;
-    margin: 0 auto;
-    max-width: 1000px;
-}
-#features .item {
-    padding: 1.5rem;
-    text-align: center;
-    border: 1px solid #ddd;
-    border-radius: 16px;
-}
-#features .item h3 {
-    margin-bottom: 0.75rem;
-    color: #247777;
-}
+        .card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
 
-/* gallery */
-#gallery .cards-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
+    .card-content {
+        padding: 20px;
+    }
 
-/* contact form */
-#contact form {
-    max-width: 600px;
-    margin: 0 auto;
-    display: grid;
-    gap: 1rem;
-}
-#contact input,
-#contact textarea {
-    padding: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    width: 100%;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-}
-#contact button {
-    padding: 1rem;
-    border: 2px solid #247777;
-    background: #247777;
-    color: white;
-    text-transform: uppercase;
-    cursor: pointer;
-    border-radius: 10px;
-    transition: background 0.3s, color 0.3s;
-}
-#contact button:hover {
-    background: white;
-    color: #247777;
-}
+        .card-content h2 {
+            font-size: 1.5rem;
+            color: black;
+            margin-bottom: 5px;
+        }
+
+        .card-content h3 {
+            font-size: 1rem;
+            color: teal;
+            margin-bottom: 15px;
+        }
+
+        .card-content p {
+            font-size: 0.95rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .card-content button {
+            background: #247777;
+            color: white;
+            border: 2px solid #247777;
+            padding: 0.75rem;
+            width: 100%;
+            text-transform: uppercase;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s;
+        }
+
+            .card-content button:hover {
+                background: white;
+                color: #247777;
+            }
+
+    /* basic reset */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        background: #fff;
+        color: #000;
+    }
+
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    section {
+        padding: 4rem 2rem;
+    }
+
+    /* headings for sections */
+    #about h2,
+    #features h2,
+    #gallery h2,
+    #contact h2 {
+        text-align: center;
+        margin-bottom: 2rem;
+        color: black;
+        font-size: 2rem;
+        border-bottom: 3px solid #247777;
+        display: inline-block;
+        padding-bottom: 0.5rem;
+    }
 
 
+    #about .content {
+        max-width: 800px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
 
+
+    #features .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+        gap: 1.5rem;
+        margin: 0 auto;
+        max-width: 1000px;
+    }
+
+    #features .item {
+        padding: 1.5rem;
+        text-align: center;
+        border: 1px solid #ddd;
+        border-radius: 16px;
+    }
+
+        #features .item h3 {
+            margin-bottom: 0.75rem;
+            color: #247777;
+        }
+
+    /* gallery */
+    #gallery .cards-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    /* contact form */
+    #contact form {
+        max-width: 600px;
+        margin: 0 auto;
+        display: grid;
+        gap: 1rem;
+    }
+
+    #contact input,
+    #contact textarea {
+        padding: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        width: 100%;
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    #contact button {
+        padding: 1rem;
+        border: 2px solid #247777;
+        background: #247777;
+        color: white;
+        text-transform: uppercase;
+        cursor: pointer;
+        border-radius: 10px;
+        transition: background 0.3s, color 0.3s;
+    }
+
+        #contact button:hover {
+            background: white;
+            color: #247777;
+        }
 
 </style>
 
-
- <section id="hero" class="hero-video">
-    <div class="video-wrapper">
-        <video src="~/Images/LandingPageVideo.mp4" autoplay muted loop playsinline></video>
-        <div class="video-overlay">
-            <h1>Camp Equipment Hire</h1>
-            <p>Reliable, affordable gear for your next adventure.</p>
-        </div>
-    </div>
-</section>
-
-
-  <section id="about">
-    <h2>About Taurewa Camp</h2>
-    <div class="content">
-      <p>Terewa Camp offers a wide range of quality camping equipment and versatile spaces to make your outdoor experience memorable and hassle-free.</p>
-      <p>Nestled in the heart of nature, our facilities are designed for comfort and convenience, whether you’re planning a family retreat, team-building weekend, or school excursion.</p>
-    </div>
-  </section>
-
-
-
- <section id="cards" class="cards-section">
-    <div class="cards-container">
-        <div class="card">
-            <img src="~/Images/Snow.jpg" alt="Basic Kit">
-            <div class="card-content">
-                <h2>Basic</h2>
-                <h3>From NZ $45/day</h3>
-                <p>Tent,  stars.</p>
-                <form>
-                    <button class="link" type="submit">Hire Now</button>
-                </form>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="~/Images/water.jpg" alt="Adventure Bundle">
-            <div class="card-content">
-                <h2>Ale</h2>
-                <h3>From NZ $85/day</h3>
-                <p>K</p>
-                <form>
-                    <button class="link" type="submit">Hire Now</button>
-                </form>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="~/Images/Boat.jpg" alt="Group Package">
-            <div class="card-content">
-                <h2>Gre</h2>
-                <h3>From NZ $150/day</h3>
-                <p>school camps.</p>
-                <form>
-                    <button class="link" type="submit">Hire Now</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-  <section id="about">
-    <h2>About Taurewa Camp</h2>
-    <div class="content">
-      <p>Terewa Camp offers a wide range of quality camping equipment and versatile spaces to make your outdoor experience memorable and hassle-free.</p>
-      <p>Nestled in the heart of nature, our facilities are designed for comfort and convenience, whether you’re planning a family retreat, team-building weekend, or school excursion.</p>
-    </div>
-  </section>
-
-
-  <section id="about">
-    <h2>About Taurewa Camp</h2>
-    <div class="content">
-      <p>Terewa Camp offers a wide range of quality camping equipment and versatile spaces to make your outdoor experience memorable and hassle-free.</p>
-      <p>Nestled in the heart of nature, our facilities are designed for comfort and convenience, whether you’re planning a family retreat, team-building weekend, or school excursion.</p>
-    </div>
-  </section>
-
-    
-
-  <section id="contact">
-    <h2>Contact Us</h2>
-    <form>
-      <input type="text" placeholder="Your Name" required>
-      <input type="email" placeholder="Your Email" required>
-      <textarea rows="5" placeholder="Your Message" required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-  </section>
-
-
- 
