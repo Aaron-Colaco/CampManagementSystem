@@ -19,35 +19,42 @@
                 <select asp-for="ItemId" class="form-control" asp-items="ViewBag.ItemId"></select>
                 <span asp-validation-for="ItemId" class="text-danger"></span>
             </div>
-            
-           
-            @if (ViewBag.Cat != 1){
-
             <div class="form-group">
-                <label asp-for="ClothingSizes" class="control-label"></label>
-                <select asp-for="ClothingSizes" class="form-control">
-                    @foreach (ClothingSize size in Enum.GetValues(typeof(ClothingSize)))
-                    {
-                        <option value="@size">@size.ToString()</option>
-                    }
-                </select>
-                <span asp-validation-for="ClothingSizes" class="text-danger"></span>
+                <label asp-for="OrderId" class="control-label"></label>
+                <select asp-for="OrderId" class="form-control" asp-items="ViewBag.OrderId"></select>
+                <span asp-validation-for="OrderId" class="text-danger"></span>
             </div>
-            }else{
 
-            <div class="form-group">
-                <label asp-for="ShoeSizes" class="control-label"></label>
-                <select asp-for="ShoeSizes" class="form-control">
-                    @foreach (ShoeSize size in Enum.GetValues(typeof(ShoeSize)))
-                    {
-                        <option value="@size">@size.ToString()</option>
-                    }
-                </select>
-                <span asp-validation-for="ShoeSizes" class="text-danger"></span>
-            </div>
+            @if (ViewBag.Cat != 1)
+            {
+
+                <div class="form-group">
+                    <label asp-for="ClothingSizes" class="control-label"></label>
+                    <select asp-for="ClothingSizes" class="form-control">
+                        @foreach (ClothingSize size in Enum.GetValues(typeof(ClothingSize)))
+                        {
+                            <option value="@size">@size.ToString()</option>
+                        }
+                    </select>
+                    <span asp-validation-for="ClothingSizes" class="text-danger"></span>
+                </div>
             }
-            <div class="form-group text-center mt-4">
-                <input type="submit" value="Save" class="btn" style="background-color: slateblue; color: white;" />
+            else
+            {
+
+                <div class="form-group">
+                    <label asp-for="ShoeSizes" class="control-label"></label>
+                    <select asp-for="ShoeSizes" class="form-control">
+                        @foreach (ShoeSize size in Enum.GetValues(typeof(ShoeSize)))
+                        {
+                            <option value="@size">@size.ToString()</option>
+                        }
+                    </select>
+                    <span asp-validation-for="ShoeSizes" class="text-danger"></span>
+                </div>
+            }
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -58,5 +65,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
