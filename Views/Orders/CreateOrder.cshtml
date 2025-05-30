@@ -13,7 +13,7 @@
 </p>
 
 
-<div style="max-height: 40vh; overflow-y: auto;">
+<div class="a" style="max-height: 40vh; overflow-y: auto;">
     <table class="table table-bordered">
         <thead class="table-success">
             <tr >
@@ -207,3 +207,18 @@
         <input type="submit" value="Confrim" class="btn btn-success mt-2"/>
     </form>
 </div>
+<script>
+    // Save scroll position before unload
+    window.addEventListener("beforeunload", () => {
+        localStorage.setItem("scrollY", window.scrollY);
+    });
+
+    // Restore scroll position on load
+    window.addEventListener("load", () => {
+        const scrollY = localStorage.getItem("scrollY");
+        if (scrollY !== null) {
+            window.scrollTo(0, parseInt(scrollY));
+        }
+    });
+</script>
+

@@ -71,7 +71,7 @@
                                     if (stock.ItemId == orderItem.ItemId && stock.ShoeSizes?.ToString() == S)
                                     {
                                         <option value="@stock.StockId">
-                                                    @orderItem.Items.Name (@stock.StockNumber) | US @orderItem.SizesReq
+                                                    @orderItem.Items.Name (@stock.StockNumber) | @orderItem.SizesReq
 
                                                 </option>
                                             }
