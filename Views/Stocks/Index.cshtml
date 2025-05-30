@@ -42,7 +42,7 @@ style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-ite
             <tr>
                 <th>Item Name</th>
                 <th>Size</th>
-                <th>Stock ID</th>
+                <th style="text-align: center;">Stock Number</th>
                 <th colspan="4">Status / Details</th>
                 <th>Actions</th>
             </tr>
@@ -62,7 +62,8 @@ style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-ite
                       @item.ClothingSizes;
                     }
                     </td>
-                    <td>@item.StockId</td>
+                    <td style="text-align: center;"><strong>@item.StockNumber</strong></td>
+
                     <td colspan="4">
                         @if (item.OrderId != null)
                         {
@@ -92,13 +93,13 @@ style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-ite
                 </tr>
                 
 
-                <tr class="table-light">
+                <tr class="table-light" style="background-color: lightblue;">
                     <td></td>
                     <td></td>
 
                     @if (item.OrderId != null && item.order.user != null)
                     {
-                        <td>@item.order.user.FirstName @item.order.user.LastName</td>
+                        <td style="text-align: center;">@item.order.user.FirstName @item.order.user.LastName</td>
                         <td>@item.order.user.Email</td>
                         <td>@item.order.user.StudentNumber</td>
                         <td></td>
@@ -129,3 +130,18 @@ style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-ite
         </tbody>
     </table>
 </div>
+<script>
+    // Save scroll position before unload
+    window.addEventListener("beforeunload", () => {
+        localStorage.setItem("scrollY", window.scrollY);
+    });
+
+    // Restore scroll position on load
+    window.addEventListener("load", () => {
+        const scrollY = localStorage.getItem("scrollY");
+        if (scrollY !== null) {
+            window.scrollTo(0, parseInt(scrollY));
+        }
+    });
+</script>
+

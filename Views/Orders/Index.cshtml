@@ -6,24 +6,16 @@
 
 
 
-@if (!Model.Any())
+@if (!Model.Any() && !User.IsInRole("Admin"))
 {
-    if(!User.IsInRole("Admin")){
+    
     <div class="alert alert-info text-center" Style="Margin-top: 5%;">
         <h2>No Orders Found</h2>
         <p>Click Add to Cart to create an order.</p>
         <a class="btn btn-primary" asp-controller="Items" asp-action="Index">See Products Here</a>
         </div>
-    }
-    else
-    {
-        <div class="alert alert-info text-center" Style="Margin-top: 5%;">
-            <h2>No Orders Found</h2>
-            
-            <a class="btn btn-primary" asp-controller="Orders" asp-action="Index">Refresh</a>
-        </div>
-
-    }
+    
+   
 }
 else
 {
@@ -302,3 +294,18 @@ else
                 background-color: #2563eb;
             }
 </style>
+<script>
+    // Save scroll position before unload
+    window.addEventListener("beforeunload", () => {
+        localStorage.setItem("scrollY", window.scrollY);
+    });
+
+    // Restore scroll position on load
+    window.addEventListener("load", () => {
+        const scrollY = localStorage.getItem("scrollY");
+        if (scrollY !== null) {
+            window.scrollTo(0, parseInt(scrollY));
+        }
+    });
+</script>
+

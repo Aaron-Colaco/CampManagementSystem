@@ -71,7 +71,7 @@
                                     if (stock.ItemId == orderItem.ItemId && stock.ShoeSizes?.ToString() == S)
                                     {
                                         <option value="@stock.StockId">
-                                                @orderItem.Items.Name (@stock.StockId) | US @orderItem.SizesReq 
+                                                    @orderItem.Items.Name (@stock.StockNumber) | US @orderItem.SizesReq
 
                                                 </option>
                                             }
@@ -81,7 +81,7 @@
                                             if (stock.ItemId == orderItem.ItemId && stock.ClothingSizes?.ToString() == orderItem.SizesReq)
                                             {
                                                 <option value="@stock.StockId">
-                                                    @orderItem.Items.Name (@stock.StockId) | @orderItem.SizesReq
+                                                    @orderItem.Items.Name (@stock.StockNumber) | @orderItem.SizesReq 
 
                                                 </option>
                                             }

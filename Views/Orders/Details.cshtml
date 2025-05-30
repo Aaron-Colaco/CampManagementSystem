@@ -4,10 +4,11 @@
     ViewData["Title"] = "Details";
 }
 
+@if(!User.IsInRole("Admin")){
 <h2 class="text-center fw-bold mt-4 mb-5 text-black">
     Thank You for Your Order, @Html.DisplayFor(model => model.user.FirstName)!
 </h2>
-
+}
 <style>
     .OrderStatus {
         width: 85%;

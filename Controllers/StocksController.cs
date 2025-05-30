@@ -241,11 +241,12 @@ namespace WebApplication4.Controllers
 
             var items = _context.Stock.Where(a => a.ItemId == stock.ItemId);
 
-            int stockId;
-            if (items != null)
+            int stockId = 0;
+            if (items.Any())
             {
                 stockId = items.Max(a => a.StockId);
             }
+
             else
             {
               //  base for new items for exaample ItemId=1 10000, ItemId=2  20000
@@ -269,9 +270,10 @@ namespace WebApplication4.Controllers
 
                         ClothingSizes = stock.ClothingSizes,
                         StockId = stockId,
+                        StockNumber = stock.StockNumber,
                         ItemId = stock.ItemId,
                         OrderId = null
-                    });
+                    }); 
                 }
 
                 if (ShoeSizes  != null)
@@ -280,9 +282,11 @@ namespace WebApplication4.Controllers
                     {
 
                         ShoeSizes = stock.ShoeSizes,
-                        StockId = stockId,
+                        StockId = stockId,                     
                         ItemId = stock.ItemId,
-                        OrderId = null
+                        OrderId = null,
+                        StockNumber = stock.StockNumber
+
                     });
 
                 }
@@ -334,35 +338,54 @@ namespace WebApplication4.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("StockId,OrderId,ClothingSizes,ShoeSizes")] Stock stock, int ItemId)
+        public async Task<IActionResult> Edit(int id, [Bind("StockId,OrderId,ClothingSizes,ShoeSizes,StockNumber")] Stock stock, int ItemId)
         {
-            stock.ItemId = ItemId;
-            if (id != stock.StockId)
-            {
-                return NotFound();
-            }
 
-            if (!ModelState.IsValid)
+
+            stock.ItemId = ItemId;
+
+
+            var stockNumberExists = _context.Stock.Where(a => a.ItemId == ItemId && a.StockNumber == stock.StockNumber).FirstOrDefault();
+
+            if (stockNumberExists == null)
             {
-                try
+
+
+
+                if (id != stock.StockId)
                 {
-                    _context.Update(stock);
-                    await _context.SaveChangesAsync();
+                    return NotFound();
                 }
-                catch (DbUpdateConcurrencyException)
+
+                if (!ModelState.IsValid)
                 {
-                    if (!StockExists(stock.StockId))
+                    try
                     {
-                        return NotFound();
+                        _context.Update(stock);
+                        await _context.SaveChangesAsync();
                     }
-                    else
+                    catch (DbUpdateConcurrencyException)
                     {
-                        throw;
+                        if (!StockExists(stock.StockId))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
                     }
+                    return RedirectToAction(nameof(Index));
                 }
-                return RedirectToAction(nameof(Index));
+                return View(stock);
             }
-            return View(stock);
+            else
+            {
+                ModelState.AddModelError(stock.StockNumber, "That stock number already exists for this item.");
+                return View();
+
+
+            }
         }
 
 

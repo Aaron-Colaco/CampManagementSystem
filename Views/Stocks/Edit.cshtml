@@ -24,6 +24,13 @@
                 <span asp-validation-for="ItemId" class="text-danger"></span>
             </div>
 
+            <div class="form-group">
+                <label asp-for="StockNumber" class="control-label"></label>
+                <input asp-for="StockNumber" class="form-control"  />
+                <span asp-validation-for="StockNumber" class="text-danger"></span>
+            </div>
+
+
             @if (ViewBag.Cat != 1)
             {
 
