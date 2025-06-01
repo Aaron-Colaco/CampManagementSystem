@@ -11,9 +11,9 @@ a {
   color: #0077cc;
 }
 
-.btn-primary, btn, btn btn-primary {
+.btn-primary {
     color: #fff;
-    background-color: #336539;
+    background-color: #336539 !important;
     border-color: #1861ac;
 }
 

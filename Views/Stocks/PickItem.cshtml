@@ -14,10 +14,10 @@
         <form asp-action="PickedItem" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
              
-            <h1>What Item Do you Want to Add</h1>
+            <h2>What Item Do you Want to Add</h2>
          
             <div class="form-group">
-                <label asp-for="ItemId" class="control-label"></label>
+                <label asp-for="ItemId" class="control-label">Item Name</label>
                 <select asp-for="ItemId" class="form-control" asp-items="ViewBag.ItemId"></select>
                 <span asp-validation-for="ItemId" class="text-danger"></span>
             </div>
