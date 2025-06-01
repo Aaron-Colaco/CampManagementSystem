@@ -130,6 +130,40 @@ style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-ite
         </tbody>
     </table>
 </div>
+
+
+<div>
+
+    <form asp-action="Index" style="margin-left:76%; margin-top:8%; display:flex;">
+    @{
+        for (int i = 1; i <= ViewBag.TotalPages; i++)
+        {
+            if (i == ViewBag.Page)
+            {
+                // Active page button: styled with dark green background and white text
+                <input class="pagebuttons" name="Page" value="@i" type="submit"
+                       style="background-color: darkgreen; color: white; text-align: center;
+                              padding: 5px 10px; border: none; border-radius: 3px;
+                              width: 50%; margin: 3%;" />
+            }
+            else
+            {
+                // Other page buttons: styled with white background and dark green text
+                <input class="pagebuttons" name="Page" value="@i" type="submit"
+                       style="background-color: white; color: darkgreen; text-align: center;
+                              padding: 5px 10px; border: 1px solid darkgreen; border-radius: 3px;
+                              width: 35%; margin: 3%;" />
+            }
+        }
+    }
+</form>
+
+    </div>
+
+
+
+
+
 <script>
     // Save scroll position before unload
     window.addEventListener("beforeunload", () => {

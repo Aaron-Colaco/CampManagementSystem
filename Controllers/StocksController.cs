@@ -1,15 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Stripe.Climate;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using WebApplication4.Data;
 using WebApplication4.Migrations;
 using WebApplication4.Models;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace WebApplication4.Controllers
 {
@@ -21,9 +23,11 @@ namespace WebApplication4.Controllers
         {
             _context = context;
         }
+        private const int PageSize = 50;
+
 
         // GET: Stocks
-        public async Task<IActionResult> Index(string? SearchTerm)
+        public async Task<IActionResult> Index(string? SearchTerm, int Page = 1)
         {
             var GearRequested = _context.OrderItem.Where(a => a.GearAssigned == false);
             var StockAvliable = _context.Stock.Where(a => a.OrderId == null);
@@ -45,9 +49,15 @@ namespace WebApplication4.Controllers
                 return View(await results.ToListAsync());
             }
 
-       
+            var totalItems = await stock.CountAsync();
 
-            return View(await stock.ToListAsync());
+            ViewBag.TotalPages = (int)Math.Ceiling(totalItems / (double)PageSize);
+
+            return View(await stock.Skip((Page - 1) * PageSize).Take(PageSize).ToListAsync());
+
+
+
+
         }
         public async Task<IActionResult> AS(string id)
         {
