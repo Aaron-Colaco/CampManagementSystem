@@ -42,6 +42,16 @@ namespace WebApplication4.Controllers
 
         }
 
+        public async Task<IActionResult> Amend(string id)
+        {
+            var Order = _context.Order.Where(a => a.OrderId == id).FirstOrDefault();    
+
+            Order.StatusId = 5; // Set the status to '1
+            _context.Update(Order);
+           await _context.SaveChangesAsync();
+           return RedirectToAction("CreateOrder", new { orderId = id });
+        }
+
 
         // GET: Orders
         public async Task<IActionResult> Index(string? SearchTerm, int Status)
@@ -178,14 +188,16 @@ namespace WebApplication4.Controllers
 
            await  _context.SaveChangesAsync();
 
-            return RedirectToAction("Index", new {SearchTerm = Order.user.StudentNumber});
+            return RedirectToAction("AS","Stocks", new {id = Order.OrderId});
 
         }
 
 
 
-        public async Task<IActionResult> CreateOrder(string OrderId)
+        public async Task<IActionResult> CreateOrder(string OrderId, int? ItemId)
         {
+
+
             ViewBag.OrderId = OrderId;
 
             ViewBag.Order = _context.Order.Where(a => a.OrderId == OrderId).FirstOrDefault();
@@ -207,7 +219,8 @@ namespace WebApplication4.Controllers
 
             ViewBag.OrderItems = _context.OrderItem.Where(a => a.OrderId == OrderId);
 
-            
+            ViewBag.ItemId = ItemId;
+
 
 
             return View(await Items.ToListAsync());
@@ -216,7 +229,6 @@ namespace WebApplication4.Controllers
         public async Task<IActionResult> AddItem(string OrderId, int ItemId, string Size)
         {
             var ExistingItem = _context.OrderItem.Where(a => a.ItemId == ItemId && a.SizesReq == Size && a.OrderId == OrderId).FirstOrDefault();
-
 
 
             if (ExistingItem != null)
@@ -258,7 +270,7 @@ namespace WebApplication4.Controllers
             await _context.SaveChangesAsync();
 
 
-            return RedirectToAction("CreateOrder", new { orderId = OrderId });
+            return RedirectToAction("CreateOrder", new { orderId = OrderId, ItemId = ItemId });
 
         }
 
@@ -351,15 +363,17 @@ namespace WebApplication4.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-       public async Task<IActionResult> DeleteItem(int ItemId, string OrderId)
+        public async Task<IActionResult> DeleteItem(int ItemId, string OrderId)
         {
-            var OrderItemToRemove = _context.OrderItem.Where(a => a.OrderId == OrderId && a.ItemId == ItemId).FirstOrDefault();
-            _context.OrderItem.Remove(OrderItemToRemove);
-            _context.SaveChanges();
+            var orderItemToRemove = _context.OrderItem.Where(a => a.OrderId == OrderId && a.ItemId == ItemId).FirstOrDefault();
+            if (orderItemToRemove != null)
+            {
+                _context.OrderItem.Remove(orderItemToRemove);
+                await _context.SaveChangesAsync();
+            }
 
             // Redirect action to Open Cart
             return RedirectToAction("CreateOrder", new { orderId = OrderId });
-
         }
 
         private bool OrderExists(string id)

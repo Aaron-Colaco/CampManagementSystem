@@ -42,7 +42,7 @@ namespace WebApplication4.Controllers
 
             if(SearchTerm != null)
             {
-                var results = _context.Stock.Include(a => a.Items).Include(a => a.order).ThenInclude(a => a.user).Where( a => a.Items.Name.Contains(SearchTerm) ||a.order.UserId.Contains(SearchTerm) || a.order.user.Email.Contains(SearchTerm) || a.order.user.StudentNumber.Contains(SearchTerm) || a.order.user.FirstName.Contains(SearchTerm));
+                var results = _context.Stock.Include(a => a.Items).Include(a => a.order).ThenInclude(a => a.user).Where( a => a.Items.Name.Contains(SearchTerm) ||a.order.UserId.Contains(SearchTerm) || a.order.user.Email.Contains(SearchTerm) || a.order.user.StudentNumber.Contains(SearchTerm) || a.order.user.FirstName.Contains(SearchTerm) || a.order.OrderId == SearchTerm);
 
 
 
@@ -50,6 +50,8 @@ namespace WebApplication4.Controllers
             }
 
             var totalItems = await stock.CountAsync();
+
+            ViewBag.Page = Page;
 
             ViewBag.TotalPages = (int)Math.Ceiling(totalItems / (double)PageSize);
 
@@ -88,6 +90,13 @@ namespace WebApplication4.Controllers
             ViewBag.UserStock = userstock;
 
             ViewBag.OrderStatus = order.StatusId;
+
+            if (order.StatusId == 4)
+            {
+                return RedirectToAction("Index", new {SearchTerm = order.OrderId} );
+
+            }
+
 
             return View(await listOrderItems.ToArrayAsync());
 

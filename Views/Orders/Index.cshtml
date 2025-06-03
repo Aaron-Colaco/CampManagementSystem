@@ -135,12 +135,26 @@ else
                     <td>
                         @if (User.IsInRole("Admin"))
                         {
-                            if(item.StatusId != 1 && item.StatusId != 5)
+                            if(item.StatusId == 2)
                             {
                                 <a class="badge" style="background-color: black; text-decoration: none;" asp-controller="Stocks" asp-route-id="@item.OrderId" asp-action="AS">Assign Stock</a>
+                                <a class="badge" style="background-color: black; text-decoration: none;" asp-controller="Orders" asp-route-id="@item.OrderId" asp-action="Amend">Amend</a>
+
 
                                
                             }
+if(item.StatusId == 4){
+                                <a class="badge" style="background-color: black; text-decoration: none;" asp-controller="Stocks" asp-action="AS" asp-route-id="@item.OrderId" asp-action="AS">Unassign Stock</a>
+                                <a class="badge" style="background-color: black; text-decoration: none;" asp-controller="Orders" asp-route-id="@item.OrderId" asp-action="Amend">Amend</a>
+
+
+}
+if(item.StatusId == 3){
+       <a class="badge" style="color: white; background-color: black; text-decoration: none;" asp-controller="OrderItems" asp-route-id="@item.OrderId" asp-action="Index">See Items</a>
+                            <a class="badge" style="color: white; background-color: black; text-decoration: none;" asp-action="Details" asp-route-id="@item.OrderId">Details</a>
+                          
+
+}
 
                         }
                         @if(item.StatusId == 4 && User.IsInRole("Admin")){
@@ -154,6 +168,18 @@ else
                             <a class="badge" style="color: white; background-color: black; text-decoration: none;" asp-action="Delete" asp-route-id="@item.OrderId">Delete</a>
 
                         }
+
+
+                        @if (item.StatusId == 4 && !User.IsInRole("Admin"))
+                        {
+
+                            <a class="badge" style="color: white; background-color: black; text-decoration: none;" asp-action="Details" asp-route-id="@item.OrderId">Details</a>
+                            <a class="badge" style="color: white; background-color: black; text-decoration: none;" asp-controller="OrderItems" asp-route-id="@item.OrderId" asp-action="Index">See Items</a>
+
+                        }
+
+
+
                         @if (item.StatusId == 5 && User.IsInRole("Admin"))
                         {
                             <form asp-action="CreateOrder" asp-controller="Orders" method="post" style="display: inline;">
@@ -172,8 +198,9 @@ else
                                                    @if (!User.IsInRole("Admin")){
 
                             <a class="badge" style="color: white; background-color: black; text-decoration: none;" asp-controller="OrderItems" asp-route-id="@item.OrderId" asp-action="Index">See Items</a>
-                                                   }
                             <a class="badge" style="color: white; background-color: black; text-decoration: none;" asp-action="Details" asp-route-id="@item.OrderId">Details</a>
+
+                                                   }
                         }
                     </td>
                 </tr>

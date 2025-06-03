@@ -66,8 +66,8 @@
         @{
             var firstOrderItem = Model.FirstOrDefault();
 
-            if (firstOrderItem != null)
-            {
+            if (firstOrderItem != null && !User.IsInRole("Admin"))
+            { 
                 if (firstOrderItem.Orders.StatusId == 1 && !User.IsInRole("Admin"))
                 {
                     <a class="btn btn-lg btn-success px-5" asp-controller="OrderItems" asp-action="ProcessOrder" asp-route-id="@ViewBag.orderId">Checkout</a>
@@ -77,10 +77,7 @@
                     <div class="alert alert-success fw-bold">Thank you for your order!</div>
                 }
             }
-            else
-            {
-                <div class="alert alert-info">You have no items in your order.</div>
-            }
+           
         }
     </div>
 </div>

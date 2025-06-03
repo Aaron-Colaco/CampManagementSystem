@@ -12,6 +12,12 @@
     Student number: @ViewBag.orderUser.StudentNumber
 </p>
 
+    <style>
+        .Added {
+            background-color: #eaffea;
+            opacity: 0.5;
+        }
+    </style>
 
 <div class="A" style="max-height: 40vh; overflow-y: auto;">
     <table class="table table-bordered">
@@ -25,9 +31,22 @@
         <tbody>
             @foreach (var item in Model)
             {
-                var itemStocks = stockList?.Where(s => s.ItemId == item.ItemId).ToList();
-                var hasStock = itemStocks != null && itemStocks.Any(s => (item.CategoryId == 1 && s.ShoeSizes != null) || (item.CategoryId != 1 && s.ClothingSizes != null));
-                <tr>
+
+
+
+
+string ClassName = " ";
+if(ViewBag.ItemId == item.ItemId){
+
+ClassName = "Added";
+
+}
+
+
+                
+                    <tr class="@ClassName">
+                
+
                     <td>@item.Name</td>
                     <td>$@item.Price</td>
                     <td>
@@ -164,7 +183,9 @@
             @foreach (var OrderItem in ViewBag.OrderItems)
             {
 
-                 
+
+
+
 
 
                 <tr class="border-bottom">
