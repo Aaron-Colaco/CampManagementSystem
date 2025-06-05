@@ -99,7 +99,7 @@
     {
 
         <section style="text-align:center; margin-top: 6px;">
-            <h1 style="color: #336539; font-size: 2.5rem;">Welcome, Camp Manager</h1>
+            <h1 style="color: #336539; font-size: 3.5rem; font-weight: bolder">Welcome, Camp Manager</h1>
         </section>
 
 
@@ -119,12 +119,12 @@
         </div>
 
 
-        <section id="cards" class="cards-section" style="padding: 60px 0; background-color: #f4f4f4; height: 80vh; margin-top: 5%;">
+        <section id="cards" class="cards-section" style="padding: 60px 0;  background-color: #bfbfbf; height: 55vh; margin-top: -2%; border-radius:20px;">
 
             <div class="cards-container" style="height: 45vh; margin-top: 20%;   display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; max-width: 1200px; margin: auto;">
 
                 <!-- See Items -->
-                <div class="card" style="background:  white; height: 50vh; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 300px;">
+                <div class="card" style="background:  white; height: 45vh; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 300px;">
                     <img src="~/Images/Snow.jpg" alt="Items" style="width: 100%; height: 27vh; object-fit: cover;">
                     <div class="card-content" style="padding: 20px;">
                         <h2>View Items</h2>
@@ -136,7 +136,7 @@
                 </div>
 
                 <!-- Manage Orders -->
-                <div class="card" style=" height: 50vh;background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 300px;">
+                <div class="card" style=" height: 45vh;background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 300px;">
                     <img src="~/Images/CampInv.png" alt="Orders" style="width: 100%; height: 27vh; object-fit: cover;">
                     <div class="card-content" style="padding: 20px;">
                         <h2>Manage Orders</h2>
@@ -148,7 +148,7 @@
                 </div>
 
                 <!-- See Stock -->
-                <div class="card" style=" height: 50vh; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 300px;">
+                <div class="card" style=" height: 45vh; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 300px;">
                     <img src="~/Images/Boat.jpg" alt="Stock" style="width: 100%; height: 27vh; object-fit: cover;">
                     <div class="card-content" style="padding: 20px;">
                         <h2>Manage Stock</h2>
@@ -167,20 +167,27 @@
 
     }
 }
+   
 
 
 <style>
+body{
+        height: fit-content !important;
+}
     html, body {
+
         margin: 0;
         padding: 0;
         height: 100%;
+        background: #d7d2d2 !important;
+        ;
     }
 
     /* video section */
     .hero-video {
         position: relative;
         width: 110%;
-        ;
+        
         margin-left: -5%;
         height: 80vh;
         overflow: • hidden;
@@ -247,9 +254,13 @@
             width: 100%;
             height: 220px;
             object-fit: cover;
-            border-top-left-radius: 20px;
-            border-top-right-radius: 20px;
+            border-top-left-radius: 2px;
+            border-top-right-radius: 2px;
         }
+
+    .text-primary {
+        --bs-text-opacity: 1;
+        color: rgb(51 101 57) !important;}
 
     .card-content {
         padding: 20px;
@@ -299,7 +310,7 @@
 
     body {
         font-family: 'Helvetica Neue', Arial, sans-serif;
-        background: #fff;
+        background: #d7d2d2;
         color: #000;
     }
 
