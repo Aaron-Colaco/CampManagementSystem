@@ -343,6 +343,7 @@ namespace WebApplication4.Controllers
 
             ViewBag.Name = item.Name;
 
+            
 
             var stock = await _context.Stock.FindAsync(id);
             if (stock == null)
@@ -360,6 +361,7 @@ namespace WebApplication4.Controllers
         public async Task<IActionResult> Edit(int id, [Bind("StockId,OrderId,ClothingSizes,ShoeSizes,StockNumber")] Stock stock, int ItemId)
         {
 
+            stock.StockNumber = stock.StockNumber.ToUpper();
 
             stock.ItemId = ItemId;
 
