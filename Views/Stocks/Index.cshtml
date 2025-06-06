@@ -25,7 +25,7 @@ style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-ite
 <div class="d-flex justify-content-center gap-4 mb-5">
     <div class="card text-center shadow-sm" style="width: 220px;">
         <div class="card-body">
-            <h5 class="card-title">Gear Out Hired</h5>
+            <h5 class="card-title">Gear Hired</h5>
             <p style="color: #336539;" class="display-6 text-primary fw-bold">@ViewBag.GearHire</p>
         </div>
     </div>
@@ -42,6 +42,10 @@ style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-ite
         <thead class="table-dark">
             <tr>
                 <th>Item Name</th>
+                <th>Brand</th>
+
+                <th>Colour</th>
+
                 <th>Size</th>
                 <th style="text-align: center;">Stock Number</th>
                 <th colspan="4">Status / Details</th>
@@ -53,6 +57,12 @@ style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-ite
             {
                 <tr>
                     <td>@item.Items.Name</td>
+                    
+<td>@item.Brand</td>
+
+                    <td>@item.Colour</td>
+
+
 
                     <td>
                     @if(item.Items.CategoryId == 1)

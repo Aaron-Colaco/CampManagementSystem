@@ -255,7 +255,7 @@ namespace WebApplication4.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StockId,ItemId,UserId,ClothingSizes,ShoeSizes")] Stock stock, int NumberToAdd, string ClothingSizes, string ShoeSizes)
+        public async Task<IActionResult> Create([Bind("StockId,ItemId,UserId,ClothingSizes,ShoeSizes,Brand,Colour,Notes")] Stock stock, int NumberToAdd, string ClothingSizes, string ShoeSizes)
         {
 
             var items = _context.Stock.Where(a => a.ItemId == stock.ItemId);
@@ -291,7 +291,11 @@ namespace WebApplication4.Controllers
                         StockId = stockId,
                         StockNumber = stock.StockNumber,
                         ItemId = stock.ItemId,
-                        OrderId = null
+                        Colour = stock.Colour,
+                        Brand = stock.Brand,
+                        OrderId = null,
+                        Notes = stock.Notes
+
                     }); 
                 }
 
@@ -328,6 +332,11 @@ namespace WebApplication4.Controllers
         // GET: Stocks/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewBag.BrandOptions = _context.Stock.Select(s => s.Brand).Distinct().ToList(); 
+
+            ViewBag.ColourOptions = _context.Stock.Select(s => s.Colour).Distinct().ToList();
+
+
             if (id == null)
             {
                 return NotFound();
@@ -343,6 +352,7 @@ namespace WebApplication4.Controllers
 
             ViewBag.Name = item.Name;
 
+           
             
 
             var stock = await _context.Stock.FindAsync(id);
@@ -350,6 +360,7 @@ namespace WebApplication4.Controllers
             {
                 return NotFound();
             }
+            ViewBag.Notes = stock.Notes;
             return View(stock);
         }
 
@@ -358,18 +369,13 @@ namespace WebApplication4.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("StockId,OrderId,ClothingSizes,ShoeSizes,StockNumber")] Stock stock, int ItemId)
+        public async Task<IActionResult> Edit(int id, [Bind("StockId,OrderId,ClothingSizes,ShoeSizes,StockNumber,Colour,Brand,Notes")] Stock stock, int ItemId)
         {
 
-            stock.StockNumber = stock.StockNumber.ToUpper();
-
-            stock.ItemId = ItemId;
 
 
-            var stockNumberExists = _context.Stock.Where(a => a.ItemId == ItemId && a.StockNumber == stock.StockNumber).FirstOrDefault();
+            var stockNumberExists = _context.Stock.Where(a => a.ItemId == ItemId).FirstOrDefault();
 
-            if (stockNumberExists == null)
-            {
 
 
 
@@ -382,7 +388,15 @@ namespace WebApplication4.Controllers
                 {
                     try
                     {
-                        _context.Update(stock);
+
+                    if (!string.IsNullOrEmpty(stock.StockNumber))
+                    {
+                        stock.StockNumber = stock.StockNumber.ToUpper();
+                    }
+
+
+                    stock.ItemId = ItemId;
+                    _context.Update(stock);
                         await _context.SaveChangesAsync();
                     }
                     catch (DbUpdateConcurrencyException)
@@ -399,14 +413,10 @@ namespace WebApplication4.Controllers
                     return RedirectToAction(nameof(Index));
                 }
                 return View(stock);
-            }
-            else
-            {
-                ModelState.AddModelError(stock.StockNumber, "That stock number already exists for this item.");
-                return View();
+            
+         
 
-
-            }
+            
         }
 
 

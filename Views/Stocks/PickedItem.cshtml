@@ -65,6 +65,12 @@
 
 
 
+<div class="form-group" style="margin-bottom: 1.5rem;">
+    <label asp-for="Notes" class="control-label" style="font-weight: 500; color: #495057;"></label>
+    <textarea asp-for="Notes" class="form-control" maxlength="500" rows="5" style="resize: vertical; border-radius: 0.5rem; border: 1px solid #ced4da; background-color: #f8f9fa;"></textarea>
+    <span asp-validation-for="Notes" class="text-danger" style="font-size: 0.95em;"></span>
+</div>
+
         </form>
 
     </div>

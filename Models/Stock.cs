@@ -10,7 +10,11 @@ namespace WebApplication4.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int StockId { get; set; }
 
+        public string Brand { get; set; } = " ";
 
+        public string Colour { get; set; } = " ";
+
+        public string Notes { get; set; } = " ";
 
         public string StockNumber { get; set; } = " ";
 
