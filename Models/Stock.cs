@@ -44,17 +44,31 @@ namespace WebApplication4.Models
         public enum ShoeSize
         {
             Standard = 0,
-            US5 = 5,
-            US6 = 6,
-            US7 = 7,
-            US8 = 8,
-            US9 = 9,
-            US10 = 10,
-            US11 = 11,
-            US12 = 12,
-            US13 = 13,
-            US14 = 14,
-            US15 = 15
+            US3 = 30,
+            US3_5 = 35,
+            US4 = 40,
+            US4_5 = 45,
+            US5 = 50,
+            US5_5 = 55,
+            US6 = 60,
+            US6_5 = 65,
+            US7 = 70,
+            US7_5 = 75,
+            US8 = 80,
+            US8_5 = 85,
+            US9 = 90,
+            US9_5 = 95,
+            US10 = 100,
+            US10_5 = 105,
+            US11 = 110,
+            US11_5 = 115,
+            US12 = 120,
+            US12_5 = 125,
+            US13 = 130,
+            US13_5 = 135,
+            US14 = 140,
+            US14_5 = 145,
+            US15 = 150
         }
 
 
