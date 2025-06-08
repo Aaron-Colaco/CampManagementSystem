@@ -43,7 +43,6 @@ namespace WebApplication4.Models
 
         public enum ShoeSize
         {
-            Standard = 0,
             US3 = 30,
             US3_5 = 35,
             US4 = 40,
