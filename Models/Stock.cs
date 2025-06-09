@@ -33,12 +33,28 @@ namespace WebApplication4.Models
         public enum ClothingSize
         {
             Standard = 0,
-            XS = 1,
-            Small = 2,
-            Medium = 3,
-            Large = 4,
-            XL = 5,
-            XXL = 6
+
+            [Display(Name = "2XS")]
+            XXS = 1,
+
+            XS = 2,
+
+            S = 3,
+
+            M = 4,
+
+            L = 5,
+
+            XL = 6,
+
+            [Display(Name = "2XL")]
+            XXL = 7,
+
+            [Display(Name = "3XL")]
+            XXXL = 8,
+
+            [Display(Name = "4XL")]
+            XXXXL = 9
         }
 
         public enum ShoeSize
