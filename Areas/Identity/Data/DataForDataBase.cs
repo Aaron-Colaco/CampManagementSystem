@@ -288,6 +288,216 @@ new Stock { ItemId = 1, StockNumber = "13C", StockId = 1000189, OrderId = null, 
 new Stock { ItemId = 1, StockNumber = "13D", StockId = 1000190, OrderId = null, ShoeSizes = (ShoeSize)130, Brand = "Brown", Notes = "03.02.22" },
 new Stock { ItemId = 1, StockNumber = "14A", StockId = 1000191, OrderId = null, ShoeSizes = (ShoeSize)140, Brand = "Brown Hi Tec", Notes = "3.09.24" },
 
+//sleeping bag 
+
+
+
+
+
+new Stock { ItemId = 2, StockId = 200001, StockNumber = "1", Brand = "2", Colour = "Blk/sea grn", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200002, StockNumber = "2", Brand = "3", Colour = "Blk/sea grn", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200003, StockNumber = "3", Brand = "4", Colour = "Blue", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200004, StockNumber = "4", Brand = "5", Colour = "Blue", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200005, StockNumber = "5", Brand = "6", Colour = "Grey/Back", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200006, StockNumber = "6", Brand = "7", Colour = "Blue", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200007, StockNumber = "7", Brand = "8", Colour = "Blue", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200008, StockNumber = "8", Brand = "9", Colour = "Grey/Back", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200009, StockNumber = "9", Brand = "10", Colour = "Blue", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200010, StockNumber = "10", Brand = "11", Colour = "Blue", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200011, StockNumber = "11", Brand = "12", Colour = "Blue", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200012, StockNumber = "12", Brand = "13", Colour = "Blue", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200013, StockNumber = "13", Brand = "14", Colour = "Blue", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200014, StockNumber = "14", Brand = "15", Colour = "Blue", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200015, StockNumber = "15", Brand = "16", Colour = "Grey/Back", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200016, StockNumber = "16", Brand = "17", Colour = "Grey/Back", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200017, StockNumber = "17", Brand = "18", Colour = "Blue", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200018, StockNumber = "18", Brand = "19", Colour = "Grey/Back", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200019, StockNumber = "19", Brand = "20", Colour = "Blk/Sea Grn", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200020, StockNumber = "20", Brand = "21", Colour = "Grey/Back", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200021, StockNumber = "21", Brand = "22", Colour = "Blk/Sea Grn", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200022, StockNumber = "22", Brand = "23", Colour = "Grey/Back", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200023, StockNumber = "23", Brand = "24", Colour = "Blu/Sea Grn", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200024, StockNumber = "24", Brand = "25", Colour = "Blue", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200025, StockNumber = "25", Brand = "26", Colour = "Blk/sea grn", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200026, StockNumber = "26", Brand = "27", Colour = "Grey/Back", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200027, StockNumber = "27", Brand = "28", Colour = "Blk/Sea Grn", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200028, StockNumber = "28", Brand = "29", Colour = "Grey/Back", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200029, StockNumber = "29", Brand = "30", Colour = "Grey/Back", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200030, StockNumber = "30", Brand = "31", Colour = "Blk/Sea Grn", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200031, StockNumber = "31", Brand = "32", Colour = "Purple/Black", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200032, StockNumber = "32", Brand = "33", Colour = "Blk/Sea Grn", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200033, StockNumber = "33", Brand = "34", Colour = "Blk/Sea Grn", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200034, StockNumber = "34", Brand = "35", Colour = "Grey/Back", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200035, StockNumber = "35", Brand = "36", Colour = "Blk/Sea Grn", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200036, StockNumber = "36", Brand = "37", Colour = "Black", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200037, StockNumber = "37", Brand = "38", Colour = "Blk/ Sea Grn", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200038, StockNumber = "38", Brand = "39", Colour = "Blk/Sea Grn", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200039, StockNumber = "39", Brand = "40", Colour = "Black", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200040, StockNumber = "40", Brand = "41", Colour = "Orange/Red/Black", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+new Stock { ItemId = 2, StockId = 200041, StockNumber = "41", Brand = "42", Colour = "Orange/Red/Black", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+new Stock { ItemId = 2, StockId = 200042, StockNumber = "42", Brand = "43", Colour = "Orange/Red/Black", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+new Stock { ItemId = 2, StockId = 200043, StockNumber = "43", Brand = "44", Colour = "Orange/Red/Black", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+new Stock { ItemId = 2, StockId = 200044, StockNumber = "44", Brand = "44A", Colour = "Orange/Red/Black", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+new Stock { ItemId = 2, StockId = 200045, StockNumber = "44A", Brand = "45", Colour = "Orange/Red/Black", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+new Stock { ItemId = 2, StockId = 200046, StockNumber = "45", Brand = "46", Colour = "Orange/Red/Black", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+new Stock { ItemId = 2, StockId = 200047, StockNumber = "46", Brand = "47", Colour = "Purple", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+new Stock { ItemId = 2, StockId = 200048, StockNumber = "47", Brand = "", Colour = "Blk/Sea Grn", ClothingSizes = Stock.ClothingSize.Standard, OrderId = null },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
