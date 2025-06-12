@@ -7,7 +7,6 @@ namespace WebApplication4.Models
     {
         [Key]
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int StockId { get; set; }
 
         public string Brand { get; set; } = " ";
