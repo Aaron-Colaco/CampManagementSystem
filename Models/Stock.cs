@@ -47,10 +47,10 @@ namespace WebApplication4.Models
 
             XL = 6,
 
-            [Display(Name = "2XL")]
+            [Display(Name = "XXL")]
             XXL = 7,
 
-            [Display(Name = "3XL")]
+            [Display(Name = "XXXL")]
             XXXL = 8,
 
             [Display(Name = "4XL")]
