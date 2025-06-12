@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApplication4.Data;
-using WebApplication4.Migrations;
 using WebApplication4.Models;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 

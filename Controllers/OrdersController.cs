@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Stripe.Climate;
 using WebApplication4.Data;
-using WebApplication4.Migrations;
 using WebApplication4.Models;
 using Order = WebApplication4.Models.Order;
 
@@ -213,7 +212,10 @@ namespace WebApplication4.Controllers
 
             var Items = _context.Item.Include(i => i.Categorys);
 
-            var StockAvliable = _context.Stock.Where(a => a.OrderId == null);
+            var StockAvliable = _context.Stock
+                .AsNoTracking()
+                .Where(a => a.OrderId == null)
+                .OrderBy(a => a.ClothingSizes);
 
             ViewBag.Stock = StockAvliable;
 
