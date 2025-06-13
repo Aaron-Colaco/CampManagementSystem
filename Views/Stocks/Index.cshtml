@@ -147,13 +147,31 @@ style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-ite
 
 <div>
 
-    <form asp-action="Index" style="margin-left:76%; margin-top:8%; display:flex;">
+  <form asp-action="Index" style="margin-left:76%; margin-top:8%; display:flex;">
     @{
-        for (int i = 1; i <= ViewBag.TotalPages; i++)
+        int currentPage = ViewBag.Page ?? 1;
+        int totalPages = ViewBag.TotalPages ?? 1;
+
+        // show 3 pages only, current + one before + one after
+        int startPage = currentPage - 1;
+        int endPage = currentPage + 1;
+
+        if (startPage < 1) 
         {
-            if (i == ViewBag.Page)
+            startPage = 1;
+            endPage = Math.Min(3, totalPages);
+        }
+        // if endPage is more than total pages, fix it too
+        if (endPage > totalPages) 
+        {
+            endPage = totalPages;
+            startPage = Math.Max(1, endPage - 2);
+        }
+
+        for (int i = startPage; i <= endPage; i++)
+        {
+            if (i == currentPage)
             {
-                // Active page button: styled with dark green background and white text
                 <input class="pagebuttons" name="Page" value="@i" type="submit"
                        style="background-color: darkgreen; color: white; text-align: center;
                               padding: 5px 10px; border: none; border-radius: 3px;
@@ -161,7 +179,6 @@ style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-ite
             }
             else
             {
-                // Other page buttons: styled with white background and dark green text
                 <input class="pagebuttons" name="Page" value="@i" type="submit"
                        style="background-color: white; color: darkgreen; text-align: center;
                               padding: 5px 10px; border: 1px solid darkgreen; border-radius: 3px;
@@ -170,6 +187,7 @@ style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-ite
         }
     }
 </form>
+
 
     </div>
 

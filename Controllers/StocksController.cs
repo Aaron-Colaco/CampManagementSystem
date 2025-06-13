@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.Completion;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Stripe.Climate;
@@ -270,28 +271,34 @@ namespace WebApplication4.Controllers
         {
 
             var items = _context.Stock.Where(a => a.ItemId == stock.ItemId);
-
-            int stockId = 0;
-            if (items.Any())
+            string stockNuber
+           if (items.Any())
             {
-                stockId = items.Max(a => a.StockId);
+                if (items.First().Items.CategoryId != 1)
+                {
+                    stockNumber = items.Max(a => Convert.ToInt64(stockNumber));
+                }
+                else
+                {
+                    stockNumber = "EnterSize(Edit)";
+                }
             }
 
             else
             {
-              //  base for new items for exaample ItemId=1 10000, ItemId=2  20000
-                stockId = stock.ItemId * 10000;
+                if (items.First().Items.CategoryId != 1) {
+
+                    stockNumebr = "1";
+
+                }
+
             }
 
             
                 // add NumberToAdd new records
                 for (int i = 1; i <= NumberToAdd; i++)
                 {
-                    while (_context.Stock.Any(a => a.StockId == stockId))
-                    {
-                        stockId++;
-                    }
-
+                    
 
                 if (ClothingSizes != null)
                 {
@@ -300,7 +307,7 @@ namespace WebApplication4.Controllers
 
                         ClothingSizes = stock.ClothingSizes,
                         StockId = stockId,
-                        StockNumber = stock.StockNumber,
+                        StockNumber = stockNuber
                         ItemId = stock.ItemId,
                         Colour = stock.Colour,
                         Brand = stock.Brand,
@@ -328,11 +335,12 @@ namespace WebApplication4.Controllers
        
 
         await _context.SaveChangesAsync();
-                stockId++;
+                stockNumber = Convert.ToInt32(stockNumber) + 1;
+
             }
 
-                
-                return RedirectToAction(nameof(Index));
+
+            return RedirectToAction(nameof(Index));
             
 
 
