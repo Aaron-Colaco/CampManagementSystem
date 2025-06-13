@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApplication4.Data;
+using WebApplication4.Migrations;
 using WebApplication4.Models;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
@@ -130,19 +131,28 @@ namespace WebApplication4.Controllers
             var GearRequested = _context.OrderItem.Where(a => a.OrderId == OrderId);
             var UserStock = _context.Stock.Where(a => a.OrderId == order.UserId).Include(a => a.Items);
 
-    
+           
 
-            var itemreq = GearRequested.Where(a => a.ItemId == stock.ItemId).FirstOrDefault();
+            
+
+            string shoeSize = stock.ShoeSizes?.ToString();
+            string clothingSize = stock.ClothingSizes?.ToString();
+
+            var itemreq = GearRequested.Where(a => a.ItemId == stock.ItemId &&(a.SizesReq == shoeSize || a.SizesReq == clothingSize)).FirstOrDefault();
 
 
 
-            if(itemreq.Quantity == 1)
+            if (itemreq.Quantity == 1)
             {
                 itemreq.GearAssigned = true;
                 _context.SaveChanges();
             }
             else 
             {
+                
+           
+                
+     
 
                 int UserItems = _context.Stock.Where(a => a.Items.ItemId == stock.ItemId && a.order.UserId == order.UserId).Count();
 
@@ -174,10 +184,12 @@ namespace WebApplication4.Controllers
 
             if (OrderId != null)
             {
-
-                Gear.GearAssigned = false;
-                stock.OrderId = null;
-                _context.SaveChanges();
+                if (Gear != null)
+                {
+                    Gear.GearAssigned = false;
+                    stock.OrderId = null;
+                    _context.SaveChanges();
+                }
 
                 return RedirectToAction("AS", new { id = OrderId });
             }

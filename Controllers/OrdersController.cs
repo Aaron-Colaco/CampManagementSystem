@@ -212,12 +212,20 @@ namespace WebApplication4.Controllers
 
             var Items = _context.Item.Include(i => i.Categorys);
 
-            var StockAvliable = _context.Stock
+            // Pseudocode plan:
+            // 1. Make the StockAvailable query asynchronous by using ToListAsync() and await it.
+            // 2. Assign the result to ViewBag.Stock as a list, not as an IQueryable.
+            // 3. Remove the typo at the end of the Select line.
+
+            var StockAvliable = await _context.Stock
                 .AsNoTracking()
                 .Where(a => a.OrderId == null)
-                .OrderBy(a => a.ClothingSizes);
+                .OrderBy(a => a.ItemId)
+                .ThenBy(a => a.ClothingSizes)
+                .Select(a => new { a.ShoeSizes, a.ClothingSizes, a.ItemId })
+                .ToListAsync(); 
 
-            ViewBag.Stock = StockAvliable;
+ViewBag.Stock = StockAvliable;
 
             ViewBag.OrderItems = _context.OrderItem.Where(a => a.OrderId == OrderId);
 
