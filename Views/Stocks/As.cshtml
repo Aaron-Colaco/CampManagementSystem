@@ -21,7 +21,10 @@
 </div>
 
 
-@if(ViewBag.Status == 2)
+@if (ViewBag.Status == 2)
+{
+
+if (Model.FirstOrDefault() != null)
 {
 <table class="table">
     <thead>
@@ -33,6 +36,7 @@
         </tr>
     </thead>
     <tbody>
+
 
 
      
@@ -97,6 +101,7 @@
         }
         </tbody>
     </table>
+}
     }
      else
        {
@@ -166,10 +171,10 @@
                         <input type="hidden" value="@userStock.StockId" name="StockId" />
                         @if(ViewBag.Status == 2)
                         {
-                            <input type="submit" value="Unassign" class="btn btn-primary" style="background-color: red"/>
+                            <input type="submit" value="Unassign" class="btn btn-warning" style="background-color: indianred; color: white;"/>
                         }
                         else{
-                            <input value="Unassign" disabled type="submit" class="btn btn-primary" style="background-color: indianred; opacity: 50%;" lo/>
+                            <input value="Unassign" disabled type="submit" class="btn btn-warning" style="background-color: indianred; opacity: 50%; color: white;" lo/>
 
 
                             
