@@ -37,26 +37,44 @@ namespace WebApplication4.Controllers
 
             ViewBag.GearHire = _context.Stock.Count(a => a.OrderId != null);
 
-            ViewBag.SearchTerm = SearchTerm; 
-            var stock = _context.Stock.Include(s => s.order).ThenInclude(a => a.user).
-                Include(a => a.Items).OrderBy(a => a.OrderId == null);
-
-            if(SearchTerm != null)
+            ViewBag.SearchTerm = SearchTerm;
+            int totalItems = 0;
+            
+            if (SearchTerm == null)
             {
-                var results = _context.Stock.Include(a => a.Items).Include(a => a.order).ThenInclude(a => a.user).Where( a => a.Items.Name.Contains(SearchTerm) ||a.order.UserId.Contains(SearchTerm) || a.order.user.Email.Contains(SearchTerm) || a.order.user.StudentNumber.Contains(SearchTerm) || a.order.user.FirstName.Contains(SearchTerm) || a.order.OrderId == SearchTerm);
 
+                var results = _context.Stock.AsNoTracking().Include(s => s.order).ThenInclude(a => a.user).
+                Include(a => a.Items).OrderBy(a => a.OrderId == null).Skip((Page - 1) * PageSize).Take(PageSize);
+
+                 totalItems = _context.Stock.Count();
+
+
+                ViewBag.Page = Page;
+                ViewBag.TotalPages = (int)Math.Ceiling(totalItems / (double)PageSize);
+
+
+                 return View(await results.ToListAsync());
+
+            }
+
+
+            else 
+            {
+               var  results = _context.Stock.Include(a => a.Items).Include(a => a.order).ThenInclude(a => a.user).Where(a => a.Items.Name.Contains(SearchTerm) || a.order.UserId.Contains(SearchTerm) || a.order.user.Email.Contains(SearchTerm) || a.order.user.StudentNumber.Contains(SearchTerm) || a.order.user.FirstName.Contains(SearchTerm) || a.order.OrderId == SearchTerm).Skip((Page - 1) * PageSize).Take(PageSize);
+                totalItems = _context.Stock.Include(a => a.Items).Include(a => a.order).ThenInclude(a => a.user).Where(a => a.Items.Name.Contains(SearchTerm) || a.order.UserId.Contains(SearchTerm) || a.order.user.Email.Contains(SearchTerm) || a.order.user.StudentNumber.Contains(SearchTerm) || a.order.user.FirstName.Contains(SearchTerm) || a.order.OrderId == SearchTerm).Count();
+
+                ViewBag.Count = results.Count();
+
+                ViewBag.Page = Page;
+                ViewBag.TotalPages = (int)Math.Ceiling(totalItems / (double)PageSize);
 
 
                 return View(await results.ToListAsync());
+
+
             }
 
-            var totalItems = await stock.CountAsync();
 
-            ViewBag.Page = Page;
-
-            ViewBag.TotalPages = (int)Math.Ceiling(totalItems / (double)PageSize);
-
-            return View(await stock.Skip((Page - 1) * PageSize).Take(PageSize).ToListAsync());
 
 
 
@@ -271,12 +289,13 @@ namespace WebApplication4.Controllers
         {
 
             var items = _context.Stock.Where(a => a.ItemId == stock.ItemId);
-            string stockNuber
+            string stockNumber = "1";
+            int st = 1;
            if (items.Any())
             {
                 if (items.First().Items.CategoryId != 1)
                 {
-                    stockNumber = items.Max(a => Convert.ToInt64(stockNumber));
+                    st = (int)items.Max(a => Convert.ToInt64(stockNumber));
                 }
                 else
                 {
@@ -284,15 +303,7 @@ namespace WebApplication4.Controllers
                 }
             }
 
-            else
-            {
-                if (items.First().Items.CategoryId != 1) {
-
-                    stockNumebr = "1";
-
-                }
-
-            }
+           
 
             
                 // add NumberToAdd new records
@@ -306,15 +317,15 @@ namespace WebApplication4.Controllers
                     {
 
                         ClothingSizes = stock.ClothingSizes,
-                        StockId = stockId,
-                        StockNumber = stockNuber
+                        StockNumber = st.ToString(),
                         ItemId = stock.ItemId,
                         Colour = stock.Colour,
                         Brand = stock.Brand,
                         OrderId = null,
                         Notes = stock.Notes
 
-                    }); 
+                    });
+                    st ++;
                 }
 
                 if (ShoeSizes  != null)
@@ -323,7 +334,6 @@ namespace WebApplication4.Controllers
                     {
 
                         ShoeSizes = stock.ShoeSizes,
-                        StockId = stockId,                     
                         ItemId = stock.ItemId,
                         OrderId = null,
                         StockNumber = stock.StockNumber
@@ -335,7 +345,6 @@ namespace WebApplication4.Controllers
        
 
         await _context.SaveChangesAsync();
-                stockNumber = Convert.ToInt32(stockNumber) + 1;
 
             }
 

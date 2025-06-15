@@ -36,6 +36,13 @@ style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-ite
         </div>
     </div>
 </div>
+@{
+    if (ViewBag.SearchTerm != null)
+    {
+        <span>@ViewBag.Count results found</span>
+    }
+}
+
 
 <div class="table-responsive">
     <table class="table table-hover align-middle">
@@ -145,51 +152,29 @@ style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-ite
 </div>
 
 
-<div>
-
-  <form asp-action="Index" style="margin-left:76%; margin-top:8%; display:flex;">
-    @{
-        int currentPage = ViewBag.Page ?? 1;
-        int totalPages = ViewBag.TotalPages ?? 1;
-
-        // show 3 pages only, current + one before + one after
-        int startPage = currentPage - 1;
-        int endPage = currentPage + 1;
-
-        if (startPage < 1) 
-        {
-            startPage = 1;
-            endPage = Math.Min(3, totalPages);
-        }
-        // if endPage is more than total pages, fix it too
-        if (endPage > totalPages) 
-        {
-            endPage = totalPages;
-            startPage = Math.Max(1, endPage - 2);
-        }
-
-        for (int i = startPage; i <= endPage; i++)
-        {
-            if (i == currentPage)
+    <form asp-action="Index" style="margin-left:76%; margin-top:8%; display:flex;">
+        @{
+            for (int i = 1; i <= ViewBag.TotalPages; i++)
             {
-                <input class="pagebuttons" name="Page" value="@i" type="submit"
-                       style="background-color: darkgreen; color: white; text-align: center;
-                              padding: 5px 10px; border: none; border-radius: 3px;
-                              width: 50%; margin: 3%;" />
-            }
-            else
-            {
-                <input class="pagebuttons" name="Page" value="@i" type="submit"
-                       style="background-color: white; color: darkgreen; text-align: center;
-                              padding: 5px 10px; border: 1px solid darkgreen; border-radius: 3px;
-                              width: 35%; margin: 3%;" />
+                if (i == ViewBag.Page)
+                {
+                    <input class="pagebuttons" name="Page" value="@i" type="submit"
+                           style="background-color: darkgreen; color: white; text-align: center;
+                                  padding: 5px 10px; border: none; border-radius: 3px;
+                                  width: 50%; margin: 3%;" />
+                }
+                else
+                {
+                    <input class="pagebuttons" name="Page" value="@i" type="submit"
+                           style="background-color: white; color: darkgreen; text-align: center;
+                                  padding: 5px 10px; border: 1px solid darkgreen; border-radius: 3px;
+                                  width: 35%; margin: 3%;" />
+                }
             }
         }
-    }
-</form>
+    </form>
 
 
-    </div>
 
 
 
