@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace ContosoUniversity
+namespace WebApplication4
 {
     public class PaginatedList<T> : List<T>
     {
@@ -16,7 +16,7 @@ namespace ContosoUniversity
             PageIndex = pageIndex;
             TotalPages = (int)Math.Ceiling(count / (double)pageSize);
 
-            this.AddRange(items);
+            AddRange(items);
         }
 
         public bool HasPreviousPage => PageIndex > 1;

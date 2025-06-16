@@ -24,62 +24,58 @@ namespace WebApplication4.Controllers
         {
             _context = context;
         }
-        private const int PageSize = 50;
+       
+
+private const int PageSize = 50;
 
 
-        // GET: Stocks
-        public async Task<IActionResult> Index(string? SearchTerm, int Page = 1)
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            var GearRequested = _context.OrderItem.Where(a => a.GearAssigned == false);
-            var StockAvliable = _context.Stock.Where(a => a.OrderId == null);
-         
-            ViewBag.StockNumber = StockAvliable.Count();
+            ViewBag.CurrentSort = sortOrder;
 
-            ViewBag.GearHire = _context.Stock.Count(a => a.OrderId != null);
+            if (searchString != null)
+                page = 1;
+            else
+                searchString = currentFilter;
 
-            ViewBag.SearchTerm = SearchTerm;
-            int totalItems = 0;
-            
-            if (SearchTerm == null)
+            ViewBag.CurrentFilter = searchString;
+
+            var query = _context.Stock.AsNoTracking();
+
+            // Filtering (check for null navigation props)
+            if (!string.IsNullOrEmpty(searchString))
             {
-
-                var results = _context.Stock.AsNoTracking().Include(s => s.order).ThenInclude(a => a.user).
-                Include(a => a.Items).OrderBy(a => a.OrderId == null).Skip((Page - 1) * PageSize).Take(PageSize);
-
-                 totalItems = _context.Stock.Count();
-
-
-                ViewBag.Page = Page;
-                ViewBag.TotalPages = (int)Math.Ceiling(totalItems / (double)PageSize);
-
-
-                 return View(await results.ToListAsync());
-
+                query = query.Where(s =>
+                    s.Items.Name.Contains(searchString) ||
+                    (s.order != null && (
+                        s.order.UserId.Contains(searchString) ||
+                        s.order.user.Email.Contains(searchString) ||
+                        s.order.user.StudentNumber.Contains(searchString) ||
+                        s.order.user.FirstName.Contains(searchString) ||
+                        s.order.OrderId.ToString() == searchString
+                    ))
+                );
             }
 
+           
 
-            else 
-            {
-               var  results = _context.Stock.Include(a => a.Items).Include(a => a.order).ThenInclude(a => a.user).Where(a => a.Items.Name.Contains(SearchTerm) || a.order.UserId.Contains(SearchTerm) || a.order.user.Email.Contains(SearchTerm) || a.order.user.StudentNumber.Contains(SearchTerm) || a.order.user.FirstName.Contains(SearchTerm) || a.order.OrderId == SearchTerm).Skip((Page - 1) * PageSize).Take(PageSize);
-                totalItems = _context.Stock.Include(a => a.Items).Include(a => a.order).ThenInclude(a => a.user).Where(a => a.Items.Name.Contains(SearchTerm) || a.order.UserId.Contains(SearchTerm) || a.order.user.Email.Contains(SearchTerm) || a.order.user.StudentNumber.Contains(SearchTerm) || a.order.user.FirstName.Contains(SearchTerm) || a.order.OrderId == SearchTerm).Count();
+            // Summary counts
+            ViewBag.StockNumber = await _context.Stock.CountAsync(s => s.OrderId == null);
+            ViewBag.GearHire = await _context.Stock.CountAsync(s => s.OrderId != null);
 
-                ViewBag.Count = results.Count();
+            // Paging
+            int pageIndex = page ?? 1;
+            var paginatedList = await PaginatedList<Stock>.CreateAsync(
+                query
+                .Include(s => s.Items)
+                .Include(s => s.order)
+                    .ThenInclude(o => o.user),
+                pageIndex, PageSize);
 
-                ViewBag.Page = Page;
-                ViewBag.TotalPages = (int)Math.Ceiling(totalItems / (double)PageSize);
-
-
-                return View(await results.ToListAsync());
-
-
-            }
-
-
-
-
-
-
+            return View(paginatedList);
         }
+
+
         public async Task<IActionResult> AS(string id)
         {
             var order = _context.Order.Where(a => a.OrderId == id).FirstOrDefault();

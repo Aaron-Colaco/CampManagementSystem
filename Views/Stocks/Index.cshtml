@@ -1,8 +1,10 @@
-﻿@model IEnumerable<WebApplication4.Models.Stock>
-@{
-    ViewData["Title"] = "Gear Stock";
+﻿
+@using WebApplication4.Models
+    @{
+        ViewData["Title"] = "Gear Stock";
 
-}
+    }
+
 
 <h1 class="text-center mt-4">Gear Stock</h1>
 <div style="text-align: center; margin-bottom: 1rem;">
@@ -152,28 +154,47 @@ style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-ite
 </div>
 
 
-    <form asp-action="Index" style="margin-left:76%; margin-top:8%; display:flex;">
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
         @{
-            for (int i = 1; i <= ViewBag.TotalPages; i++)
-            {
-                if (i == ViewBag.Page)
-                {
-                    <input class="pagebuttons" name="Page" value="@i" type="submit"
-                           style="background-color: darkgreen; color: white; text-align: center;
-                                  padding: 5px 10px; border: none; border-radius: 3px;
-                                  width: 50%; margin: 3%;" />
-                }
-                else
-                {
-                    <input class="pagebuttons" name="Page" value="@i" type="submit"
-                           style="background-color: white; color: darkgreen; text-align: center;
-                                  padding: 5px 10px; border: 1px solid darkgreen; border-radius: 3px;
-                                  width: 35%; margin: 3%;" />
-                }
-            }
-        }
-    </form>
+            int currentPage = Model.PageIndex;
+            int totalPages = Model.TotalPages;
+            int maxButtons = 5;
+            int startPage = Math.Max(1, currentPage - 2);
+            int endPage = Math.Min(totalPages, startPage + maxButtons - 1);
 
+            if (endPage - startPage < maxButtons)
+                startPage = Math.Max(1, endPage - maxButtons + 1);
+
+            var searchString = ViewBag.CurrentFilter as string ?? "";
+            var sortOrder = ViewBag.CurrentSort as string ?? "";
+        }
+
+        @* Previous *@
+        @if (Model.HasPreviousPage)
+        {
+            <li class="page-item">
+                <a class="page-link" href="@Url.Action("Index", new { page = currentPage - 1, searchString, sortOrder })">Previous</a>
+            </li>
+        }
+
+        @* Page Numbers *@
+        @for (int i = startPage; i <= endPage; i++)
+        {
+            <li class="page-item @(i == currentPage ? "active" : "")">
+                <a class="page-link" href="@Url.Action("Index", new { page = i, searchString, sortOrder })">@i</a>
+            </li>
+        }
+
+        @* Next *@
+        @if (Model.HasNextPage)
+        {
+            <li class="page-item">
+                <a class="page-link" href="@Url.Action("Index", new { page = currentPage + 1, searchString, sortOrder })">Next</a>
+            </li>
+        }
+    </ul>
+</nav>
 
 
 
