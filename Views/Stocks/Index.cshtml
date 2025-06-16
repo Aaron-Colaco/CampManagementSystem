@@ -172,6 +172,47 @@ style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-ite
 </style>
 
 
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+        @{
+            int currentPage = Model.PageIndex;
+            int totalPages = Model.TotalPages;
+            int maxButtons = 5;
+            int startPage = Math.Max(1, currentPage - 2);
+            int endPage = Math.Min(totalPages, startPage + maxButtons - 1);
+
+            if (endPage - startPage < maxButtons)
+                startPage = Math.Max(1, endPage - maxButtons + 1);
+
+            var searchTerm = ViewBag.CurrentFilter as string ?? "";
+            var sortOrder = ViewBag.CurrentSort as string ?? "";
+        }
+
+ 
+        @if (Model.HasPreviousPage)
+        {
+            <li class="page-item">
+                <a class="page-link" href="@Url.Action("Index", new { page = currentPage - 1, searchTerm, sortOrder })">Previous</a>
+            </li>
+        }
+
+       
+        @for (int i = startPage; i <= endPage; i++)
+        {
+            <li class="page-item @(i == currentPage ? "active" : "")">
+                <a class="page-link" href="@Url.Action("Index", new { page = i, searchTerm, sortOrder })">@i</a>
+            </li>
+        }
+
+        @* Next *@
+        @if (Model.HasNextPage)
+        {
+            <li class="page-item">
+                <a class="page-link" href="@Url.Action("Index", new { page = currentPage + 1, searchTerm, sortOrder })">Next</a>
+            </li>
+        }
+    </ul>
+</nav>
 
 
 
