@@ -27,53 +27,63 @@ namespace WebApplication4.Controllers
        
 
 private const int PageSize = 50;
-
-
-        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchTerm, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
+            ViewBag.CurrentSort = sortOrder;
 
-            if (searchString != null)
-                page = 1;
-            else
-                searchString = currentFilter;
-
-            ViewBag.CurrentFilter = searchString;
-
-            var query = _context.Stock.AsNoTracking();
-
-            // Filtering (check for null navigation props)
-            if (!string.IsNullOrEmpty(searchString))
+            if (!string.IsNullOrEmpty(searchTerm))
             {
+                page = 1; // Reset to first page when search changes
+            }
+            else
+            {
+                searchTerm = ViewBag.CurrentFilter as string;
+            }
+
+            ViewBag.CurrentFilter = searchTerm;
+            ViewBag.SearchString = searchTerm;
+
+            ViewBag.CurrentFilter = currentFilter;
+            ViewBag.SearchString = currentFilter;  
+
+            var query = _context.Stock
+                .Include(s => s.Items)
+                .Include(s => s.order)
+                    .ThenInclude(o => o.user)
+                .AsNoTracking();
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                string searchLower = searchTerm.ToLower();
+
                 query = query.Where(s =>
-                    s.Items.Name.Contains(searchString) ||
-                    (s.order != null && (
-                        s.order.UserId.Contains(searchString) ||
-                        s.order.user.Email.Contains(searchString) ||
-                        s.order.user.StudentNumber.Contains(searchString) ||
-                        s.order.user.FirstName.Contains(searchString) ||
-                        s.order.OrderId.ToString() == searchString
+                    (s.Items != null && s.Items.Name != null && s.Items.Name.ToLower().Contains(searchLower)) ||
+                    (s.order != null && s.order.user != null && (
+                        (s.order.UserId != null && s.order.UserId.ToString().ToLower().Contains(searchLower)) ||
+                        (s.order.user.Email != null && s.order.user.Email.ToLower().Contains(searchLower)) ||
+                        (s.order.user.StudentNumber != null && s.order.user.StudentNumber.ToLower().Contains(searchLower)) ||
+                        (s.order.user.FirstName != null && s.order.user.FirstName.ToLower().Contains(searchLower)) ||
+                        (s.order.OrderId.ToString().ToLower() == searchLower)
                     ))
                 );
             }
 
-           
+          
+            var stockStats = await _context.Stock
+                .GroupBy(s => s.OrderId == null)
+                .Select(g => new { IsAvailable = g.Key, Count = g.Count() })
+                .ToListAsync();
 
-            // Summary counts
-            ViewBag.StockNumber = await _context.Stock.CountAsync(s => s.OrderId == null);
-            ViewBag.GearHire = await _context.Stock.CountAsync(s => s.OrderId != null);
+            ViewBag.StockNumber = stockStats.FirstOrDefault(x => x.IsAvailable)?.Count ?? 0;
+            ViewBag.GearHire = stockStats.FirstOrDefault(x => !x.IsAvailable)?.Count ?? 0;
 
-            // Paging
             int pageIndex = page ?? 1;
-            var paginatedList = await PaginatedList<Stock>.CreateAsync(
-                query
-                .Include(s => s.Items)
-                .Include(s => s.order)
-                    .ThenInclude(o => o.user),
-                pageIndex, PageSize);
+            var paginatedList = await PaginatedList<Stock>.CreateAsync(query, pageIndex, PageSize);
 
             return View(paginatedList);
         }
+
 
 
         public async Task<IActionResult> AS(string id)
