@@ -34,7 +34,9 @@ namespace WebApplication4.Models
 
         public ICollection<Stock> Stocks { get; set; }
 
-
-
+        internal object Select(Func<object, object> value)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
