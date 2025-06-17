@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.Completion;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Stripe.Climate;
@@ -24,9 +25,36 @@ namespace WebApplication4.Controllers
         {
             _context = context;
         }
-       
 
-private const int PageSize = 50;
+        [HttpPost]
+        public async Task<IActionResult> UpdateStockNumber(string StockNumber, int Id, string searchTerm, int? page)
+        {
+            var stock = _context.Stock.Where(a => a.StockId == Id).FirstOrDefault();
+
+            if (stock != null)
+            {
+                stock.StockNumber = StockNumber;
+                 await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction("Index", new {searchTerm = searchTerm, page = page });
+        }
+
+        public async Task<IActionResult> UpdateSize(string StockNumber, int Id, string searchTerm, int? page)
+        {
+            var stock = _context.Stock.Where(a => a.StockId == Id).FirstOrDefault();
+
+            if (stock != null)
+            {
+                stock.StockNumber = StockNumber;
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction("Index", new { searchTerm = searchTerm, page = page });
+        }
+
+
+        private const int PageSize = 50;
         public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchTerm, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
@@ -58,6 +86,7 @@ private const int PageSize = 50;
                     ))
                 );
             }
+            
 
           
             var stockStats = await _context.Stock
@@ -65,6 +94,9 @@ private const int PageSize = 50;
                 .Select(g => new { IsAvailable = g.Key, Count = g.Count() })
                 .ToListAsync();
 
+
+            ViewBag.SearchTerm = searchTerm;
+            ViewBag.Page = page;
             ViewBag.StockNumber = stockStats.FirstOrDefault(x => x.IsAvailable)?.Count ?? 0;
             ViewBag.GearHire = stockStats.FirstOrDefault(x => !x.IsAvailable)?.Count ?? 0;
             ViewBag.Count = query.Count();

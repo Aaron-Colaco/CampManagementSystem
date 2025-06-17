@@ -1,5 +1,6 @@
 ﻿
 @using WebApplication4.Models
+@using static WebApplication4.Models.Stock
     @{
         ViewData["Title"] = "Gear Stock";
 
@@ -77,14 +78,77 @@ style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-ite
                     <td>
                     @if(item.Items.CategoryId == 1)
                     {
-                        @item.ShoeSizes;
+                            <form asp-action="UpdateShoeSize" asp-controller="Stocks" method="post" style="text-align: center; margin: 20px 0;">
+                                <strong>
+                                    <select name="SelectedSize"
+                                            style="border: none;
+                       font-size: 1.2rem;
+                      
+                       background-color: #fff;
+                       box-shadow: 0 0 5px rgba(0,0,0,0.1);
+                       border-radius: 4px;
+                       appearance: none;
+                       -webkit-appearance: none;
+                   
+                       cursor: pointer;">
+                                        <option value="">@item.ShoeSizes</option>
+                                        @foreach (ShoeSize size in Enum.GetValues(typeof(ShoeSize)))
+                                        {
+                                            <option value="@size">@size.ToString()</option>
+                                        }
+                                    </select>
+                                </strong>
+
+                                <input type="hidden" name="Id" value="@item.StockId" />
+                                <input type="hidden" name="searchTerm" value="@ViewBag.SearchTerm" />
+                                <input type="hidden" name="pageNumber" value="@ViewBag.Page" />
+                            </form>
+
                     }else
                     {
-                      @item.ClothingSizes;
+                        <form asp-action="UpdateShoeSize" asp-controller="Stocks" method="post" style="text-align: center; margin: 20px 0;">
+                                <strong>
+                                    <select name="SelectedSize"
+                                            style="border: none;
+                       font-size: 1.2rem;
+                      
+                       background-color: #fff;
+                       box-shadow: 0 0 5px rgba(0,0,0,0.1);
+                       border-radius: 4px;
+                       appearance: none;
+                       -webkit-appearance: none;
+                   
+                       cursor: pointer;">
+                                        <option value=""> @item.ClothingSizes;</option>
+                                        @foreach (ShoeSize size in Enum.GetValues(typeof(ShoeSize)))
+                                        {
+                                            <option value="@size">@size.ToString()</option>
+                                        }
+                                    </select>
+                                </strong>
+
+                                <input type="hidden" name="Id" value="@item.StockId" />
+                                <input type="hidden" name="searchTerm" value="@ViewBag.SearchTerm" />
+                                <input type="hidden" name="pageNumber" value="@ViewBag.Page" />
+                            </form>
+                     
                     }
                     </td>
-                    <td style="text-align: center;"><strong>@item.StockNumber</strong></td>
 
+                    <form asp-action="UpdateStockNumber" asp-controller="Stocks" method="post">
+                    <td style="text-align: center;">
+                        <strong>
+                            <input name="StockNumber" type="text" value="@item.StockNumber"
+                                   style="border: none; background: transparent; text-align: center; font-weight: bold;"
+                                   autocomplete="off" />
+                        </strong>
+                        <input type="hidden" name="Id" value="@item.StockId" />
+                        <input type="hidden" name="searchTerm" value="@ViewBag.SearchTerm" />
+                        <input type="hidden" name="pageNumber" value="@ViewBag.Page" />
+                    </td>
+                    </form>
+
+           
                     <td colspan="4">
                         @if (item.OrderId != null)
                         {
@@ -158,7 +222,7 @@ style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-ite
         @{
             int currentPage = Model.PageIndex;
             int totalPages = Model.TotalPages;
-            int maxButtons = 5;
+            int maxButtons = 7;
             int startPage = Math.Max(1, currentPage - 2);
             int endPage = Math.Min(totalPages, startPage + maxButtons - 1);
 
