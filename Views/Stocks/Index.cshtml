@@ -41,7 +41,8 @@ style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-ite
 @{
     if (ViewBag.SearchTerm != null)
     {
-        <span>@ViewBag.Count results found</span>
+        <span style="color: #336539;">@ViewBag.Count results found</span>
+
     }
 }
 
@@ -152,26 +153,6 @@ style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-ite
         </tbody>
     </table>
 </div>
-
-
-
-
-<style>
-  
-    .pagination .page-item.active.dark-green-active .page-link {
-        background-color: #064420; 
-        border-color: #064420;
-        color: white;
-    }
-
-  
-    .pagination .page-link:hover {
-        background-color: #0b5e34; 
-        color: white;
-    }
-</style>
-
-
 <nav aria-label="Page navigation">
     <ul class="pagination justify-content-center">
         @{
@@ -188,7 +169,6 @@ style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-ite
             var sortOrder = ViewBag.CurrentSort as string ?? "";
         }
 
- 
         @if (Model.HasPreviousPage)
         {
             <li class="page-item">
@@ -196,7 +176,6 @@ style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-ite
             </li>
         }
 
-       
         @for (int i = startPage; i <= endPage; i++)
         {
             <li class="page-item @(i == currentPage ? "active" : "")">
@@ -204,7 +183,6 @@ style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-ite
             </li>
         }
 
-        @* Next *@
         @if (Model.HasNextPage)
         {
             <li class="page-item">
@@ -213,6 +191,28 @@ style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-ite
         }
     </ul>
 </nav>
+
+<style>
+    .pagination .page-item.active .page-link {
+        background-color: #064420;
+        border-color: #064420;
+        color: white;
+    }
+
+    .pagination .page-link {
+        color: #336539;
+        border-color: #336539;
+    }
+
+        .pagination .page-link:hover {
+            background-color: #0b5e34;
+            color: white;
+            border-color: #0b5e34;
+        }
+</style>
+
+
+
 
 
 

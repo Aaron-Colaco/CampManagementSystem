@@ -32,20 +32,10 @@ private const int PageSize = 50;
             ViewBag.CurrentSort = sortOrder;
             ViewBag.CurrentSort = sortOrder;
 
-            if (!string.IsNullOrEmpty(searchTerm))
-            {
-                page = 1; // Reset to first page when search changes
-            }
-            else
-            {
-                searchTerm = ViewBag.CurrentFilter as string;
-            }
-
+          
             ViewBag.CurrentFilter = searchTerm;
-            ViewBag.SearchString = searchTerm;
+            ViewBag.SearchTerm = searchTerm;
 
-            ViewBag.CurrentFilter = currentFilter;
-            ViewBag.SearchString = currentFilter;  
 
             var query = _context.Stock
                 .Include(s => s.Items)
@@ -77,7 +67,7 @@ private const int PageSize = 50;
 
             ViewBag.StockNumber = stockStats.FirstOrDefault(x => x.IsAvailable)?.Count ?? 0;
             ViewBag.GearHire = stockStats.FirstOrDefault(x => !x.IsAvailable)?.Count ?? 0;
-
+            ViewBag.Count = query.Count();
             int pageIndex = page ?? 1;
             var paginatedList = await PaginatedList<Stock>.CreateAsync(query, pageIndex, PageSize);
 
