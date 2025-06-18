@@ -57,7 +57,7 @@ style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-ite
 
                 <th>Colour</th>
 
-                <th>Size</th>
+                <th style="text-align: center;">Size</th>
                 <th style="text-align: center;">Stock Number</th>
                 <th colspan="4">Status / Details</th>
                 <th>Actions</th>
@@ -80,7 +80,7 @@ style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-ite
                     {
                             <form asp-action="UpdateShoeSize" asp-controller="Stocks" method="post" style="text-align: center; margin: 20px 0;">
                                 <strong>
-                                    <select name="SelectedSize"
+                                    <select onchange="this.form.submit()" name="s"
                                             style="border: none;
                        font-size: 1.2rem;
                       
@@ -101,26 +101,24 @@ style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-ite
 
                                 <input type="hidden" name="Id" value="@item.StockId" />
                                 <input type="hidden" name="searchTerm" value="@ViewBag.SearchTerm" />
-                                <input type="hidden" name="pageNumber" value="@ViewBag.Page" />
+                                <input type="hidden" name="Page" value="@ViewBag.Page" />
                             </form>
 
                     }else
                     {
-                        <form asp-action="UpdateShoeSize" asp-controller="Stocks" method="post" style="text-align: center; margin: 20px 0;">
+                            <form asp-action="UpdateSize" asp-controller="Stocks" method="post" style="text-align: center; margin: 20px 0;">
                                 <strong>
-                                    <select name="SelectedSize"
+                                    <select onchange="this.form.submit();" name="s"
                                             style="border: none;
                        font-size: 1.2rem;
-                      
                        background-color: #fff;
                        box-shadow: 0 0 5px rgba(0,0,0,0.1);
                        border-radius: 4px;
                        appearance: none;
                        -webkit-appearance: none;
-                   
                        cursor: pointer;">
-                                        <option value=""> @item.ClothingSizes;</option>
-                                        @foreach (ShoeSize size in Enum.GetValues(typeof(ShoeSize)))
+                                        <option value="">@item.ClothingSizes</option>
+                                        @foreach (ClothingSize size in Enum.GetValues(typeof(ClothingSize)))
                                         {
                                             <option value="@size">@size.ToString()</option>
                                         }
@@ -129,8 +127,9 @@ style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-ite
 
                                 <input type="hidden" name="Id" value="@item.StockId" />
                                 <input type="hidden" name="searchTerm" value="@ViewBag.SearchTerm" />
-                                <input type="hidden" name="pageNumber" value="@ViewBag.Page" />
+                                <input type="hidden" name="Page" value="@ViewBag.Page" />
                             </form>
+
                      
                     }
                     </td>
@@ -138,13 +137,13 @@ style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-ite
                     <form asp-action="UpdateStockNumber" asp-controller="Stocks" method="post">
                     <td style="text-align: center;">
                         <strong>
-                            <input name="StockNumber" type="text" value="@item.StockNumber"
+                            <input onchange="this.form.submit();" name="StockNumber" type="text" value="@item.StockNumber"
                                    style="border: none; background: transparent; text-align: center; font-weight: bold;"
                                    autocomplete="off" />
                         </strong>
                         <input type="hidden" name="Id" value="@item.StockId" />
                         <input type="hidden" name="searchTerm" value="@ViewBag.SearchTerm" />
-                        <input type="hidden" name="pageNumber" value="@ViewBag.Page" />
+                        <input type="hidden" name="Page" value="@ViewBag.Page" />
                     </td>
                     </form>
 

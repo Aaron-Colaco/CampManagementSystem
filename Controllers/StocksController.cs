@@ -14,6 +14,7 @@ using WebApplication4.Data;
 using WebApplication4.Migrations;
 using WebApplication4.Models;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using static WebApplication4.Models.Stock;
 
 namespace WebApplication4.Controllers
 {
@@ -27,7 +28,7 @@ namespace WebApplication4.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateStockNumber(string StockNumber, int Id, string searchTerm, int? page)
+        public async Task<IActionResult> UpdateStockNumber(string StockNumber, int Id, string searchTerm, int? Page)
         {
             var stock = _context.Stock.Where(a => a.StockId == Id).FirstOrDefault();
 
@@ -37,20 +38,34 @@ namespace WebApplication4.Controllers
                  await _context.SaveChangesAsync();
             }
 
-            return RedirectToAction("Index", new {searchTerm = searchTerm, page = page });
+            return RedirectToAction("Index", new {searchTerm = searchTerm, page = Page });
         }
 
-        public async Task<IActionResult> UpdateSize(string StockNumber, int Id, string searchTerm, int? page)
+        public async Task<IActionResult> UpdateShoeSize(string s, int Id, string searchTerm, int? Page)
         {
-            var stock = _context.Stock.Where(a => a.StockId == Id).FirstOrDefault();
+            var stock = _context.Stock.FirstOrDefault(a => a.StockId == Id);
 
             if (stock != null)
             {
-                stock.StockNumber = StockNumber;
+                stock.ShoeSizes = (ShoeSize)Enum.Parse(typeof(ShoeSize), s);
                 await _context.SaveChangesAsync();
             }
+            return RedirectToAction("Index", new { searchTerm = searchTerm, page = Page });
 
-            return RedirectToAction("Index", new { searchTerm = searchTerm, page = page });
+        }
+
+        public async Task<IActionResult> UpdateSize(string s, int Id, string searchTerm, int? Page)
+        {
+            var stock = _context.Stock.FirstOrDefault(a => a.StockId == Id);
+
+            if (stock != null)
+            {
+                // Convert string to enum and assign
+                stock.ClothingSizes = (ClothingSize)Enum.Parse(typeof(ClothingSize), s);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("Index", new { searchTerm = searchTerm, page = Page });
+
         }
 
 
