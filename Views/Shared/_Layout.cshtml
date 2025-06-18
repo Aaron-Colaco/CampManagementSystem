@@ -25,6 +25,13 @@
             font-family: 'Inter', sans-serif;
     }
 
+        .navbar-brand, .nav-link {
+            color: white !important;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
     .promo-bar {
         background-color: #000;
         color: #fff;
@@ -39,9 +46,12 @@
         letter-spacing: 0.5px;
     }
    @@media screen and (min-width: 1000px) {
-
-    .navbar {
-        background-color: #fff;
+            .navbar {
+                background-color: #336539;
+   color: white !important;
+                font-weight: bold !important;
+                
+        
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
         position: fixed;
         top: 40px;
@@ -67,15 +77,16 @@
 
     .navbar-brand,
     .nav-link {
-        color: #000 !important;
-        font-weight: 500;
-        font-size: 1rem;
+        color: white !important;
+        font-weight: 300;
+        font-size: 1.1rem;
         transition: color 0.3s ease;
+        font-family: sans-serif !important;
     }
 
     .navbar-brand:hover,
     .nav-link:hover {
-        color: #008080 !important;
+    
         text-decoration: none !important;
     }
 
@@ -184,13 +195,7 @@
                     </div>
                 }
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" asp-action="OpenCart" asp-controller="OrderItems">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-bag" viewBox="0 0 16 16">
-                                <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1 v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
-                            </svg>
-                        </a>
-                    </li>
+                  
                     <li class="nav-item">
                         <partial name="_LoginPartial" />
                     </li>
