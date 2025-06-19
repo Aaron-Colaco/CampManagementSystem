@@ -82,12 +82,12 @@ namespace WebApplication4
                 string AdminPassword = "AdminPassword@2025";
 
 
-                if (await userManager.FindByEmailAsync("Admin@Camp.co.nz") == null)
+                if (await userManager.FindByEmailAsync("taurewa@avcol.school.nz") == null)
                 {
                     var user = new User();
                     user.Id = adminID;
-                    user.UserName = "Admin@Camp.co.nz";
-                    user.Email = "Admin@Camp.co.nz";
+                    user.UserName = "taurewa@avcol.school.nz";
+                    user.Email = "taurewa@avcol.school.nz";
                     
 
                     await userManager.CreateAsync(user, AdminPassword);
