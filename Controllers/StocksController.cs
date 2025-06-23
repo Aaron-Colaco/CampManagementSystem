@@ -331,7 +331,7 @@ namespace WebApplication4.Controllers
         public async Task<IActionResult> Create([Bind("StockId,ItemId,UserId,ClothingSizes,ShoeSizes,Brand,Colour,Notes")] Stock stock, int NumberToAdd, string ClothingSizes, string ShoeSizes)
         {
 
-            var items = _context.Stock.Where(a => a.ItemId == stock.ItemId);
+            var items = _context.Stock.Where(a => a.ItemId == stock.ItemId).Include(a => a.Items);
             string stockNumber = "1";
             int st = 1;
            if (items.Any())

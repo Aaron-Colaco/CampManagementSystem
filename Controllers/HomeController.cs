@@ -5,6 +5,7 @@ using System.Net;
 using System.Security.Claims;
 using WebApplication4.Data;
 using WebApplication4.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication4.Controllers
 {
@@ -16,12 +17,12 @@ namespace WebApplication4.Controllers
 
 
 
-
         public HomeController(WebApplication4Context context, ILogger<HomeController> logger)
         {
             _logger = logger;
             _context = context;
         }
+        [Authorize]
         public IActionResult Index()
         {
             var StockAvliable = _context.Stock.Where(a => a.OrderId == null);

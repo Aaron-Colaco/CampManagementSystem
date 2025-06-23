@@ -9,13 +9,13 @@ namespace WebApplication4.Models
 
         public int StockId { get; set; }
 
-        public string Brand { get; set; } = " ";
+        public string? Brand { get; set; } = " ";
 
-        public string Colour { get; set; } = " ";
+        public string? Colour { get; set; } = " ";
 
-        public string Notes { get; set; } = " ";
+        public string? Notes { get; set; } 
 
-        public string StockNumber { get; set; } = " ";
+        public string? StockNumber { get; set; } = " ";
 
 
         [ForeignKey("Item")]
