@@ -50,11 +50,11 @@ new Item { Name = "Sleeping Bag", CategoryId = 6, ImageURL = "/images/test.png",
 new Item { Name = "Jumper", CategoryId = 3, ImageURL = "/images/test.png", Price = 3.00 },
 new Item { Name = "Raincoat", CategoryId = 2, ImageURL = "/images/test.png", Price = 6.00 },
 
-new Item { Name = "Bush Shirt", CategoryId = 3, ImageURL = "/images/test.png", Price = 2.00 },
+new Item { Name = "Bush Shirt", CategoryId = 3, ImageURL = "/images/test.png", Price = 3.00 },
 new Item { Name = "Long Johns Polypro", CategoryId = 4, ImageURL = "/images/test.png", Price = 2.00 },
 new Item { Name = "Long Johns Woolen", CategoryId = 4, ImageURL = "/images/test.png", Price = 2.00 },
 
-new Item { Name = "Day Pack", CategoryId = 6, ImageURL = "/images/test.png", Price = 22.00 },
+new Item { Name = "Day Pack", CategoryId = 6, ImageURL = "/images/test.png", Price = 1.00 },
 
 new Item { Name = "Shorts", CategoryId = 4, ImageURL = "/images/test.png", Price = 1.00 },
 
@@ -65,7 +65,7 @@ new Item { Name = "Long Sleeved Vest - Polypro", CategoryId = 3, ImageURL = "/im
 new Item { Name = "Short Sleeved Vest - Polypro", CategoryId = 3, ImageURL = "/images/test.png", Price = 2.00 },
 new Item { Name = "Short Sleeved Vest - Woolen", CategoryId = 3, ImageURL = "/images/test.png", Price = 2.00 },
 
-new Item { Name = "Overnight Pack", CategoryId = 6, ImageURL = "/images/test.png", Price = 22.00 },
+new Item { Name = "Overnight Pack", CategoryId = 6, ImageURL = "/images/test.png", Price = 11.00 },
 
 // Outerwear
 new Item { Name = "Overtrousers - Wet Weather Pants", CategoryId = 2, ImageURL = "/images/test.png", Price = 6.00 },
@@ -2268,19 +2268,42 @@ new Stock { ItemId = 17,  StockNumber = "144", Colour = "Blue donated2024", Clot
 
 
 
-
-
-
-
-
-
-
 };
 
                    
                     context.Stock.AddRange(stockData);
 
                     context.SaveChanges();
+
+var stockItems = new List<Stock>();
+
+
+for (int i = 1; i <= 50; i++)
+{
+    stockItems.Add(new Stock
+    {
+        ItemId = 18,
+        StockNumber = i.ToString()
+    });
+}
+
+
+for (int i = 1; i <= 50; i++)
+{
+    stockItems.Add(new Stock
+    {
+        ItemId = 19,
+        StockNumber = i.ToString()
+    });
+}
+
+context.Stock.AddRange(stockItems);
+context.SaveChanges();
+
+
+
+
+
 
 
                 }
