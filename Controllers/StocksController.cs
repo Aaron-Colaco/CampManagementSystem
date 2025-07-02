@@ -173,7 +173,7 @@ namespace WebApplication4.Controllers
             var order = _context.Order.Where(a => a.OrderId == OrderId).FirstOrDefault();
             order.StatusId = 4;
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index", "Orders");
+            return RedirectToAction("Invoice", "Orders", new {id = OrderId});
 
 
         }
@@ -401,7 +401,7 @@ namespace WebApplication4.Controllers
 
 
         // GET: Stocks/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id, string? SearchTerm, int? Page)
         {
             ViewBag.BrandOptions = _context.Stock.Select(s => s.Brand).Distinct().ToList(); 
 
@@ -423,6 +423,9 @@ namespace WebApplication4.Controllers
 
             ViewBag.Name = item.Name;
 
+            ViewBag.Page = Page;
+            ViewBag.SearchTerm = SearchTerm;
+
            
             
 
@@ -440,7 +443,7 @@ namespace WebApplication4.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("StockId,OrderId,ClothingSizes,ShoeSizes,StockNumber,Colour,Brand,Notes")] Stock stock, int ItemId)
+        public async Task<IActionResult> Edit(int id, [Bind("StockId,OrderId,ClothingSizes,ShoeSizes,StockNumber,Colour,Brand,Notes")] Stock stock, int ItemId, string? SearchTerm, int? Page)
         {
 
 
@@ -481,7 +484,7 @@ namespace WebApplication4.Controllers
                             throw;
                         }
                     }
-                    return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", new {page = Page, searchTerm = SearchTerm});
                 }
                 return View(stock);
             

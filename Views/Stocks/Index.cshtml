@@ -17,7 +17,7 @@
 <form asp-controller="Stocks" asp-action="Index"
 style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-items: center; padding: 1rem; background-color: white; border-radius: 1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.1); flex-wrap: wrap; justify-content: center;">
 
-    <input type="text" name="SearchTerm" placeholder="Search by item, email, or student number"
+    <input type="text" name="SearchTerm" value="@ViewBag.SearchTerm" placeholder="Search by item, email, or student number"
     style="border: 1px solid #ccc; border-radius: 1rem; padding: 0.5rem 1rem; width: 70%; outline: none; box-shadow: none; transition: box-shadow 0.2s;"/>
 
     <input type="submit"
@@ -163,10 +163,10 @@ style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-ite
                         }
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.StockId"
-                           class="btn btn-sm text-white me-1"
-                           style="background-color: #336539; border-radius: 0.5rem;">
-                            <i class="bi bi-pencil-fill"></i> Edit
+                       <a  asp-action="Edit" asp-route-id="@item.StockId" asp-route-Page="@ViewBag.Page" asp-route-SearchTerm="@ViewBag.SearchTerm"
+                        class="btn btn-sm text-white me-1"
+                        style="background-color: #336539; border-radius: 0.5rem;">
+                        <i class="bi bi-pencil-fill"></i> Edit
                         </a>
                         <a asp-action="Delete" asp-route-id="@item.StockId"
                            class="btn btn-sm text-white"

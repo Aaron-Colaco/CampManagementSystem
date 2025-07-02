@@ -17,6 +17,10 @@
             <div class="form-group">
                 <label asp-for="ItemId" class="control-label"></label>
 
+                <input type="hidden" name="Page" value="@ViewBag.Page" />
+                <input type="hidden" name="SearchTerm" value="@ViewBag.SearchTerm" />
+
+
                 <input asp-for="ItemId" type="hidden" value="@ViewBag.ItemId" />
 
                 <input type="text" value="@ViewBag.Name" readonly class="form-control" />
