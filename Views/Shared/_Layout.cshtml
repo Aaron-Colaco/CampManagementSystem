@@ -157,7 +157,7 @@
 
 <body>
     <div class="promo-bar" style="z-index:100000000;">
-        GET YOUR CAMP GEAR NOW!
+        Camp Gear System
     </div>
 
     <nav class="navbar navbar-expand-lg navbar-light">
@@ -169,16 +169,17 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Items" asp-action="Index">Hire Items</a>
+                        <a class="nav-link" asp-area="" asp-controller="Items" asp-action="Index">Items</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Orders" asp-action="Index">Orders</a>
-                    </li>
+                  
 @if(User.IsInRole("Admin")){
                     <li class="nav-item">
                         <a class="nav-link" asp-area="" asp-controller="Stocks" asp-action="Index">Stock</a>
                     </li>
 }
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Orders" asp-action="Index">Orders</a>
+                    </li>
                 </ul>
                 @if (!User.IsInRole("Admin") && !User.Identity.IsAuthenticated){
                     <div class="search-container">

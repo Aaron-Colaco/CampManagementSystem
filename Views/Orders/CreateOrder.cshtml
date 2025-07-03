@@ -170,15 +170,16 @@ ClassName = "Added";
 <div class="table-responsive scrollable-table mt-4">
     <table class="table align-middle table-borderless shadow-sm">
         <thead class="border-bottom border-2">
-            <tr class="text-muted small text-uppercase">
-                <th>Item</th>
-                <th class="text-center">Quantity</th>
-                <th class="text-center">Price</th>
-                <th class="text-center">Size</th>
-                <th class="text-center">Total</th>
-                <th class="text-left">Remove</th>
+            <tr class="text small text-uppercase">
+                <th style="position: sticky; top: 0; background: white; z-index: 2;">Item</th>
+                <th style="position: sticky; top: 0; background: white; z-index: 2;" class="text-center">Quantity</th>
+                <th style="position: sticky; top: 0; background: white; z-index: 2;" class="text-center">Price</th>
+                <th style="position: sticky; top: 0; background: white; z-index: 2;" class="text-center">Size</th>
+                <th style="position: sticky; top: 0; background: white; z-index: 2;" class="text-center">Total</th>
+                <th style="position: sticky; top: 0; background: white; z-index: 2;" class="text-left">Remove</th>
             </tr>
         </thead>
+
         <tbody>
             @foreach (var OrderItem in ViewBag.OrderItems)
             {
