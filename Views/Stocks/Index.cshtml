@@ -168,7 +168,7 @@ style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-ite
                         style="background-color: #336539; border-radius: 0.5rem;">
                         <i class="bi bi-pencil-fill"></i> Edit
                         </a>
-                        <a asp-action="Delete" asp-route-id="@item.StockId"
+                        <a asp-action="Delete" asp-route-id="@item.StockId"  asp-route-Page="@ViewBag.Page" asp-route-SearchTerm="@ViewBag.SearchTerm"
                            class="btn btn-sm text-white"
                            style="background-color: #EF4444; border-radius: 0.5rem;">
                             <i class="bi bi-trash-fill"></i> Delete

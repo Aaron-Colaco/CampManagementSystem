@@ -495,15 +495,18 @@ namespace WebApplication4.Controllers
 
 
         // GET: Stocks/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int? id, string? SearchTerm, int? Page)
         {
+            
+            ViewBag.Page = Page;
+            ViewBag.SearchTerm = SearchTerm;
             if (id == null)
             {
                 return NotFound();
             }
 
             var stock = await _context.Stock
-                .Include(s => s.order.user)
+                .Include(s => s.Items)
                 .FirstOrDefaultAsync(m => m.StockId == id);
             if (stock == null)
             {
@@ -513,19 +516,25 @@ namespace WebApplication4.Controllers
             return View(stock);
         }
 
+
         // POST: Stocks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id, int Page, string SearchTerm)
         {
+
+            ViewBag.Page = Page;
+            ViewBag.SearchTerm = SearchTerm;
             var stock = await _context.Stock.FindAsync(id);
             if (stock != null)
             {
                 _context.Stock.Remove(stock);
             }
 
+
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", new { page = Page, searchTerm = SearchTerm });
+
         }
 
         private bool StockExists(int id)
