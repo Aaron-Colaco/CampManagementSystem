@@ -56,6 +56,11 @@ namespace WebApplication4.Controllers
 
         public async Task<IActionResult> UpdateSize(string s, int Id, string searchTerm, int? Page)
         {
+            if (Page == null || Page < 1)
+            {
+                Page = 1;
+            }
+
             var stock = _context.Stock.FirstOrDefault(a => a.StockId == Id);
 
             if (stock != null)
@@ -72,6 +77,11 @@ namespace WebApplication4.Controllers
         private const int PageSize = 50;
         public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchTerm, int? page)
         {
+            if (page == null || page < 1)
+            {
+                page = 1;
+            }
+
             ViewBag.CurrentSort = sortOrder;
             ViewBag.CurrentSort = sortOrder;
 
@@ -283,6 +293,7 @@ namespace WebApplication4.Controllers
         // GET: Stocks/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+
             if (id == null)
             {
                 return NotFound();
@@ -497,7 +508,11 @@ namespace WebApplication4.Controllers
         // GET: Stocks/Delete/5
         public async Task<IActionResult> Delete(int? id, string? SearchTerm, int? Page)
         {
-            
+            if (Page == null || Page < 1)
+            {
+                Page = 1;
+            }
+
             ViewBag.Page = Page;
             ViewBag.SearchTerm = SearchTerm;
             if (id == null)
@@ -529,6 +544,10 @@ namespace WebApplication4.Controllers
             if (stock != null)
             {
                 _context.Stock.Remove(stock);
+            }
+            if (Page == null || Page < 1)
+            {
+                Page = 1;
             }
 
 
