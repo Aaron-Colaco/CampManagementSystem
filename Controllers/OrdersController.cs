@@ -385,6 +385,23 @@ ViewBag.Stock = StockAvliable;
             // Redirect action to Open Cart
             return RedirectToAction("CreateOrder", new { orderId = OrderId });
         }
+        public async Task<IActionResult> UnassingAll(string id)
+        {
+            foreach (var item in await _context.Stock.Where(a => a.OrderId == id).ToListAsync())
+            {
+                
+                item.OrderId = null;
+            }
+            var order = _context.Order.Where(a => a.OrderId == id).FirstOrDefault();
+            order.StatusId = 3;
+
+            await _context.SaveChangesAsync();
+            TempData["SuccessMessage"] = "Items successfully returned!";
+            return RedirectToAction("Index");
+
+           
+        }
+
 
         private bool OrderExists(string id)
         {

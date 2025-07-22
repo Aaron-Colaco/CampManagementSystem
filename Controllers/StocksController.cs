@@ -34,6 +34,7 @@ namespace WebApplication4.Controllers
 
             if (stock != null)
             {
+                
                 stock.StockNumber = StockNumber;
                  await _context.SaveChangesAsync();
             }

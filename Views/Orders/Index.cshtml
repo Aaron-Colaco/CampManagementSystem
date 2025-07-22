@@ -3,6 +3,29 @@
 @{
     ViewData["Title"] = "Orders";
 }
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1080; top: 56px;">
+        <div class="toast align-items-center border-0 show text-success bg-success-subtle shadow-sm" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    @TempData["SuccessMessage"]
+                </div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <script>
+        const toastEl = document.querySelector('.toast');
+        if (toastEl) {
+            const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+            toast.show();
+        }
+    </script>
+}
 
 
 
@@ -144,7 +167,10 @@ else
                                
                             }
 if(item.StatusId == 4){
-                                <a class="badge" style="background-color: black; text-decoration: none;" asp-controller="Stocks" asp-action="AS" asp-route-id="@item.OrderId" asp-action="AS">Unassign Stock</a>
+                                <a class="badge" style="background-color: black; text-decoration: none;" asp-controller="Orders" asp-action="UnassingAll" asp-route-id="@item.OrderId" asp-action="AS">Return All</a>
+
+
+                                <a class="badge" style="background-color: black; text-decoration: none;" asp-controller="Stocks" asp-action="AS" asp-route-id="@item.OrderId" asp-action="AS">Return Items</a>
                                 <a class="badge" style="background-color: black; text-decoration: none;" asp-controller="Orders" asp-route-id="@item.OrderId" asp-action="Amend">Amend</a>
 
 
