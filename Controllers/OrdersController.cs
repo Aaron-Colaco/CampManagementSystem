@@ -143,7 +143,7 @@ namespace WebApplication4.Controllers
                 // Try to get the user or create them if not found
                 do
                 {
-                    user = _context.Users.FirstOrDefault(a => a.StudentNumber == studentNumber);
+                    user = _context.Users.FirstOrDefault(a => a.StudentNumber == studentNumber && a.FirstName == firstName && a.LastName == lastName);
 
                     if (user == null)
                     {
