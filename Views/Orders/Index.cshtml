@@ -28,6 +28,33 @@
         }
     </script>
 }
+<style>
+    .alert-warning {
+    background-color: #fdf7e3;
+    color: #8c783f;
+    border-color: #f0e3b4;
+    }
+
+    .alert-danger {
+    background-color: #fbeaea;
+    color: #7a2d2d;
+    border-color: #f3c6c6;
+    }
+
+
+</style>
+<style>
+    .bg-warning {
+        background-color: #e8aa0e !important;
+        color: #fff;
+    }
+
+    .bg-danger {
+        background-color: #ab2c41 !important;
+        color: #fff;
+    }
+</style>
+
 
 
 @if (!Model.Any() && !User.IsInRole("Admin"))
