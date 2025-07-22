@@ -392,11 +392,12 @@ ViewBag.Stock = StockAvliable;
                 
                 item.OrderId = null;
             }
-            var order = _context.Order.Where(a => a.OrderId == id).FirstOrDefault();
+            var order = _context.Order.Where(a => a.OrderId == id).Include(a => a.user).FirstOrDefault();
             order.StatusId = 3;
+            TempData["SuccessMessage"] = order.user.FirstName + " has returned their items successfully.";
 
             await _context.SaveChangesAsync();
-            TempData["SuccessMessage"] = "Items successfully returned!";
+
             return RedirectToAction("Index");
 
            

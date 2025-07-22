@@ -168,3 +168,14 @@
         <p><em>Please see overleaf for cleaning instructions.</em></p>
     </div>
 </div>
+<script>
+    window.onload = function () {
+        window.print();
+        setTimeout(function () {
+            window.location = "/Orders/Index";
+        }, 1000);
+    }
+    window.onafterprint = function () {
+        window.location.href = '/Orders/Index';
+    };
+</script>
