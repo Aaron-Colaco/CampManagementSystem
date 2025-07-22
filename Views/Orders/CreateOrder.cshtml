@@ -221,14 +221,24 @@ ClassName = "Added";
     </table>
 </div>
 
+@if (ViewBag.OrderItems != null && ((IEnumerable<dynamic>)ViewBag.OrderItems).Any())
+{
+    <div class="text-end mt-3">
+        <h4>
+            Total Cost:
+            <span class="text-primary fw-bold">
+                @ViewBag.Order.TotalPrice.ToString("F2")
+            </span>
+        </h4>
+        <form asp-action="Confirm">
+            <input type="hidden" name="OrderId" value="@ViewBag.OrderId" />
+            <input type="submit" value="Confirm" class="btn btn-success mt-2" />
+        </form>
+    </div>
+}
 
-<div class="text-end mt-3">
-    <h4>Total Cost: <span class="text-primary fw-bold">@ViewBag.Order.TotalPrice.ToString("F2")</span></h4>
-    <form asp-action="Confirm" >
-        <input type="hidden" name="OrderId" value="@ViewBag.OrderId" />
-        <input type="submit" value="Confrim" class="btn btn-success mt-2"/>
-    </form>
 </div>
+
 <script>
     const scrollKey = "scroll-A";
 
