@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "DatePicker";
+
+    // Calculates the minimum date for the form to be 2 years prior to today
+    DateTime min = DateTime.Today.AddMonths(-24);
+
+    // Sets the maximum date for the form to be the current date and time
+    DateTime max = DateTime.Now;
+
+
+}
+
+
+
+<div style="display: flex; justify-content: center; margin-top: 3rem;">
+    <div style="width: 100%; max-width: 600px; padding: 2rem; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); background-color: #f9fafb;">
+
+        <h1 style="text-align: center; font-size: 1.75rem; color: #2d3748; font-weight: bold; margin-bottom: 1rem;">
+            Analytics
+        </h1>
+        <p style="text-align: center; font-size: 1rem; color: #4a5568; margin-bottom: 2rem;">
+            Pick a date range to view your hire analytics
+        </p>
+
+        <form asp-controller="Orders" asp-action="Dashboard">
+
+            <label for="Date1" style="display:block; font-weight:bold; margin-bottom:0.5rem;">Date 1</label>
+            <input required type="datetime-local"
+                   min="@min.ToString("yyyy-MM-dd")T00:00"
+                   max="@max.ToString("yyyy-MM-ddTHH:mm")"
+                   id="Date1" name="Date1"
+                   placeholder="00/00/0000"
+                   style="width: 100%; padding: 0.5rem; margin-bottom: 1.5rem; border: 1px solid #cbd5e0; border-radius: 5px;" />
+
+            <label for="Date2" style="display:block; font-weight:bold; margin-bottom:0.5rem;">Date 2</label>
+            <input required type="datetime-local"
+                   min="@@min.ToString("yyyy-MM-dd")T00:00"
+                   max="@@max.ToString("yyyy-MM-ddTHH:mm")"
+                   id="Date2" name="Date2"
+                   placeholder="00/00/0000"
+                   style="width: 100%; padding: 0.5rem; margin-bottom: 2rem; border: 1px solid #cbd5e0; border-radius: 5px;" />
+
+            <input type="submit"
+                   value="View Analytics"
+                   style="width: 100%; padding: 0.75rem; background-color: darkgreen; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;" />
+
+        </form>
+
+    </div>
+</div>

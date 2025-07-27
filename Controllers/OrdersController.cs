@@ -27,6 +27,61 @@ namespace WebApplication4.Controllers
             _context = context;
         }
         [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DatePicker()
+        {
+            return View();
+        }
+        [Authorize(Roles = "Admin")]
+        public IActionResult Dashboard(DateTime Date1, DateTime Date2)
+        {
+            ViewBag.Date1 = Date1;
+            ViewBag.Date2 = Date2;
+
+            var orderItemData = _context.OrderItem.Where(a => a.Orders.OrderTime >= Date1 && a.Orders.OrderTime <= Date2).Where(a => a.Orders.StatusId != 1).Include(a => a.Items);
+            var orderData = _context.Order.Where(a => a.OrderTime >= Date1 && a.OrderTime <= Date2).Where(a => a.StatusId != 1);
+
+
+            ViewBag.TotalMoney = orderItemData.Sum(a => a.Items.Price * a.Quantity);
+
+            ViewBag.ItemsHired = orderItemData.Count();
+
+            ViewBag.Orders = orderData.Count();
+
+            var topItems = orderItemData
+    .GroupBy(a => new { a.Items.Name }) 
+    .Select(g => new {
+        ItemName = g.Key.Name,
+        TotalQuantity = g.Sum(x => x.Quantity)
+    })
+    .OrderByDescending(x => x.TotalQuantity)
+  
+    .ToList();
+            var itemProfits = orderItemData
+    .GroupBy(a => new { a.Items.Name, a.Items.Price })
+    .Select(g => new {
+        ItemName = g.Key.Name,
+        Quantity = g.Sum(x => x.Quantity),
+        Profit = g.Key.Price * g.Sum(x => x.Quantity)
+    })
+    .OrderByDescending(x => x.Profit)
+
+    .ToList();
+
+            ViewBag.ItemProfitLabels = itemProfits.Select(x => x.ItemName).ToList();
+            ViewBag.ItemProfits = itemProfits.Select(x => x.Profit).ToList();
+            ViewBag.ItemProfitTable = itemProfits;
+
+            ViewBag.TopItems = topItems;
+
+            ViewBag.TopItemLabels = topItems.Select(x => x.ItemName).ToList();
+            ViewBag.TopItemQuantities = topItems.Select(x => x.TotalQuantity).ToList();
+
+            return View();
+        }
+
+
+
+            [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Invoice(string id, string? SearchTerm, int Status = 0, int page = 1)
         {
             ViewBag.OrderId = id;
