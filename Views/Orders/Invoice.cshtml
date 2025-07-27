@@ -94,6 +94,10 @@
             font-size: 10px;
         }
 
+        html, body {
+            height: auto;
+        }
+
             body * {
                 visibility: hidden;
             }
@@ -109,13 +113,39 @@
             width: 100%;
             padding: 0;
             box-shadow: none;
-        }
 
+        }
+     
+        .print:last-child {
+            page-break-after: auto;
+        }
+}
         @@page {
             margin: 8mm;
             size: A4;
         }
     }
+
+    .print:last-child {
+        page-break-after: auto;
+    }
+
+    #print:last-child {
+        page-break-after: auto;
+    }
+    @@media print {
+
+    html, body {
+      height:100vh; 
+      margin: 0 !important; 
+      padding: 0 !important;
+      overflow: hidden;
+    }
+
+        #print:last-child {
+            page-break-after: auto;
+        }
+}
 </style>
 
 

@@ -16,11 +16,10 @@
                 <tr class="text-muted small text-uppercase">
                     <th>Item</th>
                     <th class="text-center">Quantity</th>
-                    <th class="text-end">Price</th>
-                    <th class="text-end">Size</th>
+                    <th class="text-center">Price</th>
+                    <th class="text-center">Size</th>
 
-                    <th class="text-end">Total</th>
-                    <th class="text-center">Remove</th>
+                    <th class="text-center">Total</th>
                 </tr>
             </thead>
             <tbody>
@@ -32,10 +31,10 @@
                     <tr class="border-bottom">
                         <td class="fw-semibold">@OrderItem.Items.Name</td>
                         <td class="text-center">@OrderItem.Quantity</td>
-                        <td class="text-end text-muted">$@OrderItem.Items.Price.ToString("F2")</td>
+                        <td class="text-center text-muted">$@OrderItem.Items.Price.ToString("F2")</td>
                         <td class="text-center">@OrderItem.SizesReq</td>
 
-                        <td class="text-end fw-bold text-success">$@itemCost.ToString("F2")</td>
+                        <td class="text-center fw-bold text-success">$@itemCost.ToString("F2")</td>
                         <td class="text-center">
                             @if (OrderItem.Orders.StatusId == 1)
                             {
@@ -53,7 +52,7 @@
         </table>
     </div>
 
-    <div class="text-end mt-3">
+    <div class="text-center mt-3">
         <h4>Total Cost: <span class="text-primary fw-bold">$@orderCost.ToString("F2")</span></h4>
     </div>
 
