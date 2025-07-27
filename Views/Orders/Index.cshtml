@@ -110,8 +110,8 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>OrderTime</td>
-                    <td>TotalPrice</td>
+                    <td>@item.OrderTime</td>
+                    <td>@item.TotalPrice</td>
                     <td>
                         @if (!User.IsInRole("Admin"))
                         {
