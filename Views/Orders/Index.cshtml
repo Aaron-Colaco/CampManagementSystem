@@ -1,4 +1,5 @@
-﻿@model IEnumerable<WebApplication4.Models.Order>
+﻿@using WebApplication4.Models
+@using static WebApplication4.Models.Stock
 
 @{
     ViewData["Title"] = "Orders";
@@ -56,20 +57,6 @@
 </style>
 
 
-
-@if (!Model.Any() && !User.IsInRole("Admin"))
-{
-    
-    <div class="alert alert-info text-center" Style="Margin-top: 5%;">
-        <h2>No Orders Found</h2>
-        <p>Click Add to Cart to create an order.</p>
-        <a class="btn btn-primary" asp-controller="Items" asp-action="Index">See Products Here</a>
-        </div>
-    
-   
-}
-else
-{
     @if (User.IsInRole("Admin"))
     {
         <h1 class="text-center mt-4">Orders</h1>
@@ -106,7 +93,7 @@ else
             <tr>
                 <th>
                     <a class="text-teal" asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">
-                        @Html.DisplayNameFor(model => model.OrderTime)
+                       OrderTime
                     </a>
                 </th>
                 <th>Total Price</th>
@@ -123,8 +110,8 @@ else
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@Html.DisplayFor(modelItem => item.OrderTime)</td>
-                    <td>@Html.DisplayFor(modelItem => item.TotalPrice)</td>
+                    <td>OrderTime</td>
+                    <td>TotalPrice</td>
                     <td>
                         @if (!User.IsInRole("Admin"))
                         {
@@ -188,24 +175,25 @@ else
                         {
                             if(item.StatusId == 2)
                             {
-                                <a class="badge" style="background-color: black; text-decoration: none;" asp-controller="Stocks" asp-route-id="@item.OrderId" asp-action="AS">Assign Stock</a>
-                                <a class="badge" style="background-color: black; text-decoration: none;" asp-controller="Orders" asp-route-id="@item.OrderId" asp-action="Amend">Amend</a>
+                            <a class="badge" style="background-color: black; text-decoration: none;" asp-controller="Stocks" asp-route-SearchTerm="@ViewBag.SearchTerm" asp-route-Status="@ViewBag.Status" asp-route-page="@ViewBag.Page" asp-route-id="@item.OrderId" asp-action="AS">Assign Stock</a>
+                            <a class="badge" style="background-color: black; text-decoration: none;" asp-route-SearchTerm="@ViewBag.SearchTerm" asp-route-Status="@ViewBag.Status" asp-route-page="@ViewBag.Page" asp-controller="Orders" asp-route-id="@item.OrderId" asp-action="Amend">Amend</a>
 
 
                                
                             }
 if(item.StatusId == 4){
-                                <a class="badge" style="background-color: black; text-decoration: none;" asp-controller="Orders" asp-action="UnassingAll" asp-route-id="@item.OrderId" asp-action="AS">Return All</a>
+                            <a class="badge" style="background-color: black; text-decoration: none;" asp-controller="Orders" asp-action="UnassingAll" asp-route-SearchTerm="@ViewBag.SearchTerm" asp-route-Status="@ViewBag.Status" asp-route-page="@ViewBag.Page"  asp-route-id="@item.OrderId" asp-action="AS">Return All</a>
 
+                            <a class="badge" style="color: white; background-color: black; text-decoration: none;" asp-controller="OrderItems" asp-route-id="@item.OrderId" asp-route-SearchTerm="@ViewBag.SearchTerm" asp-route-Status="@ViewBag.Status" asp-route-page="@ViewBag.Page"  asp-action="Index">See Items</a>
 
-                                <a class="badge" style="background-color: black; text-decoration: none;" asp-controller="Stocks" asp-action="AS" asp-route-id="@item.OrderId" asp-action="AS">Return Items</a>
-                                <a class="badge" style="background-color: black; text-decoration: none;" asp-controller="Orders" asp-route-id="@item.OrderId" asp-action="Amend">Amend</a>
+                            <a class="badge" style="background-color: black; text-decoration: none;" asp-controller="Stocks" asp-action="AS" asp-route-id="@item.OrderId" asp-action="AS"> asp-route-SearchTerm="@ViewBag.SearchTerm" asp-route-Status="@ViewBag.Status" asp-route-page="@ViewBag.Page"Return Items</a>
+                                <a class="badge" style="background-color: black; text-decoration: none;" asp-controller="Orders" asp-route-id="@item.OrderId"  asp-action="Amend">Amend</a>
 
 
 }
 if(item.StatusId == 3){
-       <a class="badge" style="color: white; background-color: black; text-decoration: none;" asp-controller="OrderItems" asp-route-id="@item.OrderId" asp-action="Index">See Items</a>
-                            <a class="badge" style="color: white; background-color: black; text-decoration: none;" asp-action="Details" asp-route-id="@item.OrderId">Details</a>
+                            <a class="badge" style="color: white; background-color: black; text-decoration: none;" asp-controller="OrderItems" asp-route-id="@item.OrderId" asp-route-SearchTerm="@ViewBag.SearchTerm" asp-route-Status="@ViewBag.Status" asp-route-page="@ViewBag.Page" asp-action="Index">See Items</a>
+                            <a class="badge" style="color: white; background-color: black; text-decoration: none;" asp-action="Details" asp-route-SearchTerm="@ViewBag.SearchTerm" asp-route-Status="@ViewBag.Status" asp-route-page="@ViewBag.Page"  asp-route-id="@item.OrderId">Details</a>
                           
 
 }
@@ -215,13 +203,7 @@ if(item.StatusId == 3){
                         <a class="badge" style="background-color: black; text-decoration: none;" asp-controller="Orders" asp-route-id="@item.OrderId" asp-action="Invoice">Print Invoice</a>
                         }
 
-                        @if (item.StatusId == 1 && !User.IsInRole("Admin"))
-                        {
-                            <a class="badge" style="color: white; background-color: black; text-decoration: none;" asp-controller="OrderItems" asp-route-id="@item.OrderId" asp-action="Index">See Items</a>
-
-                            <a class="badge" style="color: white; background-color: black; text-decoration: none;" asp-action="Delete" asp-route-id="@item.OrderId">Delete</a>
-
-                        }
+                       
 
 
                         @if (item.StatusId == 4 && !User.IsInRole("Admin"))
@@ -243,16 +225,16 @@ if(item.StatusId == 3){
                                     Add Items
                                 </button>
                             </form>
-                        
-                        <a class="badge" style="color: white; background-color: black; text-decoration: none;" asp-action="Delete" asp-route-id="@item.OrderId">Delete</a>
+
+                        <a class="badge" style="color: white; background-color: black; text-decoration: none;" asp-action="Delete" asp-route-SearchTerm="@ViewBag.SearchTerm" asp-route-Status="@ViewBag.Status" asp-route-page="@ViewBag.Page" asp-route-id="@item.OrderId">Delete</a>
 
                         }
                         else
                         {
                                                    @if (!User.IsInRole("Admin")){
 
-                            <a class="badge" style="color: white; background-color: black; text-decoration: none;" asp-controller="OrderItems" asp-route-id="@item.OrderId" asp-action="Index">See Items</a>
-                            <a class="badge" style="color: white; background-color: black; text-decoration: none;" asp-action="Details" asp-route-id="@item.OrderId">Details</a>
+                            <a class="badge" style="color: white; background-color: black; text-decoration: none;" asp-controller="OrderItems" asp-route-id="@item.OrderId" asp-route-SearchTerm="@ViewBag.SearchTerm" asp-route-Status="@ViewBag.Status" asp-route-page="@ViewBag.Page" asp-action="Index">See Items</a>
+                            <a class="badge" style="color: white; background-color: black; text-decoration: none;" asp-action="Details" asp-route-id="@item.OrderId" asp-route-SearchTerm="@ViewBag.SearchTerm" asp-route-Status="@ViewBag.Status" asp-route-page="@ViewBag.Page">Details</a>
 
                                                    }
                         }
@@ -261,7 +243,7 @@ if(item.StatusId == 3){
             }
         </tbody>
     </table>
-}
+
 
 <style>
     .btn btn-info{
@@ -375,6 +357,68 @@ if(item.StatusId == 3){
                 background-color: #2563eb;
             }
 </style>
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+        @{
+           
+    int currentPage = Model.PageIndex;
+    int totalPages = Model.TotalPages;
+    int maxButtons = 7;
+    int startPage = Math.Max(1, currentPage - 2);
+    int endPage = Math.Min(totalPages, startPage + maxButtons - 1);
+
+    if (endPage - startPage < maxButtons)
+        startPage = Math.Max(1, endPage - maxButtons + 1);
+
+    var searchTerm = ViewBag.CurrentFilter as string ?? "";
+    var sortOrder = ViewBag.CurrentSort as string ?? "";
+    var currentStatus = ViewBag.Status as int? ?? 0;
+}
+
+@if (Model.HasPreviousPage)
+{
+    <li class="page-item">
+        <a class="page-link" href="@Url.Action("Index", new { page = currentPage - 1, searchTerm, sortOrder, status = currentStatus })">Previous</a>
+    </li>
+}
+
+@for (int i = startPage; i <= endPage; i++)
+{
+    <li class="page-item @(i == currentPage ? "active" : "")">
+        <a class="page-link" href="@Url.Action("Index", new { page = i, searchTerm, sortOrder, status = currentStatus })">@i</a>
+    </li>
+}
+
+@if (Model.HasNextPage)
+{
+    <li class="page-item">
+        <a class="page-link" href="@Url.Action("Index", new { page = currentPage + 1, searchTerm, sortOrder, status = currentStatus })">Next</a>
+    </li>
+}
+
+            
+    </ul>
+</nav>
+
+<style>
+    .pagination .page-item.active .page-link {
+        background-color: #064420;
+        border-color: #064420;
+        color: white;
+    }
+
+    .pagination .page-link {
+        color: #336539;
+        border-color: #336539;
+    }
+
+        .pagination .page-link:hover {
+            background-color: #0b5e34;
+            color: white;
+            border-color: #0b5e34;
+        }
+</style>
+
 <script>
     // Save scroll position before unload
     window.addEventListener("beforeunload", () => {

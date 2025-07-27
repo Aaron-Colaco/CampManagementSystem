@@ -14,6 +14,11 @@
         font-size: 11px;
     }
 
+    @@page {
+        margin: 8mm;
+        size: A4;
+    }
+
     #print-section {
         max-width: 750px;
         margin: auto;
@@ -165,7 +170,6 @@
         <p>Your total gear hire charge is: $<strong>@ViewBag.Order.TotalPrice</strong></p>
         <p>This will be loaded onto your family account and is payable by: <strong>@oneWeekFromToday</strong></p>
         <p><strong>Any lost/unreturned items</strong> will incur a replacement fee on your family account.</p>
-        <p><em>Please see overleaf for cleaning instructions.</em></p>
     </div>
 </div>
 <script>

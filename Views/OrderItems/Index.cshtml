@@ -6,14 +6,9 @@
 }
 
 <div class="container mt-5">
-    <h1 class="text-center mb-4">My Cart</h1>
+    <h2 class="text-center mb-4">Ordered Items by @ViewBag.Name;</h2>
 
-    @if (ViewBag.cartFull == true)
-    {
-        <div class="alert alert-warning text-center fw-bold">
-            Your cart is full. Please checkout or remove items.
-        </div>
-    }
+  
 
     <div class="table-responsive">
         <table class="table align-middle table-borderless shadow-sm">
@@ -81,6 +76,10 @@
         }
     </div>
 </div>
+<button type="button" onclick="window.history.back()" class="btn btn-link p-0"
+        style="color: teal !important; font-weight: bold; font-size: 1rem; text-decoration: underline; display: block; margin-top: 0.5rem;">
+    Go back
+</button>
 
                     <style>
     body {
@@ -123,8 +122,5 @@
     .text-primary {
         color: #008080 !important;
     }
-
-    
-
 
 </style>

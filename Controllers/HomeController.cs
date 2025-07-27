@@ -23,6 +23,7 @@ namespace WebApplication4.Controllers
             _context = context;
         }
         [Authorize]
+        [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             var StockAvliable = _context.Stock.Where(a => a.OrderId == null);

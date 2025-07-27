@@ -9,6 +9,7 @@
     Thank You for Your Order, @Html.DisplayFor(model => model.user.FirstName)!
 </h2>
 }
+
 <style>
     .OrderStatus {
         width: 85%;
@@ -30,7 +31,7 @@
     }
 
     .color-bar {
-        background: teal;
+        background: DarkGreen;
         position: absolute;
         height: 10px;
         top: 50%;
@@ -77,6 +78,47 @@
         color: white;
         background-color: black;
         border-radius: 50px;
+    }
+
+
+    .OrderStatus .txt {
+        text-align: center;
+        margin-top: 12px; 
+        width: fit-content;
+        font-weight: bolder;
+        font-size: 1rem;
+    }
+
+    .OrderStatus ul > li {
+        background: #ddd;
+        text-align: center;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        position: relative;
+        transition: all 0.5s;
+        z-index: 4;
+        transform: translateY(-8px);
+    }
+
+    .OrderStatus .txt {
+        text-align: center;
+        margin-top: 30px;
+        width: fit-content;
+        font-weight: bolder;
+        font-size: 1rem;
+    }
+
+    OrderStatus .txt {
+        text-align: center;
+        margin-top: 30px; 
+        width: 100%;
+        font-weight: 600;
+        font-size: 0.95rem;
+        font-size: 0.85rem;
+        max-width: 80px;
+        text-align: center;
+        word-wrap: break-word;
     }
 </style>
 
@@ -182,15 +224,24 @@
 
     </dl>
 </div>
-
-<div class="mt-4" style="color:teal; font-weight:bold; font-size: 1rem;">
-    <a asp-controller="OrderItems" asp-route-id="@Model.OrderId" asp-action="Index">See Items In Order</a><br />
-    <a asp-action="Index">See all Orders</a>
+<div class="mt-4" style="font-size: 1rem; font-weight: bold; color: teal;">
+    <a asp-controller="OrderItems" asp-action="Index" asp-route-id="@Model.OrderId" asp-route-SearchTerm="@ViewBag.SearchTerm" asp-route-Status="@ViewBag.Status" asp-route-page="@ViewBag.Page"
+       style="color: teal !important; text-decoration: underline; display: block;">
+        See Items In Order
+    </a>
+    <button type="button" onclick="window.history.back()" class="btn btn-link p-0"
+            style="color: teal !important; font-weight: bold; font-size: 1rem; text-decoration: underline; display: block; margin-top: 0.5rem;">
+        Go back
+    </button>
 </div>
+
+
+
+
 
 <style>
     .Headings {
-        color: teal;
+        color: darkGreen;
         font-weight: bold;
         font-size: 1rem;
     }

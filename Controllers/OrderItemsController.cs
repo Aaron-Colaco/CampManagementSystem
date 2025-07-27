@@ -29,7 +29,7 @@ namespace WebApplication4.Controllers
 
         }
 
-
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> OpenCart()
         {
             //Calls the GetOrder Method and stores the return value in a Variable called order.
@@ -43,7 +43,7 @@ namespace WebApplication4.Controllers
 
 
 
-
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddToCart(int itemId, string size)
         {
 
@@ -159,7 +159,9 @@ namespace WebApplication4.Controllers
         {
 
             //Find order where the order id == the id passed into the method.
-            var order = _context.Order.Where(a => a.OrderId == id).FirstOrDefault();
+            var order = _context.Order.Where(a => a.OrderId == id).Include(a => a.user).FirstOrDefault();
+
+            ViewBag.Name = order.user.FirstName + order.user.LastName;
 
             //check that the Order belongs to the currently logins in use for security purpose or that the user is admin
             if (order.UserId != User.FindFirstValue(ClaimTypes.NameIdentifier) && !User.IsInRole("Admin"))
@@ -170,7 +172,7 @@ namespace WebApplication4.Controllers
             }
 
             //Store the cart full parameter in the view bag as well as the order status.
-            ViewBag.CartFull = cartFull;
+         
             ViewBag.StatusId = order.StatusId;
             ViewBag.TotalRrice = order.TotalPrice;
 
@@ -178,7 +180,7 @@ namespace WebApplication4.Controllers
             var OrderItem = await _context.OrderItem.Where(a => a.OrderId == order.OrderId).Include(a => a.Items).Include(a => a.Orders).ThenInclude(a => a.status).ToListAsync();
             return View(OrderItem);
         }
-
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> ProcessOrder()
         {
 
@@ -194,6 +196,7 @@ namespace WebApplication4.Controllers
         }
 
         //This method returns a lsit of type orderItem
+        [Authorize(Roles = "Admin")]
         public async Task<List<OrderItem>> GetOrder()
         {
             //gets the order id from the return method CheckUserOrders.
@@ -207,7 +210,7 @@ namespace WebApplication4.Controllers
 
 
 
-
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Success()
         {
             //Calls the checkUserOrders method and finds the user's order whith the string order id the method returns.
@@ -229,7 +232,7 @@ namespace WebApplication4.Controllers
         }
 
 
-
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Cancel()
         {
             //Calls the checkUserOrders method and finds the user's order whith the string order id the method returns.
@@ -245,7 +248,7 @@ namespace WebApplication4.Controllers
         }
 
 
-
+        [Authorize(Roles = "Admin")]
         public IActionResult Payment(string orderId)
         {
             // Set the Stripe API key using the secret key from the `_stripeSettings` class.
@@ -295,7 +298,7 @@ namespace WebApplication4.Controllers
 
         }
 
-
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int itemId)
         {
             //Gets the orderItems of the users order from the return method

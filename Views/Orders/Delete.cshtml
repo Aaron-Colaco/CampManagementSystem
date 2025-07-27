@@ -44,8 +44,12 @@
     </dl>
     
     <form asp-action="Delete">
+        <input type="hidden" name="SearchTerm" value="@ViewBag.SearchTerm" />
+        <input type="hidden" name="Status" value="@ViewBag.Status" />
+        <input type="hidden" name="page" value="@ViewBag.Page" />
         <input type="hidden" asp-for="OrderId" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="Index" asp-route-SearchTerm="@ViewBag.SearchTerm" asp-route-Status="@ViewBag.Status" asp-route-page="@ViewBag.Page">Back to List</a>
+
     </form>
 </div>

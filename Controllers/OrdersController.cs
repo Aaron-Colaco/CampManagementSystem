@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Azure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Stripe.Climate;
 using WebApplication4.Data;
 using WebApplication4.Models;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using Order = WebApplication4.Models.Order;
 
 namespace WebApplication4.Controllers
@@ -21,7 +26,8 @@ namespace WebApplication4.Controllers
         {
             _context = context;
         }
-       public async Task<IActionResult> Invoice(string id)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Invoice(string id, string? SearchTerm, int Status = 0, int page = 1)
         {
             ViewBag.OrderId = id;
 
@@ -40,8 +46,8 @@ namespace WebApplication4.Controllers
             return View(await Stock.ToListAsync());
 
         }
-
-        public async Task<IActionResult> Amend(string id)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Amend(string id, string? SearchTerm, int Status = 0, int page = 1)
         {
             var Order = _context.Order.Where(a => a.OrderId == id).FirstOrDefault();    
 
@@ -51,14 +57,25 @@ namespace WebApplication4.Controllers
            return RedirectToAction("CreateOrder", new { orderId = id });
         }
 
+        private const int PageSize = 50;
 
         // GET: Orders
-        public async Task<IActionResult> Index(string? SearchTerm, int Status)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Index(string? SearchTerm, int Status, int? page)
         {
+            if (page == null || page < 1)
+            {
+                page = 1;
+            }
 
-            var GearRequested = _context.OrderItem.Where(a => a.GearAssigned == false && a.Orders.StatusId != 1);
+          
 
-            ViewBag.GearRequested = GearRequested.Sum(a => a.Quantity);
+            ViewBag.CurrentFilter = SearchTerm;
+            ViewBag.SearchTerm = SearchTerm;
+
+            ViewBag.Status = Status;
+            ViewBag.Page = page;
+
 
 
 
@@ -67,7 +84,6 @@ namespace WebApplication4.Controllers
 
 
 
-            //If user is a admin return all orders where th status id is not one and inlcude the related customers.
             if (User.IsInRole("Admin"))
             {
                 OrderData = OrderData.Where(a => a.StatusId != 1).Include(o => o.status).Include(a => a.user);
@@ -87,18 +103,25 @@ namespace WebApplication4.Controllers
                 }
 
             }
-            else // if user is not admin only display their order, by using thier id to find only orders that belong to them(the logged in user).
-            {
-                OrderData = OrderData.Include(o => o.status).Include(a => a.user).Where(a => a.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier));
+           
 
-            }
+           await OrderData.OrderByDescending(a => a.OrderTime).ToListAsync();
 
 
-            return View(await OrderData.OrderByDescending(a => a.OrderTime).ToListAsync());
+            ViewBag.SearchTerm = SearchTerm;
+            ViewBag.Page = page;
+           
+            ViewBag.Count = OrderData.Count();
+            int pageIndex = page ?? 1;
+            var paginatedList = await PaginatedList<Order>.CreateAsync(OrderData, pageIndex, PageSize);
+
+            return View(paginatedList);
+
         }
 
         // GET: Orders/Details/5
-        public async Task<IActionResult> Details(string id)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Details(string id, string? SearchTerm, int Status = 0, int page = 1)
         {
 
             var test = _context.Order.Where(a => a.OrderId == id && a.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier));
@@ -122,6 +145,7 @@ namespace WebApplication4.Controllers
 
 
         // GET: Orders/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewData["StatusId"] = new SelectList(_context.Set<Status>(), "Id", "Id");
@@ -133,7 +157,7 @@ namespace WebApplication4.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(string firstName, string lastName, string studentNumber)
         {
             if (ModelState.IsValid)
@@ -179,6 +203,7 @@ namespace WebApplication4.Controllers
 
             return View();
         }
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Confirm(string OrderId)
         {
             var Order = _context.Order.Where(a => a.OrderId == OrderId).Include(a => a.user).FirstOrDefault();
@@ -192,7 +217,7 @@ namespace WebApplication4.Controllers
         }
 
 
-
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateOrder(string OrderId, int? ItemId)
         {
 
@@ -236,6 +261,7 @@ ViewBag.Stock = StockAvliable;
             return View(await Items.ToListAsync());
 
         }
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddItem(string OrderId, int ItemId, string Size)
         {
             var ExistingItem = _context.OrderItem.Where(a => a.ItemId == ItemId && a.SizesReq == Size && a.OrderId == OrderId).FirstOrDefault();
@@ -287,29 +313,21 @@ ViewBag.Stock = StockAvliable;
 
 
         // GET: Orders/Edit/5
-        public async Task<IActionResult> Edit(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var order = await _context.Order.FindAsync(id);
-            if (order == null)
-            {
-                return NotFound();
-            }
-            ViewData["StatusId"] = new SelectList(_context.Set<Status>(), "Id", "Id", order.StatusId);
-            return View(order);
-        }
+      
 
         // POST: Orders/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("OrderId,OrderTime,HireEndDate,TotalPrice,UserId,StatusId")] Order order)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Edit(string id, [Bind("OrderId,OrderTime,HireEndDate,TotalPrice,UserId,StatusId")] Order order, string? SearchTerm, int Status = 0, int page = 1)
         {
+
+            ViewBag.SearchTerm = SearchTerm;
+            ViewBag.Status = Status;
+            ViewBag.Page = page;
+
             if (id != order.OrderId)
             {
                 return NotFound();
@@ -340,8 +358,12 @@ ViewBag.Stock = StockAvliable;
         }
 
         // GET: Orders/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Delete(string id, string? SearchTerm, int Status = 0, int page = 1)
         {
+            ViewBag.SearchTerm = SearchTerm;
+            ViewBag.Status = Status;
+            ViewBag.Page = page;
             if (id == null)
             {
                 return NotFound();
@@ -361,8 +383,12 @@ ViewBag.Stock = StockAvliable;
         // POST: Orders/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(string id, string OrderId, string? SearchTerm, int Status = 0, int page = 1)
         {
+
+            ViewBag.SearchTerm = SearchTerm;
+            ViewBag.Status = Status;
+            ViewBag.Page = page;
             var order = await _context.Order.FindAsync(id);
             if (order != null)
             {
@@ -370,11 +396,16 @@ ViewBag.Stock = StockAvliable;
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Orders", new { SearchTerm = SearchTerm, Status = Status, page = page });
+
         }
 
-        public async Task<IActionResult> DeleteItem(int ItemId, string OrderId)
+        public async Task<IActionResult> DeleteItem(int ItemId, string OrderId,string? SearchTerm, int Status = 0, int page = 1)
         {
+            ViewBag.SearchTerm = SearchTerm;
+            ViewBag.Status = Status;
+            ViewBag.Page = page;
+
             var orderItemToRemove = _context.OrderItem.Where(a => a.OrderId == OrderId && a.ItemId == ItemId).FirstOrDefault();
             if (orderItemToRemove != null)
             {
@@ -385,7 +416,7 @@ ViewBag.Stock = StockAvliable;
             // Redirect action to Open Cart
             return RedirectToAction("CreateOrder", new { orderId = OrderId });
         }
-        public async Task<IActionResult> UnassingAll(string id)
+        public async Task<IActionResult> UnassingAll(string id, string? SearchTerm, int Status = 0, int page = 1)
         {
             foreach (var item in await _context.Stock.Where(a => a.OrderId == id).ToListAsync())
             {
@@ -395,12 +426,12 @@ ViewBag.Stock = StockAvliable;
             var order = _context.Order.Where(a => a.OrderId == id).Include(a => a.user).FirstOrDefault();
             order.StatusId = 3;
             TempData["SuccessMessage"] = order.user.FirstName + " has returned their items successfully.";
-
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Orders", new { SearchTerm = SearchTerm, Status = Status, page = page });
 
-           
+
+
         }
 
 

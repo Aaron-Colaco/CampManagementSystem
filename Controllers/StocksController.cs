@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.Completion;
@@ -179,6 +180,7 @@ namespace WebApplication4.Controllers
 
 
         }
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Confirm(string OrderId)
         {
             var order = _context.Order.Where(a => a.OrderId == OrderId).FirstOrDefault();
@@ -190,7 +192,7 @@ namespace WebApplication4.Controllers
         }
 
 
-
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> a2(int StockId, string OrderId)
         {
            var stock = _context.Stock.Where(a => a.StockId == StockId).FirstOrDefault();
@@ -240,7 +242,7 @@ namespace WebApplication4.Controllers
             @ViewBag.Status = order.status;
             return RedirectToAction("AS",new { id = OrderId });
         }
-
+        [Authorize(Roles = "Admin")]
         public async Task <IActionResult> UA(int StockId, string? OrderId, string? SearchTerm)
         {
             var stock = _context.Stock.Where(a => a.StockId == StockId).FirstOrDefault();
@@ -288,10 +290,11 @@ namespace WebApplication4.Controllers
             }
 
         }
-        
+
 
 
         // GET: Stocks/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
 
@@ -311,7 +314,7 @@ namespace WebApplication4.Controllers
             return View(stock);
         }
 
-
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PickItem()
         {
             ViewData["ItemId"] = new SelectList(_context.Item, "ItemId", "Name");
@@ -337,7 +340,7 @@ namespace WebApplication4.Controllers
 
         // GET: Stocks/Create
 
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("StockId,ItemId,UserId,ClothingSizes,ShoeSizes,Brand,Colour,Notes")] Stock stock, int NumberToAdd, string ClothingSizes, string ShoeSizes)
@@ -413,6 +416,7 @@ namespace WebApplication4.Controllers
 
 
         // GET: Stocks/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id, string? SearchTerm, int? Page)
         {
             ViewBag.BrandOptions = _context.Stock.Select(s => s.Brand).Distinct().ToList(); 
@@ -455,6 +459,7 @@ namespace WebApplication4.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("StockId,OrderId,ClothingSizes,ShoeSizes,StockNumber,Colour,Brand,Notes")] Stock stock, int ItemId, string? SearchTerm, int? Page)
         {
 
@@ -507,6 +512,7 @@ namespace WebApplication4.Controllers
 
 
         // GET: Stocks/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id, string? SearchTerm, int? Page)
         {
             if (Page == null || Page < 1)
@@ -536,6 +542,7 @@ namespace WebApplication4.Controllers
         // POST: Stocks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id, int Page, string SearchTerm)
         {
 
