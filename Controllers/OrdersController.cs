@@ -106,7 +106,7 @@ namespace WebApplication4.Controllers
         {
             var Order = _context.Order.Where(a => a.OrderId == id).FirstOrDefault();    
 
-            Order.StatusId = 5; // Set the status to '1
+            Order.StatusId = 5; // Set the status to 5
             _context.Update(Order);
            await _context.SaveChangesAsync();
            return RedirectToAction("CreateOrder", new { orderId = id });
@@ -292,10 +292,7 @@ namespace WebApplication4.Controllers
 
             var Items = _context.Item.Include(i => i.Categorys);
 
-            // Pseudocode plan:
-            // 1. Make the StockAvailable query asynchronous by using ToListAsync() and await it.
-            // 2. Assign the result to ViewBag.Stock as a list, not as an IQueryable.
-            // 3. Remove the typo at the end of the Select line.
+       
 
             var StockAvliable = await _context.Stock
                 .AsNoTracking()
@@ -312,6 +309,12 @@ ViewBag.Stock = StockAvliable;
             ViewBag.ItemId = ItemId;
 
 
+            var itemsInOrder = _context.OrderItem.Where(a => a.OrderId == OrderId).Include(a => a.Items);
+
+            //Set the total Price of the order to the sum of the( items Price * Items Quantity) in the var itemsInOrder.
+            Order.TotalPrice = (decimal)itemsInOrder.Sum(a => a.Items.Price * a.Quantity);
+
+            _context.SaveChanges();
 
             return View(await Items.ToListAsync());
 
@@ -348,17 +351,7 @@ ViewBag.Stock = StockAvliable;
             //save changes
             await _context.SaveChangesAsync();
 
-            //Find the Order where the OrderId is equal to the orderId string.
-            var Order = _context.Order.Where(a => a.OrderId == OrderId).First();
-
-            // Call the Items In order method again to update the var itemsInOrder
-            var itemsInOrder = _context.OrderItem.Where(a => a.OrderId == OrderId).Include(a => a.Items);
-
-            //Set the total Price of the order to the sum of the( items Price * Items Quantity) in the var itemsInOrder.
-            Order.TotalPrice = (decimal)itemsInOrder.Sum(a => a.Items.Price * a.Quantity);
-
-            //save changes
-            await _context.SaveChangesAsync();
+      
 
 
             return RedirectToAction("CreateOrder", new { orderId = OrderId, ItemId = ItemId });
@@ -483,7 +476,7 @@ ViewBag.Stock = StockAvliable;
             TempData["SuccessMessage"] = order.user.FirstName + " has returned their items successfully.";
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("Orders", new { SearchTerm = SearchTerm, Status = Status, page = page });
+            return RedirectToAction("Index", new { SearchTerm = SearchTerm, Status = Status, page = page });
 
 
 

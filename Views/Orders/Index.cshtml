@@ -17,6 +17,44 @@
         </div>
     </div>
 }
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+         <div class="modal-header">
+
+
+
+                <h5 class="modal-title">Confirm Return</h5>
+
+
+
+           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>This action can’t be undone. Are you sure you want to return all items?</p>
+            </div>
+            <div class="modal-footer">
+                <form asp-action="UnassingAll" >
+                    <input type="hidden" name="id" id="orderIdInput" />
+                
+                    
+                    
+                    <input type="hidden" name="SearchTerm" value="@ViewBag.SearchTerm" />
+                  
+                    
+                    
+                    <input type="hidden" name="Status" value="@ViewBag.Status" />
+
+
+
+                        <input type="hidden" name="page" value="@ViewBag.Page" />
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-danger">Yes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 @section Scripts {
     <script>
         const toastEl = document.querySelector('.toast');
@@ -29,6 +67,7 @@
         }
     </script>
 }
+
 <style>
     .alert-warning {
     background-color: #fdf7e3;
@@ -169,6 +208,7 @@
                                     <td>@item.user.FirstName&nbsp;@item.user.LastName</td>
 
                     }
+                
 
                     <td>
                         @if (User.IsInRole("Admin"))
@@ -182,7 +222,7 @@
                                
                             }
 if(item.StatusId == 4){
-                            <a class="badge" style="background-color: black; text-decoration: none;" asp-controller="Orders" asp-action="UnassingAll" asp-route-SearchTerm="@ViewBag.SearchTerm" asp-route-Status="@ViewBag.Status" asp-route-page="@ViewBag.Page"  asp-route-id="@item.OrderId" asp-action="AS">Return All</a>
+                            <a href="#" class="badge" style="background-color: black; text-decoration: none;" data-bs-toggle="modal" data-bs-target="#confirmModal" data-order-id="@item.OrderId">Return All</a>
 
                             <a class="badge" style="color: white; background-color: black; text-decoration: none;" asp-controller="OrderItems" asp-route-id="@item.OrderId" asp-route-SearchTerm="@ViewBag.SearchTerm" asp-route-Status="@ViewBag.Status" asp-route-page="@ViewBag.Page"  asp-action="Index">See Items</a>
 
@@ -420,6 +460,14 @@ if(item.StatusId == 3){
 </style>
 
 <script>
+    const confirmModal = document.getElementById('confirmModal');
+    confirmModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        const orderId = button.getAttribute('data-order-id');
+        document.getElementById('orderIdInput').value = orderId;
+
+        
+    });
     // Save scroll position before unload
     window.addEventListener("beforeunload", () => {
         localStorage.setItem("scrollY", window.scrollY);
