@@ -433,6 +433,13 @@ ViewBag.Stock = StockAvliable;
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id, string OrderId, string? SearchTerm, int Status = 0, int page = 1)
         {
+            var userStock = _context.Stock.Where(a => a.OrderId == id);
+
+            foreach (var item in userStock)
+            {
+                item.OrderId = null; // Unassign the stock from the order
+            }
+            _context.SaveChangesAsync();
 
             ViewBag.SearchTerm = SearchTerm;
             ViewBag.Status = Status;
@@ -444,7 +451,7 @@ ViewBag.Stock = StockAvliable;
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction("Orders", new { SearchTerm = SearchTerm, Status = Status, page = page });
+            return RedirectToAction("Index", new { SearchTerm = SearchTerm, Status = Status, page = page });
 
         }
 

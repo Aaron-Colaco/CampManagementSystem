@@ -78,7 +78,8 @@ style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-ite
                     <td>
                     @if(item.Items.CategoryId == 1)
                     {
-                            <form asp-action="UpdateShoeSize" asp-controller="Stocks" method="post" style="text-align: center; margin: 20px 0;">
+        @if (@item.OrderId == null){
+                     <form asp-action="UpdateShoeSize" asp-controller="Stocks" method="post" style="text-align: center; margin: 20px 0;">
                                 <strong>
                                     <select onchange="this.form.submit()" name="s"
                                             style="border: none;
@@ -103,9 +104,16 @@ style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-ite
                                 <input type="hidden" name="searchTerm" value="@ViewBag.SearchTerm" />
                                 <input type="hidden" name="Page" value="@ViewBag.Page" />
                             </form>
+                        }
+                        else
+                        {
+
+							@item.ShoeSizes
+						}
 
                     }else
                     {
+        @if (@item.OrderId == null){
                             <form asp-action="UpdateSize" asp-controller="Stocks" method="post" style="text-align: center; margin: 20px 0;">
                                 <strong>
                                     <select onchange="this.form.submit();" name="s"
@@ -128,24 +136,41 @@ style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-ite
                                 <input type="hidden" name="Id" value="@item.StockId" />
                                 <input type="hidden" name="searchTerm" value="@ViewBag.SearchTerm" />
                                 <input type="hidden" name="Page" value="@ViewBag.Page" />
-                            </form>
+                                </form>
+                            }
+                            else
+                            {
+                                @item.ClothingSizes
+                            }
 
-                     
+
+
+                        }
+                    </td>
+
+                    @if (@item.OrderId == null)
+                    {
+                        <form asp-action="UpdateStockNumber" asp-controller="Stocks" method="post">
+                            <td style="text-align: center;">
+                                <strong>
+                                    <input onchange="this.form.submit();" name="StockNumber" type="text" value="@item.StockNumber"
+                                    style="border: none; background: transparent; text-align: center; font-weight: bold;"
+                                    autocomplete="off" />
+                                </strong>
+                                <input type="hidden" name="Id" value="@item.StockId" />
+                                <input type="hidden" name="searchTerm" value="@ViewBag.SearchTerm" />
+                                <input type="hidden" name="Page" value="@ViewBag.Page" />
+                            </td>
+                        </form>
                     }
-                    </td>
-
-                    <form asp-action="UpdateStockNumber" asp-controller="Stocks" method="post">
-                    <td style="text-align: center;">
-                        <strong>
-                            <input onchange="this.form.submit();" name="StockNumber" type="text" value="@item.StockNumber"
-                                   style="border: none; background: transparent; text-align: center; font-weight: bold;"
-                                   autocomplete="off" />
-                        </strong>
-                        <input type="hidden" name="Id" value="@item.StockId" />
-                        <input type="hidden" name="searchTerm" value="@ViewBag.SearchTerm" />
-                        <input type="hidden" name="Page" value="@ViewBag.Page" />
-                    </td>
-                    </form>
+                    else
+                    {
+                        <td>
+                   
+                       @item.StockNumber
+                        </td>
+                               
+                    }
 
            
                     <td colspan="4">
@@ -163,12 +188,16 @@ style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-ite
                         }
                     </td>
                     <td>
-                       <a  asp-action="Edit" asp-route-id="@item.StockId" asp-route-Page="@ViewBag.Page" asp-route-SearchTerm="@ViewBag.SearchTerm"
-                        class="btn btn-sm text-white me-1"
-                        style="background-color: #336539; border-radius: 0.5rem;">
-                        <i class="bi bi-pencil-fill"></i> Edit
-                        </a>
+                     
                         @if(@item.OrderId == null){
+
+                            <a asp-action="Edit" asp-route-id="@item.StockId" asp-route-Page="@ViewBag.Page" asp-route-SearchTerm="@ViewBag.SearchTerm"
+                               class="btn btn-sm text-white me-1"
+                               style="background-color: #336539; border-radius: 0.5rem;">
+                                <i class="bi bi-pencil-fill"></i> Edit
+                            </a>
+
+
                         <a asp-action="Delete" asp-route-id="@item.StockId"  asp-route-Page="@ViewBag.Page" asp-route-SearchTerm="@ViewBag.SearchTerm"
                            class="btn btn-sm text-white"
                            style="background-color: #EF4444; border-radius: 0.5rem;">
@@ -181,13 +210,13 @@ style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-ite
 
                 <tr class="table-light" style="background-color: lightblue;">
                
-                    <td></td>
+                    <td>Student-</td>
 
                     @if (item.OrderId != null && item.order.user != null)
                     {
                         <td style="text-align: center;">@item.order.user.FirstName @item.order.user.LastName</td>
                         <td>@item.order.user.Email</td>
-                        <td>@item.order.user.StudentNumber</td>
+                        <td></td>
                         <td></td>
                         <td>
                             <form asp-action="UA" method="post" class="d-inline">
