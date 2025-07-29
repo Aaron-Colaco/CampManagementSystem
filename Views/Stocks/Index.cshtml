@@ -165,11 +165,29 @@ style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-ite
                     }
                     else
                     {
-                        <td>
-                   
-                       @item.StockNumber
+                        
+                            <form asp-action="" asp-controller="" method="post">
+                        <td style="text-align: center;">
+                            <strong>
+                                <input onchange="this.form.submit();" name="StockNumber" type="text" disabled value="@item.StockNumber"
+                                       style="border: none; background: transparent; text-align: center; font-weight: bold;"
+                                       autocomplete="off" />
+                            </strong>
+                            <input type="hidden" name="Id" value="@item.StockId" />
+                            <input type="hidden" name="searchTerm" value="@ViewBag.SearchTerm" />
+                            <input type="hidden" name="Page" value="@ViewBag.Page" />
                         </td>
-                               
+                        </form>
+                
+                       <td>
+
+                       </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
                     }
 
            
@@ -210,12 +228,17 @@ style="width: 80%; margin: 0 auto 2rem auto; display: flex; gap: 1rem; align-ite
 
                 <tr class="table-light" style="background-color: lightblue;">
                
-                    <td>Student-</td>
 
                     @if (item.OrderId != null && item.order.user != null)
                     {
+
+                        <td style="margin-left: 5%;">Student:</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                         <td style="text-align: center;">@item.order.user.FirstName @item.order.user.LastName</td>
                         <td>@item.order.user.Email</td>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td>
