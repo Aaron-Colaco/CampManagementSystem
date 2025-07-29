@@ -112,7 +112,7 @@ if (Model.FirstOrDefault() != null)
         <form asp-controller="Stocks" asp-action="Index">
 
             <input type="hidden" name="SearchTerm" value="@ViewBag.UserSID">
-            <input type="submit" class="btn btn-primary" value="Go to Stock Page" />
+            <input type="submit" class="btn btn" value="Go to Stock Page" />
 
         </form>
     </div>
@@ -171,10 +171,10 @@ if (Model.FirstOrDefault() != null)
                         <input type="hidden" value="@userStock.StockId" name="StockId" />
                         @if(ViewBag.Status == 2)
                         {
-                            <input type="submit" value="Unassign" class="btn btn-warning" style="background-color: indianred; color: white;"/>
+                            <input type="submit" value="Unassign" class="btn btn" style="background-color: indianred; color: white;"/>
                         }
                         else{
-                            <input value="Unassign" disabled type="submit" class="btn btn-warning" style="background-color: indianred; opacity: 50%; color: white;" lo/>
+                            <input value="Unassign" disabled type="submit" class="btn btn" style="background-color: indianred; opacity: 50%; color: white;" lo/>
 
 
                             
@@ -203,12 +203,12 @@ if (Model.FirstOrDefault() != null)
     {
         if (ViewBag.Status == 4 || ViewBag.Status == 3)
             {
-            <input type="submit" disabled value="Confirm and Print" class="btn btn-primary" style="background-color: dodgerblue; opacity: 50%;" />
+            <input type="submit" disabled value="Confirm and Print" class="btn btn" style="background-color: #2b7a78; opacity: 50%;" />
 
             }
             else
             {
-            <input type="submit" value="Confirm" class="btn btn-primary" style="background-color: dodgerblue" />
+            <input type="submit" value="Confirm and Print Invoice" class="btn btn" style="background-color: #2b7a78; color:white;" />
 
             }
     }
