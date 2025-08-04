@@ -418,7 +418,7 @@ ViewBag.Stock = StockAvliable;
             }
 
             var order = await _context.Order
-                .Include(o => o.status)
+                .Include(o => o.status).Include(a => a.user)
                 .FirstOrDefaultAsync(m => m.OrderId == id);
             if (order == null)
             {
