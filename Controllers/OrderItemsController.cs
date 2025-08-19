@@ -157,21 +157,20 @@ namespace WebApplication4.Controllers
             }
         }
 
-        public async Task<IActionResult> Index(string id, bool cartFull = false)
+        public async Task<IActionResult> Index(string id, string? SearchTerm, int Status = 0, int page = 1)
         {
+
+            ViewBag.SearchTerm = SearchTerm;
+            ViewBag.Page = page;
+            
+
 
             //Find order where the order id == the id passed into the method.
             var order = _context.Order.Where(a => a.OrderId == id).Include(a => a.user).FirstOrDefault();
 
             ViewBag.Name = order.user.FirstName + order.user.LastName;
 
-            //check that the Order belongs to the currently logins in use for security purpose or that the user is admin
-            if (order.UserId != User.FindFirstValue(ClaimTypes.NameIdentifier) && !User.IsInRole("Admin"))
-            {
-                // if order dose not belong to user return Error Message
-                return View("Cant find Order that Belongs to you");
-
-            }
+           
 
             //Store the cart full parameter in the view bag as well as the order status.
          

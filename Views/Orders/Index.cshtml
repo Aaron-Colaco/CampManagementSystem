@@ -5,44 +5,10 @@
     ViewData["Title"] = "Orders";
 }
 
-<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-         <div class="modal-header">
 
 
 
-                <h5 class="modal-title">Confirm Return</h5>
 
-
-
-           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>This action can’t be undone. Are you sure you want to return all items?</p>
-            </div>
-            <div class="modal-footer">
-                <form asp-action="UnassingAll" >
-                    <input type="hidden" name="id" id="orderIdInput" />
-                
-                    
-                    
-                    <input type="hidden" name="SearchTerm" value="@ViewBag.SearchTerm" />
-                  
-                    
-                    
-                    <input type="hidden" name="Status" value="@ViewBag.Status" />
-
-
-
-                        <input type="hidden" name="page" value="@ViewBag.Page" />
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                    <button type="submit" class="btn btn-danger">Yes</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 @section Scripts {
     <script>
         const toastEl = document.querySelector('.toast');
