@@ -162,6 +162,7 @@ namespace WebApplication4.Controllers
 
             ViewBag.SearchTerm = SearchTerm;
             ViewBag.Page = page;
+            ViewBag.Status = Status;
             
 
 
@@ -180,7 +181,10 @@ namespace WebApplication4.Controllers
 
             //retrieves all OrderItems related to the order from the database, including their items and returns it to the index view
             var OrderItem = await _context.OrderItem.Where(a => a.OrderId == order.OrderId).Include(a => a.Items).Include(a => a.Orders).ThenInclude(a => a.status).ToListAsync();
-            ViewBag.T = OrderItem.Sum(a => a.Quantity);
+
+            ViewBag.H = OrderItem.Sum(a => a.Quantity);
+            var T = _context.Stock.Where(a => a.OrderId == id);
+            ViewBag.T = T.Count();
             return View(OrderItem);
         }
         [Authorize(Roles = "Admin")]

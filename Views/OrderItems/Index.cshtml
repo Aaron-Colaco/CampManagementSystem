@@ -36,7 +36,7 @@
             </div>
             <div class="modal-footer">
                 <form asp-controller="Orders" asp-action="UnassingAll">
-                    <input type="hidden" name="id" id="@firstOrderItem.OrderId" />
+                    <input type="hidden" name="id" value="@firstOrderItem.OrderId" />
 
 
 
@@ -129,26 +129,24 @@
     </div>
 </div>
 
-@if (firstOrderItem.Orders.StatusId == 4)
+@if(firstOrderItem.Orders.StatusId == 4)
 {
-    <style>
-        .return-all-link:hover {
-            background-color: #006666 !important;
-            text-decoration: underline !important;
-        }
-    </style>
 
-    <h5>Total Items in Hire: <strong>@ViewBag.T</strong></h5>
-    <a href="#" class="badge text-white text-decoration-none return-all-link" style="background-color: teal; padding: 0.3rem 0.75rem; display: inline-block; border-radius: 0.25rem; text-decoration: underline;"  data-bs-toggle="modal"data-bs-target="#confirmModal"data-order-id="@firstOrderItem.OrderId">
-        Return All
-    </a>
+    <h5 style="text-align: center;">Gear hired: <span style="color: teal; font-weight: bold;">@ViewBag.H</span> &nbsp;|&nbsp; Items to return: <span style="color: teal; font-weight: bold;">@ViewBag.T</span></h5>
+    <br />
+    <div style="display: flex; align-items: center; gap: 10px; margin-left:auto; margin-right: auto;">
+<a href="#" class="btn" style="background-color: #1b4d3e; color: #ffffff; font-weight: bold; padding: 10px 20px; border-radius: 8px; text-decoration: none; display: inline-block; font-size: 1.1rem; min-width: 150px; text-align: center;" data-bs-toggle="modal" data-bs-target="#confirmModal" data-order-id="@firstOrderItem.OrderId" aria-label="Return All Items">Return All</a>
+<a class="btn" style="background-color: #333333; color: #ffffff; font-weight: bold; padding: 10px 20px; border-radius: 8px; text-decoration: none; display: inline-block; font-size: 1.1rem; min-width: 150px; text-align: center;" asp-controller="Stocks" asp-action="AS" asp-route-id="@firstOrderItem.OrderId" asp-route-SearchTerm="@ViewBag.SearchTerm" asp-route-Status="@ViewBag.Status" asp-route-page="@ViewBag.Page" aria-label="Show Items in Inventory">Show in Inventory</a>
+<button type="button" onclick="window.history.back()" class="btn" style="background-color: #1b4d3e; color: #ffffff; font-weight: bold; padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer; display: inline-block; font-size: 1.1rem; min-width: 150px; text-align: center;" aria-label="Go Back">Go back</button>
+</div> 
+
 }
-
-<button type="button" onclick="window.history.back()" class="btn btn-link p-0"
-        style="color: teal !important; font-weight: bold; font-size: 1rem; text-decoration: underline; display: block; margin-top: 0.5rem;">
-    Go back
-</button>
-
+<style>
+    .return-all-link:hover {
+        background-color: #006666 !important;
+        text-decoration: underline !important;
+    }
+</style>
                     <style>
     body {
         font-family: 'Inter', sans-serif;

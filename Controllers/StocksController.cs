@@ -77,7 +77,7 @@ namespace WebApplication4.Controllers
 
 
         private const int PageSize = 50;
-        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchTerm, int? page)
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchTerm, int? page, int filter = 0)
         {
             if (page == null || page < 1)
             {
@@ -92,17 +92,18 @@ namespace WebApplication4.Controllers
             ViewBag.SearchTerm = searchTerm;
 
 
-            var query = _context.Stock
+            var x = _context.Stock
                 .Include(s => s.Items)
                 .Include(s => s.order)
                     .ThenInclude(o => o.user)
                 .AsNoTracking();
 
+
             if (!string.IsNullOrEmpty(searchTerm))
             {
                 string searchLower = searchTerm.ToLower();
 
-                query = query.Where(s =>
+                x = x.Where(s =>
                     (s.Items != null && s.Items.Name != null && s.Items.Name.ToLower().Contains(searchLower)) ||
                     (s.order != null && s.order.user != null && (
                         (s.order.UserId != null && s.order.UserId.ToString().ToLower().Contains(searchLower)) ||
@@ -113,9 +114,14 @@ namespace WebApplication4.Controllers
                     ))
                 );
             }
-            
 
-          
+
+            if (filter == 1)
+            {
+                x.Where(a => a.OrderId != null);
+            }
+
+
             var stockStats = await _context.Stock
                 .GroupBy(s => s.OrderId == null)
                 .Select(g => new { IsAvailable = g.Key, Count = g.Count() })
@@ -126,9 +132,9 @@ namespace WebApplication4.Controllers
             ViewBag.Page = page;
             ViewBag.StockNumber = stockStats.FirstOrDefault(x => x.IsAvailable)?.Count ?? 0;
             ViewBag.GearHire = stockStats.FirstOrDefault(x => !x.IsAvailable)?.Count ?? 0;
-            ViewBag.Count = query.Count();
+            ViewBag.Count = x.Count();
             int pageIndex = page ?? 1;
-            var paginatedList = await PaginatedList<Stock>.CreateAsync(query, pageIndex, PageSize);
+            var paginatedList = await PaginatedList<Stock>.CreateAsync(x, pageIndex, PageSize);
 
             return View(paginatedList);
         }

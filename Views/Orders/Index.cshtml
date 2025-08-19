@@ -179,7 +179,6 @@ if(item.StatusId == 4){
 
                             <a class="badge" style="color: white; background-color: black; text-decoration: none;" asp-controller="OrderItems" asp-route-id="@item.OrderId" asp-route-SearchTerm="@ViewBag.SearchTerm" asp-route-Status="@ViewBag.Status" asp-route-page="@ViewBag.Page"  asp-action="Index">Return Items</a>
 
-                            <a class="badge" style="background-color: black; text-decoration: none;" asp-controller="Stocks" asp-action="AS" asp-route-id="@item.OrderId" asp-action="AS" asp-route-SearchTerm="@ViewBag.SearchTerm" asp-route-Status="@ViewBag.Status" asp-route-page="@ViewBag.Page" > Show in Inventory </a>
                                 <a class="badge" style="background-color: black; text-decoration: none;" asp-controller="Orders" asp-route-id="@item.OrderId"  asp-action="Amend">Amend</a>
 
 
