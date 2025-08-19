@@ -4,19 +4,7 @@
 @{
     ViewData["Title"] = "Orders";
 }
-@if (TempData["SuccessMessage"] != null)
-{
-    <div class="toast-container position-fixed top-0 end-0 p-4" style="z-index: 1080; top: 80px; margin-top: 5%;">
-        <div class="toast align-items-center border-0 show shadow-lg" role="alert" aria-live="assertive" aria-atomic="true" style="background-color: #e6f4ea; color: #4b5e6a; min-width: 300px; border-radius: 8px;">
-            <div class="d-flex">
-                <div class="toast-body py-3 px-4" style="font-size: 1rem; font-weight: 500;">
-                    @TempData["SuccessMessage"]
-                </div>
-                <button type="button" class="btn-close me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-        </div>
-    </div>
-}
+
 <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -222,11 +210,10 @@
                                
                             }
 if(item.StatusId == 4){
-                            <a href="#" class="badge" style="background-color: black; text-decoration: none;" data-bs-toggle="modal" data-bs-target="#confirmModal" data-order-id="@item.OrderId">Return All</a>
 
-                            <a class="badge" style="color: white; background-color: black; text-decoration: none;" asp-controller="OrderItems" asp-route-id="@item.OrderId" asp-route-SearchTerm="@ViewBag.SearchTerm" asp-route-Status="@ViewBag.Status" asp-route-page="@ViewBag.Page"  asp-action="Index">See Items</a>
+                            <a class="badge" style="color: white; background-color: black; text-decoration: none;" asp-controller="OrderItems" asp-route-id="@item.OrderId" asp-route-SearchTerm="@ViewBag.SearchTerm" asp-route-Status="@ViewBag.Status" asp-route-page="@ViewBag.Page"  asp-action="Index">Return Items</a>
 
-                            <a class="badge" style="background-color: black; text-decoration: none;" asp-controller="Stocks" asp-action="AS" asp-route-id="@item.OrderId" asp-action="AS" asp-route-SearchTerm="@ViewBag.SearchTerm" asp-route-Status="@ViewBag.Status" asp-route-page="@ViewBag.Page" > Return Items</a>
+                            <a class="badge" style="background-color: black; text-decoration: none;" asp-controller="Stocks" asp-action="AS" asp-route-id="@item.OrderId" asp-action="AS" asp-route-SearchTerm="@ViewBag.SearchTerm" asp-route-Status="@ViewBag.Status" asp-route-page="@ViewBag.Page" > Show in Inventory </a>
                                 <a class="badge" style="background-color: black; text-decoration: none;" asp-controller="Orders" asp-route-id="@item.OrderId"  asp-action="Amend">Amend</a>
 
 

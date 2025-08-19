@@ -35,6 +35,8 @@ namespace WebApplication4.Controllers
             //Calls the GetOrder Method and stores the return value in a Variable called order.
             var Order = await GetOrder();
             //returns the index view pasiing the Order Variable
+
+
             return View("Index", Order);
         }
 
@@ -175,9 +177,11 @@ namespace WebApplication4.Controllers
          
             ViewBag.StatusId = order.StatusId;
             ViewBag.TotalRrice = order.TotalPrice;
+          
 
             //retrieves all OrderItems related to the order from the database, including their items and returns it to the index view
             var OrderItem = await _context.OrderItem.Where(a => a.OrderId == order.OrderId).Include(a => a.Items).Include(a => a.Orders).ThenInclude(a => a.status).ToListAsync();
+            ViewBag.T = OrderItem.Sum(a => a.Quantity);
             return View(OrderItem);
         }
         [Authorize(Roles = "Admin")]
