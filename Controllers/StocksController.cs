@@ -77,17 +77,18 @@ namespace WebApplication4.Controllers
 
 
         private const int PageSize = 50;
-        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchTerm, int? page, int filter = 0)
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchTerm, int? page, int Filter = 0)
         {
             if (page == null || page < 1)
             {
                 page = 1;
             }
 
+         
             ViewBag.CurrentSort = sortOrder;
             ViewBag.CurrentSort = sortOrder;
 
-          
+            ViewBag.Filter = Filter;
             ViewBag.CurrentFilter = searchTerm;
             ViewBag.SearchTerm = searchTerm;
 
@@ -98,6 +99,10 @@ namespace WebApplication4.Controllers
                     .ThenInclude(o => o.user)
                 .AsNoTracking();
 
+            if (Filter == 1)
+            {
+                x = x.OrderByDescending(a => a.OrderId != null);
+            }
 
             if (!string.IsNullOrEmpty(searchTerm))
             {
@@ -116,10 +121,6 @@ namespace WebApplication4.Controllers
             }
 
 
-            if (filter == 1)
-            {
-                x.Where(a => a.OrderId != null);
-            }
 
 
             var stockStats = await _context.Stock
