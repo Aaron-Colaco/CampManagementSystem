@@ -36,11 +36,26 @@
 
 
 string ClassName = " ";
-if(ViewBag.ItemId == item.ItemId){
 
-ClassName = "Added";
+                if (ViewBag.Items != null)
+                {
+                    foreach (var i in ViewBag.Items)
+                    {
+                        if (i.Items.ItemId == item.ItemId)
+                        {
 
-}
+
+                            ClassName = "Added";
+                        }
+                    }
+
+
+                }
+
+
+
+
+
 
 
                 

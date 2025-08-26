@@ -292,6 +292,7 @@ namespace WebApplication4.Controllers
 
             var Items = _context.Item.Include(i => i.Categorys);
 
+
        
 
             var StockAvliable = await _context.Stock
@@ -310,6 +311,12 @@ ViewBag.Stock = StockAvliable;
 
 
             var itemsInOrder = _context.OrderItem.Where(a => a.OrderId == OrderId).Include(a => a.Items);
+
+
+
+            ViewBag.Items = itemsInOrder;
+
+           
 
             //Set the total Price of the order to the sum of the( items Price * Items Quantity) in the var itemsInOrder.
             Order.TotalPrice = (decimal)itemsInOrder.Sum(a => a.Items.Price * a.Quantity);
