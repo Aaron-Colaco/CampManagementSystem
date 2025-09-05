@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -482,7 +483,16 @@ ViewBag.Stock = StockAvliable;
         {
             foreach (var item in await _context.Stock.Where(a => a.OrderId == id).ToListAsync())
             {
-                
+                if (item.StockNumber == null || string.IsNullOrWhiteSpace(item.StockNumber))
+                {
+                    var temptoremove = _context.Stock.Where(a => a.StockId == item.StockId).FirstOrDefault();
+                   
+                        _context.Stock.Remove(temptoremove);
+
+                    _context.SaveChanges();
+                }
+
+
                 item.OrderId = null;
             }
             var order = _context.Order.Where(a => a.OrderId == id).Include(a => a.user).FirstOrDefault();

@@ -227,9 +227,9 @@ namespace WebApplication4.Controllers
                 }
                 else
                 {
-                    int UserItems = _context.Stock.Where(a => a.Items.ItemId == orderitem.ItemId && a.OrderId == OrderId).Count();
+                    int UserItems = _context.Stock.Where(a => a.ItemId == orderitem.ItemId && a.OrderId == OrderId).Count();
 
-                    if (orderitem.Quantity == UserItems)
+                    if (orderitem.Quantity <= UserItems)
                     {
                         orderitem.GearAssigned = true;
                         _context.SaveChanges();
@@ -278,10 +278,11 @@ namespace WebApplication4.Controllers
 
 
 
-                    int UserItems = _context.Stock.Where(a => a.Items.ItemId == stock.ItemId && a.order.UserId == order.UserId).Count();
+                    int UserItems = _context.Stock.Where(a => a.ItemId == stock.ItemId && a.order.UserId == order.UserId).Count();
 
-                    if (itemreq.Quantity == UserItems)
+                    if (itemreq.Quantity <= UserItems)
                     {
+                        
                         itemreq.GearAssigned = true;
                         _context.SaveChanges();
                     }
@@ -317,18 +318,26 @@ namespace WebApplication4.Controllers
                     stock.OrderId = null;
                     _context.SaveChanges();
                 }
-
+                if (stock.StockNumber == null || string.IsNullOrWhiteSpace(stock.StockNumber))
+                {
+                    _context.Stock.Remove(stock);
+                }
                 return RedirectToAction("AS", new { id = OrderId });
             }
             else
             {
-                
                 stock.OrderId = null;
+                
+               
+                
+            
                 _context.SaveChanges();
 
                 var order = _context.Order.Where(a => a.OrderId == Id).FirstOrDefault();
 
                 var Stock = _context.Stock.Where(a => a.OrderId == Id);
+
+                
 
                 if(!Stock.Any())
                 {
@@ -336,6 +345,13 @@ namespace WebApplication4.Controllers
                     _context.SaveChanges();
                 }
 
+                if (stock.StockNumber == null || string.IsNullOrWhiteSpace(stock.StockNumber))
+                {
+                    _context.Stock.Remove(stock);
+                }
+
+
+                _context.SaveChanges();
 
 
                 return RedirectToAction("Index", new {SearchTerm = SearchTerm });
