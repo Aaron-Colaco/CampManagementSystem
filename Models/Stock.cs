@@ -89,8 +89,7 @@ namespace WebApplication4.Models
         public ClothingSize? ClothingSizes { get; set; } = null;
         public ShoeSize? ShoeSizes { get; set; } = null;
 
-
-
+        
     }
 
 }

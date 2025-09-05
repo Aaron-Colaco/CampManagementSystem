@@ -200,56 +200,101 @@ namespace WebApplication4.Controllers
 
 
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> a2(int StockId, string OrderId)
+        public async Task<IActionResult> a2(int StockId, string OrderId, string orderitemId)
         {
-           var stock = _context.Stock.Where(a => a.StockId == StockId).FirstOrDefault();
-            var order = _context.Order.Where(a => a.OrderId == OrderId).FirstOrDefault();
-
-            stock.OrderId = OrderId;
-            _context.SaveChanges();
-
-
-
-            var GearRequested = _context.OrderItem.Where(a => a.OrderId == OrderId);
-            var UserStock = _context.Stock.Where(a => a.OrderId == order.UserId).Include(a => a.Items);
-
-           
-
-            
-
-            string shoeSize = stock.ShoeSizes?.ToString();
-            string clothingSize = stock.ClothingSizes?.ToString();
-
-            var itemreq = GearRequested.Where(a => a.ItemId == stock.ItemId &&(a.SizesReq == shoeSize || a.SizesReq == clothingSize)).FirstOrDefault();
-
-
-
-            if (itemreq.Quantity == 1)
+            if (StockId == 0)
             {
-                itemreq.GearAssigned = true;
+                var orderitem = _context.OrderItem.Where(a => a.OrderItemId == orderitemId).FirstOrDefault();
+
+                var tempStock = new Stock
+                {
+                    ItemId = orderitem.ItemId,
+                    OrderId = OrderId
+
+                };
+                _context.Stock.Add(tempStock);
                 _context.SaveChanges();
+
+
+
+
+                
+
+                if (orderitem.Quantity == 1)
+                {
+                    orderitem.GearAssigned = true;
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    int UserItems = _context.Stock.Where(a => a.Items.ItemId == orderitem.ItemId && a.OrderId == OrderId).Count();
+
+                    if (orderitem.Quantity == UserItems)
+                    {
+                        orderitem.GearAssigned = true;
+                        _context.SaveChanges();
+                    }
+
+                }
+
+
+
+
+
             }
-            else 
+            else
             {
-                
-           
-                
-     
+                var stock = _context.Stock.Where(a => a.StockId == StockId).FirstOrDefault();
+                var order = _context.Order.Where(a => a.OrderId == OrderId).FirstOrDefault();
 
-                int UserItems = _context.Stock.Where(a => a.Items.ItemId == stock.ItemId && a.order.UserId == order.UserId).Count();
+                stock.OrderId = OrderId;
+                _context.SaveChanges();
 
-                if(itemreq.Quantity == UserItems)
+
+
+                var GearRequested = _context.OrderItem.Where(a => a.OrderId == OrderId);
+                var UserStock = _context.Stock.Where(a => a.OrderId == order.UserId).Include(a => a.Items);
+
+
+
+
+
+                string shoeSize = stock.ShoeSizes?.ToString();
+                string clothingSize = stock.ClothingSizes?.ToString();
+
+                var itemreq = GearRequested.Where(a => a.ItemId == stock.ItemId && (a.SizesReq == shoeSize || a.SizesReq == clothingSize)).FirstOrDefault();
+
+
+
+                if (itemreq.Quantity == 1)
                 {
                     itemreq.GearAssigned = true;
                     _context.SaveChanges();
                 }
+                else
+                {
+
+
+
+
+
+                    int UserItems = _context.Stock.Where(a => a.Items.ItemId == stock.ItemId && a.order.UserId == order.UserId).Count();
+
+                    if (itemreq.Quantity == UserItems)
+                    {
+                        itemreq.GearAssigned = true;
+                        _context.SaveChanges();
+                    }
+
+                }
+
 
             }
-
-            @ViewBag.Status = order.status;
-            return RedirectToAction("AS",new { id = OrderId });
+                return RedirectToAction("AS", new { id = OrderId });
+            
         }
-        [Authorize(Roles = "Admin")]
+
+            [Authorize(Roles = "Admin")]
         public async Task <IActionResult> UA(int StockId, string? OrderId, string? SearchTerm)
         {
             var stock = _context.Stock.Where(a => a.StockId == StockId).FirstOrDefault();

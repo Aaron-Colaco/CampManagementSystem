@@ -1,215 +1,238 @@
 ﻿@model IEnumerable<WebApplication4.Models.Stock>
 
-@{
+    @{
     ViewData["Title"] = "Gear Invoice";
-    var oneWeekFromToday = DateTime.Today.AddDays(7).ToString("dddd, dd MMMM yyyy");
-}
-
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        color: black;
-        background: white;
-        padding: 10px;
-        font-size: 11px;
-    }
-
-    @@page {
-        margin: 8mm;
-        size: A4;
-    }
-
-    #print-section {
-        max-width: 750px;
-        margin: auto;
-        background: white;
-        padding: 16px;
-        border-radius: 8px;
-        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .logo {
-        width: 90px;
-        height: auto;
-        display: block;
-        margin-bottom: 4px;
-    }
-
-    .contact-info {
-        font-size: 10px;
-        margin-bottom: 14px;
-    }
-
-    h1 {
-        text-align: center;
-        font-size: 18px;
-        margin-top: 0;
-        margin-bottom: 16px;
-    }
-
-    .table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 8px;
-        font-size: 10px;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-    }
-
-        .table th,
-        .table td {
-            border: 1px solid #ccc;
-            padding: 4px 6px;
-            text-align: left;
-            background-color: #fafafa;
-        }
-
-        .table th {
-            background-color: #eee;
-        }
-
-    .print-button {
-        display: block;
-        margin: 16px auto;
-        padding: 8px 16px;
-        background: #333;
-        color: #fff;
-        border: none;
-        border-radius: 4px;
-        font-size: 12px;
-        cursor: pointer;
-    }
-
-        .print-button:hover {
-            background: #555;
-        }
-
-    @@media print {
-        .print-button {
-            display: none !important;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-            font-size: 10px;
-        }
-
-        html, body {
-            height: auto;
-        }
-
-            body * {
-                visibility: hidden;
-            }
-
-        #print-section, #print-section * {
-            visibility: visible;
-        }
-
-        #print-section {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 0;
-            box-shadow: none;
-
-        }
      
-        .print:last-child {
-            page-break-after: auto;
+    ViewData["Title"] = "Gear Invoice";
+    // Get today's date
+    DateTime today = DateTime.Today;
+
+    // Create a variable to hold the date we are checking, starting with today
+    DateTime nextMonday = today;
+
+    // Loop until we find a Monday
+    // This loop will add one day at a time until the day of the week is Monday
+    while (nextMonday.DayOfWeek != DayOfWeek.Monday)
+    {
+        nextMonday = nextMonday.AddDays(1);
+    }
+
+    // Check if today is Monday. If so, add 7 days to get the *next* Monday.
+    if (today.DayOfWeek == DayOfWeek.Monday)
+    {
+        nextMonday = nextMonday.AddDays(7);
+    }
+    string returnDate = nextMonday.ToString("dddd, dd MMMM yyyy");
         }
-}
+    }
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: black;
+            background: white;
+            padding: 10px;
+            font-size: 11px;
+        }
+
         @@page {
             margin: 8mm;
             size: A4;
         }
-    }
 
-    .print:last-child {
-        page-break-after: auto;
-    }
+        #print-section {
+            max-width: 750px;
+            margin: auto;
+            background: white;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
 
-    #print:last-child {
-        page-break-after: auto;
-    }
-    @@media print {
+        .logo {
+            width: 90px;
+            height: auto;
+            display: block;
+            margin-bottom: 4px;
+        }
 
-    html, body {
-      height:100vh; 
-      margin: 0 !important; 
-      padding: 0 !important;
-      overflow: hidden;
-    }
+        .contact-info {
+            font-size: 10px;
+            margin-bottom: 14px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 0;
+            margin-bottom: 16px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+            font-size: 10px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+        }
+
+            .table th,
+            .table td {
+                border: 1px solid #ccc;
+                padding: 4px 6px;
+                text-align: left;
+                background-color: #fafafa;
+            }
+
+            .table th {
+                background-color: #eee;
+            }
+
+        .print-button {
+            display: block;
+            margin: 16px auto;
+            padding: 8px 16px;
+            background: #333;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+            .print-button:hover {
+                background: #555;
+            }
+
+        @@media print {
+            .print-button {
+                display: none !important;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+                font-size: 10px;
+            }
+
+            html, body {
+                height: auto;
+            }
+
+                body * {
+                    visibility: hidden;
+                }
+
+            #print-section, #print-section * {
+                visibility: visible;
+            }
+
+            #print-section {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                padding: 0;
+                box-shadow: none;
+            }
+
+            .print:last-child {
+                page-break-after: auto;
+            }
+        }
+
+        @@page {
+            margin: 8mm;
+            size: A4;
+        }
+
+        }
+
+        .print:last-child {
+            page-break-after: auto;
+        }
 
         #print:last-child {
             page-break-after: auto;
         }
-}
-</style>
+
+        @@media print {
+
+            html, body {
+                height: 100vh;
+                margin: 0 !important;
+                padding: 0 !important;
+                overflow: hidden;
+            }
+
+            #print:last-child {
+                page-break-after: auto;
+            }
+        }
+    </style>
 
 
-<div id="print-section">
-    <button asp-action="Index" asp-controller="Orders" class="print-button" onclick="window.print()">Print Page</button>
+    <div id="print-section">
+        <button asp-action="Index" asp-controller="Orders" class="print-button" onclick="window.print()">Print Page</button>
 
-    <img src="/images/logo.png" alt="School Logo" class="logo" />
-    <div class="contact-info">
-        Taurewa@avcol.school.nz<br />
-        Taurewa Office hours:<br /> Mon - Fri, 8.30am - 4.00pm</br>(09)820 1719
-    </div>
+        <img src="/images/logo.png" alt="School Logo" class="logo" />
+        <div class="contact-info">
+            Taurewa@avcol.school.nz<br />
+            Taurewa Office hours:<br /> Mon - Fri, 8.30am - 4.00pm</br>(09)820 1719
+        </div>
 
-    <h1>Gear Hire Invoice</h1>
+        <h1>Gear Hire Invoice</h1>
 
-    <p><strong>Student Name:</strong> @ViewBag.orderUser.FirstName @ViewBag.orderUser.LastName</p>
-    <p><strong>Student Number:</strong> @ViewBag.StudentNumber</p>
+        <p><strong>Student Name:</strong> @ViewBag.orderUser.FirstName @ViewBag.orderUser.LastName</p>
+        <p><strong>Student Number:</strong> @ViewBag.StudentNumber</p>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Item</th>
-                <th>Size</th>
-                <th>Price</th>
-                <th>Number</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Size</th>
+                    <th>Price</th>
+                    <th>Number</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
             {
                 <tr>
                     <td>@item.Items.Name</td>
                     <td>
                         @if (item.Items.CategoryId == 1)
                         {
-                            @item.ShoeSizes
+                        @item.ShoeSizes
                         }
                         else
                         {
-                            @item.ClothingSizes
+                        @item.ClothingSizes
                         }
                     </td>
                     <td>$@item.Items.Price</td>
                     <td>@item.StockNumber</td>
                 </tr>
             }
-        </tbody>
-    </table>
+            </tbody>
+        </table>
 
-    <div style="margin-top: 30px;">
-        <p>This gear is <strong>your responsibility</strong>; it is to be looked after and kept in good condition.</p>
-        <p>It is to be washed, dried, and returned the week after your camp.</p>
-        <p>Your total gear hire charge is: $<strong>@ViewBag.Order.TotalPrice</strong></p>
-        <p>This will be loaded onto your family account and is payable by: <strong>@oneWeekFromToday</strong></p>
-        <p><strong>Any lost/unreturned items</strong> will incur a replacement fee on your family account.</p>
+        <div style="margin-top: 30px;">
+            <p>This gear is <strong>your responsibility</strong>; it is to be looked after and kept in good condition.</p>
+            <p>It is to be washed, dried, and returned the week after your camp.</p>
+            <p>Your total gear hire charge is: $<strong>@ViewBag.Order.TotalPrice</strong></p>
+            <p>This will be loaded onto your family account and is payable by: <strong>@returnDate</strong></p>
+            <p><strong>Any lost/unreturned items</strong> will incur a replacement fee on your family account.</p>
+        </div>
     </div>
-</div>
-<script>
-    window.onload = function () {
-        window.print();
-        setTimeout(function () {
-            window.location = "/Orders/Index";
-        }, 1000);
-    }
-    window.onafterprint = function () {
-        window.location.href = '/Orders/Index';
-    };
-</script>
+    <script>
+        window.onload = function () {
+            window.print();
+            setTimeout(function () {
+                window.location = "/Orders/Index";
+            }, 1000);
+        }
+        window.onafterprint = function () {
+            window.location.href = '/Orders/Index';
+        };
+    </script>
