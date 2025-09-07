@@ -14,8 +14,8 @@ namespace WebApplication4.Areas.Identity.Data
             {
                 var context = serviceScope.ServiceProvider.GetRequiredService<WebApplication4Context>();
 
-                // Ensure the database is created, consider using Migrate() for production
-                context.Database.EnsureCreated(); // Use context.Database.Migrate() for production
+                // Ensure the database is created
+                context.Database.Migrate();
 
                 // Add categories to the database
                 if (!context.Category.Any())
