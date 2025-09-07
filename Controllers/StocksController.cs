@@ -534,7 +534,7 @@ namespace WebApplication4.Controllers
 
 
 
-            var stockNumberExists = _context.Stock.Where(a => a.ItemId == ItemId).FirstOrDefault();
+            var stockNumberExists = _context.Stock.AsNoTracking().Where(a => a.ItemId == ItemId).FirstOrDefault();
 
 
 
