@@ -50,8 +50,8 @@
         }
 
         .logo {
-            width: 90px;
-            height: auto;
+            width: auto;
+            height: 115px;
             display: block;
             margin-bottom: 4px;
         }
@@ -72,7 +72,7 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 8px;
-            font-size: 14px;
+            font-size: 12px;
             box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
         }
 
@@ -142,7 +142,7 @@
         }
 
         @@page {
-            margin: 10mm;
+            margin: 12mm;
             size: A4;
         }
 
@@ -178,12 +178,12 @@
         <img src="/images/logo.png" alt="School Logo" class="logo" />
         <div class="contact-info">
             Taurewa@avcol.school.nz<br />
-            Taurewa Office hours:<br /> Mon - Fri, 8.30am - 4.00pm</br>(09)820 1719
+            Office Hours: Mon - Fri, 8.30am - 4.00pm</br>(09)820 1719
         </div>
 
-        <h1>Gear Hire Invoice</h1>
+    <h1 style="font-weight: bold; font-size: 16px;">Gear Hire Invoice</h1>
 
-        <p><strong>Student Name:</strong> @ViewBag.orderUser.FirstName @ViewBag.orderUser.LastName</p>
+        <p style="font-size: 14px;">Student Name: @ViewBag.orderUser.FirstName @ViewBag.orderUser.LastName</p>
 
         <table class="table">
             <thead>
@@ -216,7 +216,7 @@
             </tbody>
         </table>
 
-        <div style="margin-top: 30px;">
+        <div style="margin-top: 30px; font-size: 12px;">
             <p>This gear is <strong>your responsibility</strong>; it is to be looked after and kept in good condition.</p>
             <p>It is to be washed, dried, and returned the week after your camp.</p>
             <p>Your total gear hire charge is: $<strong>@ViewBag.Order.TotalPrice</strong></p>

@@ -144,13 +144,14 @@ namespace WebApplication4.Controllers
 
         public async Task<IActionResult> AS(string id)
         {
-            var order = _context.Order.Where(a => a.OrderId == id).FirstOrDefault();
+            var order = _context.Order.Where(a => a.OrderId == id).Include(a => a.user).FirstOrDefault();
             var listOrderItems =  _context.OrderItem.Include(o => o.Items).Include(o => o.Orders).Where(a => a.OrderId == id && a.GearAssigned == false);
 
             var StockAvliable = _context.Stock.Where(a => a.order.UserId == null);
             var GearRequested = listOrderItems.Where(a => a.GearAssigned == false);
 
-      
+            ViewBag.FirstName = order.user.FirstName;
+            ViewBag.LastName = order.user.LastName;
 
             ViewBag.Stock = StockAvliable;
             ViewBag.OrderId = id;

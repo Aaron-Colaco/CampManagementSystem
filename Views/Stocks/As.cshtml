@@ -3,23 +3,9 @@
 @{
     ViewData["Title"] = "Index";
 }
-<div style="display: flex; justify-content: center; align-items: center; gap: 30px; margin-top: 50px;">
-
-    <div style="background-color: #f4f7fa; border-radius: 10px; padding: 20px; width: 200px; text-align: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease;">
-        <h3 style="font-size: 18px; color: #333; margin-bottom: 10px;">Total Gear Requested</h3>
-        <p style="font-size: 24px; font-weight: bold; color: #2b7a78; margin-top: 10px;">@ViewBag.GearRequestedNumber</p>
-    </div>
-
-    <div style="background-color: #f4f7fa; border-radius: 10px; padding: 20px; width: 200px; text-align: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease;">
-        <h3 style="font-size: 18px; color: #333; margin-bottom: 10px;">Available Stock</h3>
-        <p style="font-size: 24px; font-weight: bold; color: #2b7a78; margin-top: 10px;">@ViewBag.StockNumber</p>
-    </div>
-    <div style="background-color: #f4f7fa; border-radius: 10px; padding: 20px; width: 200px; text-align: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease;">
-        <h3 style="font-size: 18px; color: #333; margin-bottom: 10px;">Total Stock Assigned </h3>
-        <p style="font-size: 24px; font-weight: bold; color: #2b7a78; margin-top: 10px;">@ViewBag.StockGiven</p>
-    </div>
-</div>
-
+<h3 style="font-size: 1.5rem; font-weight: bold; color: gray; margin-bottom: 3%; margin-top: 1%;">
+    Assing items to @ViewBag.FirstName @ViewBag.LastName
+</h3>
 
 @if (ViewBag.Status == 2)
 {
@@ -219,7 +205,7 @@ if (Model.FirstOrDefault() != null)
             }
             else
             {
-            <input type="submit" value="Confirm and Print Invoice" class="btn btn" style="background-color: #2b7a78; color:white;" />
+            <input type="submit" value="Confirm and Print Invoice" class="btn btn" style="background-color: #2b7a78; color:white; margin-left: 80%;" />
 
             }
     }

@@ -73,7 +73,7 @@ new Item { Name = "Overtrousers - Wet Weather Pants", CategoryId = 2, ImageURL =
 // Tops
 new Item { Name = "Beanies", CategoryId = 5, ImageURL = "/images/test.png", Price = 1.00 },
 
-new Item { Name = "Polar Fleece", CategoryId = 3, ImageURL = "/images/test.png", Price = 2.00 },
+new Item { Name = "Polar Fleece", CategoryId = 3, ImageURL = "/images/test.png", Price = 3.00 },
 
 // Accessories
 new Item { Name = "Woolen Mittens", CategoryId = 5, ImageURL = "/images/test.png", Price = 2.00 },
