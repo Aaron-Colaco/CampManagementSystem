@@ -17,7 +17,18 @@
             background-color: #eaffea;
             opacity: 0.5;
         }
-    </style>
+ 
+    .Added2 {
+        background-color: lightyellow;
+        opacity: 0.5;
+    }
+
+
+    .Added3 {
+                background-color: lightcyan;
+        opacity: 0.5;
+    }
+</style>
 
 <div class="A" style="max-height: 40vh; overflow-y: auto; z-index:98;">
     <table class="table table-bordered">
@@ -29,36 +40,34 @@
             </tr>
         </thead>
         <tbody>
+            
             @foreach (var item in Model)
             {
-
-
-
-
-string ClassName = " ";
-
-                if (ViewBag.Items != null)
+                string ClassName = " ";
+               
+                int number = 0;
+                foreach (var i in ViewBag.Items)
                 {
-                    foreach (var i in ViewBag.Items)
+                    if (i.Items.ItemId == item.ItemId)
                     {
-                        if (i.Items.ItemId == item.ItemId)
-                        {
-
-
-                            ClassName = "Added";
-                        }
+                        number++;
                     }
-
-
                 }
 
+                if (number == 1)
+                {
+                    ClassName = "Added";
+                }
+                else if (number == 2)
+                {
+                    ClassName = "Added2";
+                }
+                else if (number >= 3)
+                {
+                    ClassName = "Added3";
+                }
 
-
-
-
-
-
-                
+               
                     <tr class="@ClassName">
                 
 

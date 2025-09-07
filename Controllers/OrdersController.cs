@@ -290,11 +290,18 @@ namespace WebApplication4.Controllers
 
             ViewBag.orderUser = orderUser;
 
+            var primaryOrder = new List<int> { 1, 4, 15, 11, 13, 12, 7, 6, 3, 5, 17, 16, 18, 19, 2, 14 };
 
-            var Items = _context.Item.Include(i => i.Categorys);
+            var Items = await _context.Item
+                .Include(i => i.Categorys)
+                .ToListAsync();
+
+            Items = Items
+                .OrderBy(i => primaryOrder.Contains(i.ItemId) ? primaryOrder.IndexOf(i.ItemId) : int.MaxValue)
+                .ThenBy(i => i.ItemId) 
+                .ToList();
 
 
-       
 
             var StockAvliable = await _context.Stock
                 .AsNoTracking()
@@ -324,7 +331,7 @@ ViewBag.Stock = StockAvliable;
 
             _context.SaveChanges();
 
-            return View(await Items.ToListAsync());
+            return View(Items);
 
         }
         [Authorize(Roles = "Admin")]
