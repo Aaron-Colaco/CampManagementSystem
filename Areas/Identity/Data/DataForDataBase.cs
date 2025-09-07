@@ -1,4 +1,5 @@
-﻿using WebApplication4.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using WebApplication4.Data;
 using WebApplication4.Models;
 using static WebApplication4.Models.Stock;
 
