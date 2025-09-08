@@ -7,23 +7,16 @@
     // Get today's date
     DateTime today = DateTime.Today;
 
-    // Create a variable to hold the date we are checking, starting with today
-    DateTime nextMonday = today;
+    // Find the next Wednesday
+    int daysUntilNextWednesday = ((int)DayOfWeek.Wednesday - (int)today.DayOfWeek + 7) % 7;
+    DateTime nextWednesday = today.AddDays(daysUntilNextWednesday);
 
-    // Loop until we find a Monday
-    // This loop will add one day at a time until the day of the week is Monday
-    while (nextMonday.DayOfWeek != DayOfWeek.Wednesday)
-    {
-        nextMonday = nextMonday.AddDays(1);
-    }
+    // Add 14 more days to skip to the Wednesday after next Wednesday
+    DateTime targetWednesday = nextWednesday.AddDays(14);
 
-    // Check if today is Monday. If so, add 7 days to get the *next* Monday.
-    if (today.DayOfWeek == DayOfWeek.Monday)
-    {
-        nextMonday = nextMonday.AddDays(7);
-    }
-    string returnDate = nextMonday.ToString("dddd, dd MMMM yyyy");
-        }
+    string returnDate = targetWednesday.ToString("dddd, dd MMMM yyyy");
+
+   
     }
 
     <style>
@@ -39,6 +32,7 @@
             margin: 8mm;
             size: A4;
         }
+
 
         #print-section {
             max-width: 750px;
