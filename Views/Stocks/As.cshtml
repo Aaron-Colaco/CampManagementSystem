@@ -61,19 +61,20 @@ if (Model.FirstOrDefault() != null)
                                     if (stock.ItemId == orderItem.ItemId && stock.ShoeSizes?.ToString() == S)
                                     {
                                         <option value="@stock.StockId">
-                                                    @orderItem.Items.Name (@stock.StockNumber) | @orderItem.SizesReq
+                                            @stock.StockNumber (@orderItem.Items.Name) | @orderItem.SizesReq
 
-                                                </option>
+
+                                        </option>
                                             }
                                     }
                                         else
                                         {
                                             if (stock.ItemId == orderItem.ItemId && stock.ClothingSizes?.ToString() == orderItem.SizesReq)
                                             {
-                                                <option value="@stock.StockId">
-                                                    @orderItem.Items.Name (@stock.StockNumber) | @orderItem.SizesReq 
+                            <option value="@stock.StockId">
+                                @stock.StockNumber (@orderItem.Items.Name) | @orderItem.SizesReq
 
-                                                </option>
+                            </option>
                                             }
 
                                         }
